@@ -9,7 +9,7 @@ export default function BrandingPage() {
     <div className="relative min-h-screen overflow-hidden bg-background">
       {/* Animated Curved Background */}
       <div className="fixed inset-0 -z-10">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0f0a1a] via-[#1a1230] to-[#0f0a1a]" />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#2d2250] via-[#3d2f6b] to-[#2d2250]" />
         
         {/* Animated Curves SVG */}
         <svg 
