@@ -1,18 +1,92 @@
 "use client"
 
-import { Music, Sparkles, Headphones, Radio, Play } from "lucide-react"
+import { Music, Sparkles, Play } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 
 export default function BrandingPage() {
   return (
     <div className="relative min-h-screen overflow-hidden bg-background">
-      {/* Animated Gradient Background */}
+      {/* Animated Curved Background */}
       <div className="fixed inset-0 -z-10">
         <div className="absolute inset-0 bg-gradient-to-br from-[#1e1432] via-[#2a1f4e] to-[#1e1432]" />
-        <div className="absolute top-0 left-1/4 w-[600px] h-[600px] rounded-full bg-[#4A3AFF]/20 blur-[120px] animate-pulse" />
-        <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] rounded-full bg-[#FFD6FF]/20 blur-[100px] animate-pulse" style={{ animationDelay: "1s" }} />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-[#7c3aed]/10 blur-[150px]" />
+        
+        {/* Animated Curves SVG */}
+        <svg 
+          className="absolute inset-0 w-full h-full opacity-40"
+          viewBox="0 0 1440 900"
+          preserveAspectRatio="xMidYMid slice"
+        >
+          <defs>
+            <linearGradient id="curve1" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#7c3aed" stopOpacity="0" />
+              <stop offset="50%" stopColor="#c084fc" stopOpacity="0.6" />
+              <stop offset="100%" stopColor="#7c3aed" stopOpacity="0" />
+            </linearGradient>
+            <linearGradient id="curve2" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#ec4899" stopOpacity="0" />
+              <stop offset="50%" stopColor="#f9a8d4" stopOpacity="0.5" />
+              <stop offset="100%" stopColor="#ec4899" stopOpacity="0" />
+            </linearGradient>
+            <linearGradient id="curve3" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#6366f1" stopOpacity="0" />
+              <stop offset="50%" stopColor="#a5b4fc" stopOpacity="0.4" />
+              <stop offset="100%" stopColor="#6366f1" stopOpacity="0" />
+            </linearGradient>
+          </defs>
+          
+          {/* Curve 1 - Top flowing curve */}
+          <path 
+            d="M-100,200 Q300,100 720,250 T1540,200"
+            fill="none"
+            stroke="url(#curve1)"
+            strokeWidth="2"
+            className="animate-[flow_8s_ease-in-out_infinite]"
+          />
+          <path 
+            d="M-100,220 Q350,120 720,270 T1540,220"
+            fill="none"
+            stroke="url(#curve1)"
+            strokeWidth="1.5"
+            className="animate-[flow_8s_ease-in-out_infinite_0.5s]"
+          />
+          
+          {/* Curve 2 - Middle flowing curve */}
+          <path 
+            d="M-100,450 Q400,350 720,500 T1540,450"
+            fill="none"
+            stroke="url(#curve2)"
+            strokeWidth="2.5"
+            className="animate-[flow_10s_ease-in-out_infinite_1s]"
+          />
+          <path 
+            d="M-100,480 Q450,380 720,530 T1540,480"
+            fill="none"
+            stroke="url(#curve2)"
+            strokeWidth="1.5"
+            className="animate-[flow_10s_ease-in-out_infinite_1.5s]"
+          />
+          
+          {/* Curve 3 - Bottom flowing curve */}
+          <path 
+            d="M-100,700 Q300,600 720,750 T1540,700"
+            fill="none"
+            stroke="url(#curve3)"
+            strokeWidth="2"
+            className="animate-[flow_12s_ease-in-out_infinite_2s]"
+          />
+          <path 
+            d="M-100,730 Q350,630 720,780 T1540,730"
+            fill="none"
+            stroke="url(#curve3)"
+            strokeWidth="1.5"
+            className="animate-[flow_12s_ease-in-out_infinite_2.5s]"
+          />
+        </svg>
+        
+        {/* Glow effects */}
+        <div className="absolute top-1/4 left-1/3 w-[600px] h-[600px] rounded-full bg-[#7c3aed]/15 blur-[150px] animate-pulse" />
+        <div className="absolute bottom-1/4 right-1/3 w-[500px] h-[500px] rounded-full bg-[#ec4899]/15 blur-[130px] animate-pulse" style={{ animationDelay: "1.5s" }} />
       </div>
 
       {/* Header */}
@@ -73,21 +147,11 @@ export default function BrandingPage() {
             </div>
 
             {/* Features */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-4xl">
+            <div className="w-full max-w-md">
               <FeatureCard 
                 icon={<Sparkles className="h-6 w-6" />}
                 title="AI 추천"
                 description="당신의 취향을 학습하여 완벽한 플레이리스트를 만들어 드립니다"
-              />
-              <FeatureCard 
-                icon={<Headphones className="h-6 w-6" />}
-                title="고음질 스트리밍"
-                description="손실 없는 오디오로 아티스트가 의도한 그대로를 경험하세요"
-              />
-              <FeatureCard 
-                icon={<Radio className="h-6 w-6" />}
-                title="라이브 세션"
-                description="전 세계 아티스트들의 독점 라이브 공연을 만나보세요"
               />
             </div>
           </div>
