@@ -9,7 +9,7 @@ export default function BrandingPage() {
     <div className="relative min-h-screen overflow-hidden bg-background">
       {/* Animated Curved Background */}
       <div className="fixed inset-0 -z-10">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#2d2250] via-[#3d2f6b] to-[#2d2250]" />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#a78bfa] via-[#c4b5fd] to-[#a78bfa]" />
         
         {/* Animated Curves SVG */}
         <svg 
@@ -20,18 +20,18 @@ export default function BrandingPage() {
           <defs>
             <linearGradient id="curve1" x1="0%" y1="0%" x2="100%" y2="0%">
               <stop offset="0%" stopColor="#7c3aed" stopOpacity="0" />
-              <stop offset="50%" stopColor="#c084fc" stopOpacity="1" />
+              <stop offset="50%" stopColor="#5b21b6" stopOpacity="1" />
               <stop offset="100%" stopColor="#7c3aed" stopOpacity="0" />
             </linearGradient>
             <linearGradient id="curve2" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="#ec4899" stopOpacity="0" />
-              <stop offset="50%" stopColor="#f9a8d4" stopOpacity="1" />
-              <stop offset="100%" stopColor="#ec4899" stopOpacity="0" />
+              <stop offset="0%" stopColor="#db2777" stopOpacity="0" />
+              <stop offset="50%" stopColor="#be185d" stopOpacity="1" />
+              <stop offset="100%" stopColor="#db2777" stopOpacity="0" />
             </linearGradient>
             <linearGradient id="curve3" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="#6366f1" stopOpacity="0" />
-              <stop offset="50%" stopColor="#a5b4fc" stopOpacity="1" />
-              <stop offset="100%" stopColor="#6366f1" stopOpacity="0" />
+              <stop offset="0%" stopColor="#4f46e5" stopOpacity="0" />
+              <stop offset="50%" stopColor="#4338ca" stopOpacity="1" />
+              <stop offset="100%" stopColor="#4f46e5" stopOpacity="0" />
             </linearGradient>
           </defs>
           
@@ -93,8 +93,8 @@ export default function BrandingPage() {
         </svg>
         
         {/* Subtle glow effects */}
-        <div className="absolute top-1/4 left-1/3 w-[500px] h-[500px] rounded-full bg-[#7c3aed]/10 blur-[120px]" />
-        <div className="absolute bottom-1/4 right-1/3 w-[400px] h-[400px] rounded-full bg-[#ec4899]/10 blur-[100px]" />
+        <div className="absolute top-1/4 left-1/3 w-[500px] h-[500px] rounded-full bg-[#5b21b6]/20 blur-[120px]" />
+        <div className="absolute bottom-1/4 right-1/3 w-[400px] h-[400px] rounded-full bg-[#be185d]/20 blur-[100px]" />
       </div>
 
       {/* Header */}
