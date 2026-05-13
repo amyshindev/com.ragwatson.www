@@ -9,28 +9,28 @@ export default function BrandingPage() {
     <div className="relative min-h-screen overflow-hidden bg-background">
       {/* Animated Curved Background */}
       <div className="fixed inset-0 -z-10">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#1e1432] via-[#2a1f4e] to-[#1e1432]" />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#0f0a1a] via-[#1a1230] to-[#0f0a1a]" />
         
         {/* Animated Curves SVG */}
         <svg 
-          className="absolute inset-0 w-full h-full opacity-40"
+          className="absolute inset-0 w-full h-full"
           viewBox="0 0 1440 900"
           preserveAspectRatio="xMidYMid slice"
         >
           <defs>
             <linearGradient id="curve1" x1="0%" y1="0%" x2="100%" y2="0%">
               <stop offset="0%" stopColor="#7c3aed" stopOpacity="0" />
-              <stop offset="50%" stopColor="#c084fc" stopOpacity="0.6" />
+              <stop offset="50%" stopColor="#c084fc" stopOpacity="1" />
               <stop offset="100%" stopColor="#7c3aed" stopOpacity="0" />
             </linearGradient>
             <linearGradient id="curve2" x1="0%" y1="0%" x2="100%" y2="0%">
               <stop offset="0%" stopColor="#ec4899" stopOpacity="0" />
-              <stop offset="50%" stopColor="#f9a8d4" stopOpacity="0.5" />
+              <stop offset="50%" stopColor="#f9a8d4" stopOpacity="1" />
               <stop offset="100%" stopColor="#ec4899" stopOpacity="0" />
             </linearGradient>
             <linearGradient id="curve3" x1="0%" y1="0%" x2="100%" y2="0%">
               <stop offset="0%" stopColor="#6366f1" stopOpacity="0" />
-              <stop offset="50%" stopColor="#a5b4fc" stopOpacity="0.4" />
+              <stop offset="50%" stopColor="#a5b4fc" stopOpacity="1" />
               <stop offset="100%" stopColor="#6366f1" stopOpacity="0" />
             </linearGradient>
           </defs>
@@ -40,15 +40,17 @@ export default function BrandingPage() {
             d="M-100,200 Q300,100 720,250 T1540,200"
             fill="none"
             stroke="url(#curve1)"
-            strokeWidth="2"
+            strokeWidth="3"
             className="animate-[flow_8s_ease-in-out_infinite]"
           />
           <path 
-            d="M-100,220 Q350,120 720,270 T1540,220"
+            d="M-100,240 Q350,140 720,290 T1540,240"
             fill="none"
             stroke="url(#curve1)"
-            strokeWidth="1.5"
-            className="animate-[flow_8s_ease-in-out_infinite_0.5s]"
+            strokeWidth="2"
+            opacity="0.6"
+            className="animate-[flow_8s_ease-in-out_infinite]"
+            style={{ animationDelay: "0.5s" }}
           />
           
           {/* Curve 2 - Middle flowing curve */}
@@ -56,15 +58,18 @@ export default function BrandingPage() {
             d="M-100,450 Q400,350 720,500 T1540,450"
             fill="none"
             stroke="url(#curve2)"
-            strokeWidth="2.5"
-            className="animate-[flow_10s_ease-in-out_infinite_1s]"
+            strokeWidth="4"
+            className="animate-[flow_10s_ease-in-out_infinite]"
+            style={{ animationDelay: "1s" }}
           />
           <path 
-            d="M-100,480 Q450,380 720,530 T1540,480"
+            d="M-100,490 Q450,390 720,540 T1540,490"
             fill="none"
             stroke="url(#curve2)"
-            strokeWidth="1.5"
-            className="animate-[flow_10s_ease-in-out_infinite_1.5s]"
+            strokeWidth="2"
+            opacity="0.6"
+            className="animate-[flow_10s_ease-in-out_infinite]"
+            style={{ animationDelay: "1.5s" }}
           />
           
           {/* Curve 3 - Bottom flowing curve */}
@@ -72,21 +77,24 @@ export default function BrandingPage() {
             d="M-100,700 Q300,600 720,750 T1540,700"
             fill="none"
             stroke="url(#curve3)"
-            strokeWidth="2"
-            className="animate-[flow_12s_ease-in-out_infinite_2s]"
+            strokeWidth="3"
+            className="animate-[flow_12s_ease-in-out_infinite]"
+            style={{ animationDelay: "2s" }}
           />
           <path 
-            d="M-100,730 Q350,630 720,780 T1540,730"
+            d="M-100,740 Q350,640 720,790 T1540,740"
             fill="none"
             stroke="url(#curve3)"
-            strokeWidth="1.5"
-            className="animate-[flow_12s_ease-in-out_infinite_2.5s]"
+            strokeWidth="2"
+            opacity="0.6"
+            className="animate-[flow_12s_ease-in-out_infinite]"
+            style={{ animationDelay: "2.5s" }}
           />
         </svg>
         
-        {/* Glow effects */}
-        <div className="absolute top-1/4 left-1/3 w-[600px] h-[600px] rounded-full bg-[#7c3aed]/15 blur-[150px] animate-pulse" />
-        <div className="absolute bottom-1/4 right-1/3 w-[500px] h-[500px] rounded-full bg-[#ec4899]/15 blur-[130px] animate-pulse" style={{ animationDelay: "1.5s" }} />
+        {/* Subtle glow effects */}
+        <div className="absolute top-1/4 left-1/3 w-[500px] h-[500px] rounded-full bg-[#7c3aed]/10 blur-[120px]" />
+        <div className="absolute bottom-1/4 right-1/3 w-[400px] h-[400px] rounded-full bg-[#ec4899]/10 blur-[100px]" />
       </div>
 
       {/* Header */}
