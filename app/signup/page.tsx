@@ -1,6 +1,6 @@
 "use client"
 
-import { Music, ArrowLeft } from "lucide-react"
+import { Music } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import Link from "next/link"
@@ -15,21 +15,8 @@ export default function SignupPage() {
         <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] rounded-full bg-[#FFD6FF]/20 blur-[100px] animate-pulse" style={{ animationDelay: "1s" }} />
       </div>
 
-      {/* Header */}
-      <header className="fixed top-0 left-0 right-0 z-50">
-        <div className="mx-auto max-w-7xl px-6 py-4">
-          <div className="flex items-center justify-between">
-            {/* Back Button */}
-            <Link href="/" className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors">
-              <ArrowLeft className="h-5 w-5" />
-              <span>돌아가기</span>
-            </Link>
-          </div>
-        </div>
-      </header>
-
       {/* Signup Form */}
-      <main className="relative flex min-h-screen items-center justify-center px-6 py-20">
+      <main className="relative flex min-h-[calc(100vh-5rem)] items-center justify-center px-6 py-20">
         <div className="w-full max-w-md">
           <div className="flex flex-col items-center text-center mb-10">
             {/* Logo */}

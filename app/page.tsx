@@ -89,32 +89,8 @@ export default function BrandingPage() {
         <div className="absolute bottom-1/4 right-1/3 w-[500px] h-[500px] rounded-full bg-[#ec4899]/15 blur-[130px] animate-pulse" style={{ animationDelay: "1.5s" }} />
       </div>
 
-      {/* Header */}
-      <header className="fixed top-0 left-0 right-0 z-50">
-        <div className="mx-auto max-w-7xl px-6 py-4">
-          <div className="flex items-center justify-between">
-            {/* Logo */}
-            <Link href="/" className="flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/10 backdrop-blur-xl border border-white/10">
-                <Music className="h-5 w-5 text-primary" />
-              </div>
-              <span className="text-xl font-bold text-foreground" style={{ fontFamily: 'var(--font-heading)' }}>
-                maestro
-              </span>
-            </Link>
-
-            {/* Sign Up Button */}
-            <Link href="/signup">
-              <Button className="bg-primary hover:bg-primary/90 text-primary-foreground font-medium px-6">
-                회원가입
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </header>
-
       {/* Hero Section */}
-      <main className="relative pt-32 pb-20">
+      <main className="relative pt-12 pb-20">
         <div className="mx-auto max-w-7xl px-6">
           <div className="flex flex-col items-center text-center">
             {/* Logo Icon */}
@@ -148,7 +124,7 @@ export default function BrandingPage() {
 
             {/* Features */}
             <div className="w-full max-w-md">
-              <FeatureCard 
+              <FeatureCard
                 icon={<Sparkles className="h-6 w-6" />}
                 title="AI 추천"
                 description="당신의 취향을 학습하여 완벽한 플레이리스트를 만들어 드립니다"

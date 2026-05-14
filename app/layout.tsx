@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Outfit, Inter } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
+import { SiteHeader } from '@/components/site-header'
 import './globals.css'
 
 const outfit = Outfit({ 
@@ -43,7 +44,8 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${outfit.variable} ${inter.variable}`}>
       <body className="font-sans antialiased bg-background">
-        {children}
+        <SiteHeader />
+        <div className="pt-20">{children}</div>
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
     </html>
