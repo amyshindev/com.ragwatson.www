@@ -1,8 +1,11 @@
 import { NextRequest, NextResponse } from "next/server"
 
+/** Server route: prefer BACKEND_URL (Vercel). NEXT_PUBLIC_* is optional fallback. */
 const backendUrl = (
-  process.env.NEXT_PUBLIC_BACKEND_URL ?? "http://127.0.0.1:8000"
-).replace(/\/$/, "");
+  process.env.BACKEND_URL ??
+  process.env.NEXT_PUBLIC_BACKEND_URL ??
+  "http://127.0.0.1:8000"
+).replace(/\/$/, "")
 
 function formatBackendError(status: number, data: unknown): string {
   if (typeof data === "object" && data !== null) {
@@ -45,7 +48,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(
       {
         error:
-          "백엔드에 연결할 수 없습니다. FastAPI 서버(127.0.0.1:8000)가 실행 중인지 확인하세요.",
+          "백엔드에 연결할 수 없습니다. BACKEND_URL(Vercel)과 Railway 서버 상태를 확인하세요.",
       },
       { status: 503 },
     )
