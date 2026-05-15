@@ -60,8 +60,13 @@ export async function POST(request: NextRequest) {
     try {
       data = JSON.parse(raw)
     } catch {
+      const hint = raw.trim().slice(0, 240)
       return NextResponse.json(
-        { error: "백엔드 응답 형식이 올바르지 않습니다." },
+        {
+          error: hint
+            ? `백엔드가 JSON이 아닌 응답을 반환했습니다: ${hint}`
+            : "백엔드 응답 형식이 올바르지 않습니다.",
+        },
         { status: 502 },
       )
     }
