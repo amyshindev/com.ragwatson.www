@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { Cloud } from "lucide-react"
+import { Cloud, Sun } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 type WeatherData = {
@@ -18,6 +18,7 @@ export function SeoulWeather() {
   const [weather, setWeather] = useState<WeatherData | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
+  const [iconFailed, setIconFailed] = useState(false)
 
   useEffect(() => {
     let cancelled = false
@@ -45,6 +46,7 @@ export function SeoulWeather() {
         if (!cancelled) {
           setWeather(data)
           setError(null)
+          setIconFailed(false)
         }
       } catch {
         if (!cancelled) setError("날씨를 불러오지 못했습니다.")
@@ -85,13 +87,18 @@ export function SeoulWeather() {
       className={pillClass}
       title={`${weather.city} ${weather.description}`}
     >
-      <img
-        src={`https://openweathermap.org/img/wn/${weather.icon}@2x.png`}
-        alt=""
-        width={28}
-        height={28}
-        className="h-7 w-7 shrink-0"
-      />
+      {iconFailed ? (
+        <Sun className="h-5 w-5 shrink-0 text-amber-500" aria-hidden />
+      ) : (
+        <img
+          src={`/api/weather/icon?code=${encodeURIComponent(weather.icon)}`}
+          alt=""
+          width={28}
+          height={28}
+          className="h-7 w-7 shrink-0 object-contain"
+          onError={() => setIconFailed(true)}
+        />
+      )}
       <span className="font-medium tabular-nums">{weather.city}</span>
       <span className="tabular-nums">{weather.temp}°</span>
       <span className="hidden max-w-[5rem] truncate text-slate-500 sm:inline md:max-w-none">

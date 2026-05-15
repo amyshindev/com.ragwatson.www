@@ -9,7 +9,8 @@ type OwmWeather = {
 }
 
 export async function GET() {
-  const apiKey = process.env.OPENWEATHERMAP_API_KEY?.trim()
+  const apiKey = (process.env.OPENWEATHERMAP_API_KEY ?? "").trim()
+
   if (!apiKey) {
     return NextResponse.json(
       { error: "OPENWEATHERMAP_API_KEY is not set." },

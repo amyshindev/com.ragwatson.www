@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from "next/server"
 
 const backendUrl = (
-  process.env.BACKEND_URL ?? "http://127.0.0.1:8000"
-).replace(/\/$/, "")
+  process.env.NEXT_PUBLIC_BACKEND_URL ?? "http://127.0.0.1:8000"
+).replace(/\/$/, "");
 
 function formatBackendError(status: number, data: unknown): string {
   if (typeof data === "object" && data !== null) {
