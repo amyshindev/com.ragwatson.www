@@ -91,8 +91,8 @@ export default function TitanicHomePage() {
   }
 
   return (
-    <div className="relative min-h-[calc(100vh-5rem)] overflow-hidden">
-      {/* 배경: 흑백 + 짙은 톤 */}
+    <div className="relative -mt-20 min-h-[100dvh] overflow-hidden">
+      {/* 배경: 흑백 + 짙은 톤 (전체 뷰포트) */}
       <div
         className="absolute inset-0 scale-105 bg-cover bg-center bg-no-repeat"
         style={{
@@ -106,7 +106,7 @@ export default function TitanicHomePage() {
         aria-hidden
       />
 
-      <div className="relative z-10 flex min-h-[calc(100vh-5rem)] w-full flex-col items-center justify-center overflow-y-auto px-4 py-6 text-white">
+      <div className="relative z-10 flex mt-20 min-h-[calc(100dvh-5rem)] w-full flex-col items-center justify-center overflow-y-auto px-4 py-8 text-white">
         <div className="mx-auto w-full max-w-3xl space-y-8">
           <div className="text-center">
             <h1
@@ -261,3 +261,4 @@ export default function TitanicHomePage() {
     </div>
   )
 }
+

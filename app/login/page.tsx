@@ -4,37 +4,33 @@ import { Music } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import Link from "next/link"
+import { MaestroLightBackdrop } from "@/components/maestro-light-backdrop"
 
 export default function LoginPage() {
   return (
-    <div className="relative min-h-screen overflow-hidden bg-background">
-      <div className="fixed inset-0 -z-10">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#1e1432] via-[#2a1f4e] to-[#1e1432]" />
-        <div className="absolute top-0 left-1/4 w-[600px] h-[600px] rounded-full bg-[#4A3AFF]/20 blur-[120px] animate-pulse" />
-        <div
-          className="absolute bottom-0 right-1/4 w-[500px] h-[500px] rounded-full bg-[#FFD6FF]/20 blur-[100px] animate-pulse"
-          style={{ animationDelay: "1s" }}
-        />
-      </div>
+    <div className="relative min-h-screen overflow-hidden text-slate-900">
+      <MaestroLightBackdrop />
 
-      <main className="relative flex min-h-[calc(100vh-5rem)] items-center justify-center px-6 py-20">
+      <main className="relative flex min-h-[calc(100vh-5rem)] items-center justify-center px-6 py-16">
         <div className="w-full max-w-md">
-          <div className="mb-10 flex flex-col items-center text-center">
-            <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-3xl border border-white/10 bg-white/10 backdrop-blur-xl">
-              <Music className="h-10 w-10 text-primary" />
+          <div className="mb-8 flex flex-col items-center text-center">
+            <div className="mb-5 flex h-20 w-20 items-center justify-center rounded-[24px] border border-white/70 bg-white/50 shadow-lg shadow-slate-900/5 backdrop-blur-xl">
+              <Music className="h-10 w-10 text-[#1d4ed8]" />
             </div>
             <h1
-              className="mb-2 text-3xl font-extrabold text-foreground md:text-4xl"
+              className="mb-1 text-3xl font-extrabold tracking-tight text-slate-900 md:text-4xl"
               style={{ fontFamily: "var(--font-heading)" }}
             >
               maestro
             </h1>
-            <p className="text-muted-foreground">your personal soundtrack</p>
+            <p className="text-slate-500">your personal soundtrack</p>
           </div>
 
-          <div className="rounded-2xl border border-white/10 bg-white/5 p-8 backdrop-blur-xl">
+          <p className="mb-5 text-center text-sm text-slate-500">계정에 로그인하세요</p>
+
+          <div className="rounded-[28px] border border-white/70 bg-white/50 p-8 shadow-xl shadow-slate-900/10 backdrop-blur-xl">
             <h2
-              className="mb-6 text-center text-xl font-semibold text-foreground"
+              className="mb-6 text-center text-xl font-semibold text-slate-900"
               style={{ fontFamily: "var(--font-heading)" }}
             >
               로그인
@@ -44,7 +40,7 @@ export default function LoginPage() {
               <Button
                 type="button"
                 variant="outline"
-                className="w-full gap-3 border-white/20 bg-white/5 py-6 text-foreground hover:bg-white/10"
+                className="w-full rounded-full border-white/80 bg-white/45 py-6 text-slate-800 shadow-sm backdrop-blur-sm hover:bg-white/75"
               >
                 <svg className="h-5 w-5" viewBox="0 0 24 24">
                   <path
@@ -69,7 +65,7 @@ export default function LoginPage() {
               <Button
                 type="button"
                 variant="outline"
-                className="w-full gap-3 border-white/20 bg-white/5 py-6 text-foreground hover:bg-white/10"
+                className="w-full rounded-full border-white/80 bg-white/45 py-6 text-slate-800 shadow-sm backdrop-blur-sm hover:bg-white/75"
               >
                 <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
@@ -79,9 +75,9 @@ export default function LoginPage() {
             </div>
 
             <div className="mb-6 flex items-center gap-4">
-              <div className="h-px flex-1 bg-white/10" />
-              <span className="text-sm text-muted-foreground">또는</span>
-              <div className="h-px flex-1 bg-white/10" />
+              <div className="h-px flex-1 bg-slate-200/80" />
+              <span className="text-sm text-slate-500">또는</span>
+              <div className="h-px flex-1 bg-slate-200/80" />
             </div>
 
             <form
@@ -96,7 +92,7 @@ export default function LoginPage() {
                   name="email"
                   autoComplete="email"
                   placeholder="이메일 주소"
-                  className="border-white/10 bg-white/5 py-6 text-foreground placeholder:text-muted-foreground"
+                  className="rounded-2xl border-slate-200/90 bg-white/60 py-6 text-slate-900 placeholder:text-slate-400 backdrop-blur-sm"
                 />
               </div>
               <div>
@@ -105,40 +101,35 @@ export default function LoginPage() {
                   name="password"
                   autoComplete="current-password"
                   placeholder="비밀번호"
-                  className="border-white/10 bg-white/5 py-6 text-foreground placeholder:text-muted-foreground"
+                  className="rounded-2xl border-slate-200/90 bg-white/60 py-6 text-slate-900 placeholder:text-slate-400 backdrop-blur-sm"
                 />
               </div>
               <Button
                 type="submit"
-                className="w-full bg-primary py-6 font-medium text-primary-foreground hover:bg-primary/90"
+                className="w-full rounded-full bg-[#2563eb] py-6 font-semibold text-white shadow-lg shadow-blue-500/25 hover:bg-[#1d4ed8]"
               >
                 이메일로 로그인
               </Button>
             </form>
 
-            <p className="mt-6 text-center text-sm text-muted-foreground">
+            <p className="mt-6 text-center text-sm text-slate-600">
               계정이 없으신가요?{" "}
-              <Link href="/signup" className="text-primary hover:underline">
+              <Link href="/signup" className="font-medium text-[#2563eb] hover:underline">
                 회원가입
               </Link>
             </p>
           </div>
 
-          <p className="mt-6 text-center text-xs text-muted-foreground/70">
-            현재 베타 서비스 중입니다. 등록된 베타 계정만 이용 가능합니다.
+          <p className="mt-6 text-center text-xs text-slate-600">
+            등록된 베타 계정만 이용할 수 있습니다.
           </p>
 
-          <div className="mt-4 flex items-center justify-center gap-4 text-xs">
-            <Link
-              href="/terms"
-              className="text-muted-foreground transition-colors hover:text-foreground"
-            >
+          <div className="mt-4 flex items-center justify-center gap-2 text-xs text-slate-600">
+            <Link href="/terms" className="font-medium text-[#2563eb] hover:underline">
               이용약관
             </Link>
-            <Link
-              href="/privacy"
-              className="text-muted-foreground transition-colors hover:text-foreground"
-            >
+            <span className="text-slate-400">·</span>
+            <Link href="/privacy" className="font-medium text-[#2563eb] hover:underline">
               개인정보처리방침
             </Link>
           </div>

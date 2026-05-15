@@ -43,7 +43,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${outfit.variable} ${inter.variable}`}>
-      <body className="font-sans antialiased bg-background">
+      <body className="font-sans antialiased bg-[#ecfdf5] text-slate-900">
         <SiteHeader />
         <div className="pt-20">{children}</div>
         {process.env.NODE_ENV === 'production' && <Analytics />}
