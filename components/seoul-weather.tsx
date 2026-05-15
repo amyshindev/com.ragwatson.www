@@ -1,7 +1,15 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { Cloud, Sun } from "lucide-react"
+import {
+  Cloud,
+  CloudFog,
+  CloudLightning,
+  CloudRain,
+  CloudSnow,
+  Moon,
+  Sun,
+} from "lucide-react"
 import { cn } from "@/lib/utils"
 
 type WeatherData = {
@@ -14,11 +22,46 @@ type WeatherData = {
 const pillClass =
   "flex items-center gap-1.5 rounded-full border border-white/70 bg-white/45 px-2.5 py-1.5 text-sm text-slate-700 shadow-sm backdrop-blur-sm"
 
+/** OpenWeather icon code → Lucide (no external image — works on Vercel & localhost) */
+function WeatherGlyph({ code }: { code: string }) {
+  const id = code.slice(0, 2)
+  const isNight = code.endsWith("n")
+  const className = "h-5 w-5 shrink-0"
+
+  if (id === "01") {
+    return isNight ? (
+      <Moon className={cn(className, "text-indigo-500")} aria-hidden />
+    ) : (
+      <Sun className={cn(className, "text-amber-500")} aria-hidden />
+    )
+  }
+  if (id === "02") {
+    return <Cloud className={cn(className, "text-slate-500")} aria-hidden />
+  }
+  if (id === "03" || id === "04") {
+    return <Cloud className={cn(className, "text-slate-400")} aria-hidden />
+  }
+  if (id === "09" || id === "10") {
+    return <CloudRain className={cn(className, "text-sky-600")} aria-hidden />
+  }
+  if (id === "11") {
+    return (
+      <CloudLightning className={cn(className, "text-violet-600")} aria-hidden />
+    )
+  }
+  if (id === "13") {
+    return <CloudSnow className={cn(className, "text-sky-400")} aria-hidden />
+  }
+  if (id === "50") {
+    return <CloudFog className={cn(className, "text-slate-400")} aria-hidden />
+  }
+  return <Cloud className={cn(className, "text-slate-500")} aria-hidden />
+}
+
 export function SeoulWeather() {
   const [weather, setWeather] = useState<WeatherData | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
-  const [iconFailed, setIconFailed] = useState(false)
 
   useEffect(() => {
     let cancelled = false
@@ -46,7 +89,6 @@ export function SeoulWeather() {
         if (!cancelled) {
           setWeather(data)
           setError(null)
-          setIconFailed(false)
         }
       } catch {
         if (!cancelled) setError("날씨를 불러오지 못했습니다.")
@@ -87,18 +129,7 @@ export function SeoulWeather() {
       className={pillClass}
       title={`${weather.city} ${weather.description}`}
     >
-      {iconFailed ? (
-        <Sun className="h-5 w-5 shrink-0 text-amber-500" aria-hidden />
-      ) : (
-        <img
-          src={`/api/weather/icon?code=${encodeURIComponent(weather.icon)}`}
-          alt=""
-          width={28}
-          height={28}
-          className="h-7 w-7 shrink-0 object-contain"
-          onError={() => setIconFailed(true)}
-        />
-      )}
+      <WeatherGlyph code={weather.icon} />
       <span className="font-medium tabular-nums">{weather.city}</span>
       <span className="tabular-nums">{weather.temp}°</span>
       <span className="hidden max-w-[5rem] truncate text-slate-500 sm:inline md:max-w-none">
@@ -107,3 +138,4 @@ export function SeoulWeather() {
     </div>
   )
 }
+
