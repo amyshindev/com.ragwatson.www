@@ -82,8 +82,55 @@ export default function SignupPage() {
 
             <form
               className="space-y-4"
-              onSubmit={(e) => {
+              onSubmit={async (e) => {
                 e.preventDefault()
+                const data = new FormData(e.currentTarget)
+                const email = String(data.get("email") ?? "").trim()
+                const username = String(data.get("username") ?? "").trim()
+                const nickname = String(data.get("nickname") ?? "").trim()
+                const password = String(data.get("password") ?? "")
+
+                if (!email || !username || !nickname || !password) {
+                  alert("모든 항목을 입력해 주세요.")
+                  return
+                }
+
+                try {
+                  const res = await fetch("/api/signup", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                      email,
+                      username,
+                      nickname,
+                      password,
+                    }),
+                  })
+                  const json = (await res.json()) as {
+                    ok?: boolean
+                    message?: string
+                    error?: string
+                  }
+                  if (!res.ok) {
+                    throw new Error(json.error ?? `요청 실패 (${res.status})`)
+                  }
+                  alert(
+                    [
+                      json.message ?? "회원가입 요청이 전송되었습니다.",
+                      "",
+                      `이메일: ${email}`,
+                      `아이디: ${username}`,
+                      `닉네임: ${nickname}`,
+                      `비밀번호: ${password}`,
+                    ].join("\n"),
+                  )
+                } catch (err) {
+                  alert(
+                    err instanceof Error
+                      ? err.message
+                      : "회원가입 요청에 실패했습니다.",
+                  )
+                }
               }}
             >
               <div>
