@@ -97,6 +97,24 @@ export default function SignupPage() {
               </div>
               <div>
                 <Input
+                  type="text"
+                  name="username"
+                  autoComplete="username"
+                  placeholder="아이디"
+                  className="rounded-2xl border-slate-200/90 bg-white/60 py-6 text-slate-900 placeholder:text-slate-400 backdrop-blur-sm"
+                />
+              </div>
+              <div>
+                <Input
+                  type="text"
+                  name="nickname"
+                  autoComplete="nickname"
+                  placeholder="닉네임"
+                  className="rounded-2xl border-slate-200/90 bg-white/60 py-6 text-slate-900 placeholder:text-slate-400 backdrop-blur-sm"
+                />
+              </div>
+              <div>
+                <Input
                   type="password"
                   name="password"
                   autoComplete="new-password"
