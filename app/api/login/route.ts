@@ -14,17 +14,17 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "잘못된 JSON입니다." }, { status: 400 })
   }
 
-  const signupUrl = `${backendUrl}/signup`
-  console.log("[api/signup] FastAPI 호출:", signupUrl)
+  const loginUrl = `${backendUrl}/login`
+  console.log("[api/login] FastAPI 호출:", loginUrl)
 
   let res: Response
   try {
-    res = await fetch(signupUrl, {
+    res = await fetch(loginUrl, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
     })
-    console.log("[api/signup] FastAPI 응답:", res.status)
+    console.log("[api/login] FastAPI 응답:", res.status)
   } catch {
     return NextResponse.json(
       {
@@ -59,7 +59,7 @@ export async function POST(request: NextRequest) {
       "detail" in data &&
       typeof (data as { detail: unknown }).detail === "string"
         ? (data as { detail: string }).detail
-        : `회원가입 요청에 실패했습니다. (${res.status})`
+        : `로그인 요청에 실패했습니다. (${res.status})`
     return NextResponse.json({ error: detail }, { status: res.status })
   }
 

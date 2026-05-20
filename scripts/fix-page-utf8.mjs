@@ -1,0 +1,21 @@
+import fs from "fs"
+import path from "path"
+
+const file = path.join(process.cwd(), "app", "page.tsx")
+let s = fs.readFileSync(file, "utf8")
+
+s = s.replace(/maestro\? \?\?\?\?/g, "maestro와 대화하기")
+s = s.replace(
+  /\?\?\?\?\?\? \?\? \?\?\?\?\?, \?\?\? \?\?\?\?\? \?\? \?\?\? \?\?\?\./g,
+  "장르·무드에 대해 물어보거나, 비주얼 아이디어를 함께 다듬어 보세요.",
+)
+s = s.replace(
+  /\?\? \?\? \?\?\? \?\?\?\?\. \?\?\? \?\? \?\?\? \?\? \?\?\?\?\?\./g,
+  "현재 베타 서비스 중입니다. 등록된 베타 계정만 이용 가능합니다.",
+)
+s = s.replace(/>\s*\?\?\?\?\s*</g, ">이용약관<")
+s = s.replace(/>\s*\?\?\?\?\?\?\?\?\s*</g, ">개인정보처리방침<")
+s = s.replace(/text-zinc-700">\?<\/span>/g, 'text-zinc-700">·</span>')
+
+fs.writeFileSync(file, s, "utf8")
+console.log("fixed", file)

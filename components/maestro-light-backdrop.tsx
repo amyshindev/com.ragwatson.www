@@ -1,9 +1,14 @@
-/** Mesh gradient: saturated blurred blobs + clearly visible sway */
+/** Mesh gradient: blurred blobs with water-surface ripple motion */
 export function MaestroLightBackdrop() {
   return (
     <>
       <div
-        className="fixed inset-0 -z-10 bg-gradient-to-b from-[#e0f7fa] via-[#e8faf4] to-[#f0fdf4]"
+        className="maestro-water-base fixed inset-0 -z-10 bg-gradient-to-br from-[#e0f7fa] via-[#e8faf4] via-45% to-[#f0fdf4]"
+        aria-hidden
+      />
+
+      <div
+        className="maestro-water-shimmer pointer-events-none fixed inset-0 -z-10"
         aria-hidden
       />
 
@@ -42,6 +47,7 @@ export function MaestroLightBackdrop() {
         <div className="absolute bottom-[-12%] -left-[14%] h-[min(105vw,440px)] w-[min(105vw,440px)]">
           <div className="maestro-mesh-sway-a h-full w-full rounded-full bg-emerald-200/70 blur-3xl [animation-delay:-7s]" />
         </div>
+
       </div>
     </>
   )

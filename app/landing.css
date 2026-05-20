@@ -1,0 +1,296 @@
+/* Music visual landing — industrial dark */
+
+/* Noto Sans KR (loaded in layout.tsx) */
+.font-noto-sans-kr {
+  font-family: var(--font-noto-sans-kr), "Noto Sans KR", sans-serif;
+}
+
+.music-visual-landing,
+.music-visual-landing .font-display,
+.music-visual-landing .font-mono {
+  font-family: inherit;
+}
+
+.landing-grain {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  opacity: 0.35;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+}
+
+/* Hero typography: scale with viewport so 1080p does not clip */
+.landing-hero-title {
+  font-size: clamp(2.25rem, 2.5vw + 2.8vh, 4.25rem);
+  line-height: 1.2;
+  word-break: keep-all;
+  text-wrap: balance;
+}
+
+.landing-hero-subtitle {
+  font-size: clamp(0.9375rem, 0.6vw + 1.1vh, 1.25rem);
+}
+
+.landing-hero-desc {
+  font-size: clamp(0.9375rem, 0.5vw + 1vh, 1.125rem);
+}
+
+/* Full-viewport CTA — scale with viewport like hero */
+.landing-final-cta-title {
+  width: 100%;
+  text-align: center;
+  font-size: clamp(1.75rem, 3.2vw + 1.6vh, 4rem);
+  line-height: 1.2;
+  word-break: keep-all;
+  text-wrap: balance;
+}
+
+.landing-final-cta-subtitle {
+  font-size: clamp(0.9375rem, 0.55vw + 1.05vh, 1.35rem);
+  line-height: 1.5;
+}
+
+/* Social proof / deliverables — viewport band typography */
+.landing-sp-heading {
+  font-size: clamp(2rem, 2.2vw + 2.4vh, 3.75rem);
+  line-height: 1.15;
+  word-break: keep-all;
+  text-wrap: balance;
+}
+
+.landing-sp-list-item {
+  font-size: clamp(0.9375rem, 0.45vw + 1vh, 1.1875rem);
+  line-height: 1.55;
+}
+
+.landing-sp-quote {
+  font-size: clamp(0.9375rem, 0.4vw + 0.95vh, 1.125rem);
+}
+
+.landing-sp-attribution {
+  font-size: clamp(0.75rem, 0.25vw + 0.75vh, 0.9375rem);
+}
+
+@media (max-height: 900px) {
+  .landing-hero-title {
+    font-size: clamp(2rem, 2vw + 2.2vh, 3.25rem);
+  }
+
+  .landing-hero-subtitle {
+    font-size: clamp(0.875rem, 0.5vw + 0.9vh, 1.0625rem);
+  }
+
+  .landing-hero-desc {
+    font-size: clamp(0.875rem, 0.4vw + 0.85vh, 1rem);
+  }
+
+  .landing-sp-heading {
+    font-size: clamp(1.75rem, 1.8vw + 2vh, 3rem);
+  }
+
+  .landing-final-cta-title {
+    font-size: clamp(1.5rem, 2.5vw + 1.2vh, 3.25rem);
+  }
+
+  .landing-final-cta-subtitle {
+    font-size: clamp(0.875rem, 0.45vw + 0.85vh, 1.125rem);
+  }
+}
+
+.landing-hero-mesh {
+  background:
+    radial-gradient(ellipse 80% 60% at 30% 20%, rgba(0, 255, 200, 0.06) 0%, transparent 55%),
+    radial-gradient(ellipse 70% 50% at 80% 70%, rgba(120, 0, 255, 0.08) 0%, transparent 50%),
+    linear-gradient(180deg, #0a0a0a 0%, #0d0d0f 45%, #0a0a0a 100%);
+}
+
+.landing-hero-mesh.landing-scanlines {
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(255, 255, 255, 0.02) 2px,
+      rgba(255, 255, 255, 0.02) 4px
+    ),
+    radial-gradient(ellipse 80% 60% at 30% 20%, rgba(0, 255, 200, 0.06) 0%, transparent 55%),
+    radial-gradient(ellipse 70% 50% at 80% 70%, rgba(120, 0, 255, 0.08) 0%, transparent 50%),
+    linear-gradient(180deg, #0a0a0a 0%, #0d0d0f 45%, #0a0a0a 100%);
+  animation: landing-scan 8s linear infinite;
+}
+
+.landing-scanlines {
+  animation: landing-scan 8s linear infinite;
+}
+
+@keyframes landing-scan {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(4px);
+  }
+}
+
+/* Glitch CTA */
+.glitch-btn {
+  position: relative;
+  isolation: isolate;
+}
+
+.glitch-btn:hover .glitch-btn-text,
+.glitch-btn:focus-visible .glitch-btn-text {
+  animation: glitch-slice 0.35s steps(2) 1;
+}
+
+@keyframes glitch-slice {
+  0% {
+    clip-path: inset(0 0 100% 0);
+    transform: translate(0);
+  }
+  20% {
+    clip-path: inset(10% 0 60% 0);
+    transform: translate(-2px, 1px);
+  }
+  40% {
+    clip-path: inset(40% 0 20% 0);
+    transform: translate(2px, -1px);
+  }
+  60% {
+    clip-path: inset(70% 0 5% 0);
+    transform: translate(-1px, 0);
+  }
+  100% {
+    clip-path: inset(0 0 0 0);
+    transform: translate(0);
+  }
+}
+
+.glitch-btn::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.2s;
+  box-shadow: 0 0 20px rgba(0, 255, 213, 0.35), inset 0 0 12px rgba(0, 255, 213, 0.08);
+  z-index: -1;
+}
+
+.glitch-btn:hover::after,
+.glitch-btn:focus-visible::after {
+  opacity: 1;
+}
+
+/* Genre showcase card visuals */
+.genre-card-visual {
+  transition: opacity 0.5s ease;
+}
+
+.genre-visual-industrial {
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #0a0a0a 100%);
+}
+
+.genre-visual-industrial::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent,
+    transparent 3px,
+    rgba(255, 255, 255, 0.04) 3px,
+    rgba(255, 255, 255, 0.04) 4px
+  );
+  animation: industrial-scan 3s linear infinite;
+}
+
+@keyframes industrial-scan {
+  0% {
+    transform: translateX(-10%);
+  }
+  100% {
+    transform: translateX(10%);
+  }
+}
+
+.genre-visual-electronica {
+  background: radial-gradient(circle at 50% 50%, #0ff 0%, #0066ff 40%, #0a0a1a 70%);
+  animation: electronica-pulse 2s ease-in-out infinite;
+}
+
+@keyframes electronica-pulse {
+  0%,
+  100% {
+    filter: brightness(1);
+    transform: scale(1);
+  }
+  50% {
+    filter: brightness(1.25);
+    transform: scale(1.03);
+  }
+}
+
+.genre-visual-progressive {
+  background: linear-gradient(
+    135deg,
+    #1e3a5f 0%,
+    #4c1d95 35%,
+    #0d9488 65%,
+    #1e1b4b 100%
+  );
+  background-size: 200% 200%;
+  animation: progressive-shift 5s ease-in-out infinite;
+}
+
+@keyframes progressive-shift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.genre-visual-ambient {
+  background: linear-gradient(
+    160deg,
+    #0f2027 0%,
+    #203a43 40%,
+    #2c5364 70%,
+    #1a1a2e 100%
+  );
+  animation: ambient-drift 6s ease-in-out infinite alternate;
+}
+
+@keyframes ambient-drift {
+  0% {
+    filter: blur(0px) hue-rotate(0deg);
+  }
+  100% {
+    filter: blur(2px) hue-rotate(15deg);
+  }
+}
+
+.genre-visual-lofi {
+  background: linear-gradient(180deg, #3d2c1e 0%, #6b5344 40%, #2a2118 100%);
+}
+
+.genre-visual-lofi::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.15),
+    rgba(0, 0, 0, 0.15) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  opacity: 0.6;
+  pointer-events: none;
+}
+

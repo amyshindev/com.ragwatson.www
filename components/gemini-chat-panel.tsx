@@ -20,7 +20,16 @@ import { cn } from "@/lib/utils"
 
 type Role = "user" | "assistant"
 
-export function GeminiChatPanel() {
+type GeminiChatPanelProps = {
+  className?: string
+  /** Floating widget: tighter layout, taller message history */
+  embedded?: boolean
+}
+
+export function GeminiChatPanel({
+  className,
+  embedded = false,
+}: GeminiChatPanelProps) {
   const [input, setInput] = useState("")
   const [model, setModel] = useState("fast")
   const [messages, setMessages] = useState<{ role: Role; text: string }[]>([])
@@ -82,9 +91,14 @@ export function GeminiChatPanel() {
   }
 
   return (
-    <div className="w-full max-w-2xl">
+    <div className={cn("w-full max-w-2xl", className)}>
       {messages.length > 0 && (
-        <div className="mb-4 max-h-44 space-y-2 overflow-y-auto rounded-[24px] border border-white/60 bg-white/40 px-4 py-3 text-left shadow-inner shadow-slate-900/5 backdrop-blur-xl">
+        <div
+          className={cn(
+            "mb-4 space-y-2 overflow-y-auto rounded-[24px] border border-white/60 bg-white/40 px-4 py-3 text-left shadow-inner shadow-slate-900/5 backdrop-blur-xl",
+            embedded ? "max-h-36" : "max-h-44",
+          )}
+        >
           {messages.map((msg, i) => (
             <div
               key={i}
@@ -139,8 +153,11 @@ export function GeminiChatPanel() {
               }}
               disabled={sending}
               placeholder="지금 기분을 설명해 보세요…"
-              className="min-h-[100px] resize-none border-0 bg-transparent pr-14 text-[15px] leading-relaxed text-slate-900 shadow-none placeholder:text-slate-400 focus-visible:ring-0 md:text-[15px]"
-              rows={3}
+              className={cn(
+                "resize-none border-0 bg-transparent pr-14 text-[15px] leading-relaxed text-slate-900 shadow-none placeholder:text-slate-400 focus-visible:ring-0 md:text-[15px]",
+                embedded ? "min-h-[72px]" : "min-h-[100px]",
+              )}
+              rows={embedded ? 2 : 3}
             />
             <Button
               type="button"
@@ -223,3 +240,4 @@ export function GeminiChatPanel() {
     </div>
   )
 }
+

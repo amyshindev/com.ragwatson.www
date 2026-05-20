@@ -19,8 +19,11 @@ type WeatherData = {
   icon: string
 }
 
-const pillClass =
+const pillClassDefault =
   "flex items-center gap-1.5 rounded-full border border-white/70 bg-white/45 px-2.5 py-1.5 text-sm text-slate-700 shadow-sm backdrop-blur-sm"
+
+const pillClassLight =
+  "flex items-center gap-1.5 rounded-full border border-white/30 bg-transparent px-2.5 py-1.5 text-sm text-white shadow-none backdrop-blur-none"
 
 /** OpenWeather icon code → Lucide (no external image — works on Vercel & localhost) */
 function WeatherGlyph({ code }: { code: string }) {
@@ -58,7 +61,12 @@ function WeatherGlyph({ code }: { code: string }) {
   return <Cloud className={cn(className, "text-slate-500")} aria-hidden />
 }
 
-export function SeoulWeather() {
+type SeoulWeatherProps = {
+  light?: boolean
+}
+
+export function SeoulWeather({ light = false }: SeoulWeatherProps) {
+  const pillClass = light ? pillClassLight : pillClassDefault
   const [weather, setWeather] = useState<WeatherData | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
@@ -105,7 +113,7 @@ export function SeoulWeather() {
 
   if (loading) {
     return (
-      <span className={cn(pillClass, "text-slate-500")} aria-busy="true">
+      <span className={cn(pillClass, !light && "text-slate-500")} aria-busy="true">
         <Cloud className="h-4 w-4 shrink-0 opacity-60" aria-hidden />
         <span className="text-xs sm:text-sm">서울 …</span>
       </span>
@@ -115,7 +123,11 @@ export function SeoulWeather() {
   if (error || !weather) {
     return (
       <span
-        className={cn(pillClass, "max-w-[11rem] text-xs text-slate-500 sm:max-w-none sm:text-sm")}
+        className={cn(
+          pillClass,
+          "max-w-[11rem] text-xs sm:max-w-none sm:text-sm",
+          !light && "text-slate-500",
+        )}
         title={error ?? undefined}
       >
         <Cloud className="h-4 w-4 shrink-0" aria-hidden />
@@ -132,7 +144,12 @@ export function SeoulWeather() {
       <WeatherGlyph code={weather.icon} />
       <span className="font-medium tabular-nums">{weather.city}</span>
       <span className="tabular-nums">{weather.temp}°</span>
-      <span className="hidden max-w-[5rem] truncate text-slate-500 sm:inline md:max-w-none">
+      <span
+        className={cn(
+          "hidden max-w-[5rem] truncate sm:inline md:max-w-none",
+          light ? "text-white/85" : "text-slate-500",
+        )}
+      >
         {weather.description}
       </span>
     </div>

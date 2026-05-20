@@ -110,24 +110,24 @@ export default function TitanicHomePage() {
         <div className="mx-auto w-full max-w-3xl space-y-8">
           <div className="text-center">
             <h1
-              className="text-4xl font-extrabold tracking-tight text-white drop-shadow-md md:text-6xl"
+              className="text-2xl font-bold tracking-tight text-white drop-shadow md:text-3xl"
               style={{ fontFamily: "var(--font-heading)" }}
             >
               타이타닉 홈
             </h1>
-            <p className="mt-3 text-sm text-zinc-300 drop-shadow md:text-base">
+            <p className="mt-2 text-sm text-zinc-300 drop-shadow">
               타이타닉 데이터용 CSV 파일을 선택하거나 여기로 끌어다 놓으세요.
             </p>
           </div>
 
-          <Card className="border border-white/20 bg-zinc-950/35 text-white shadow-2xl shadow-black/25 backdrop-blur-xl ring-1 ring-white/10 supports-[backdrop-filter]:bg-zinc-950/25">
+          <Card className="border border-blue-400/25 bg-zinc-950/35 text-white shadow-2xl shadow-black/25 backdrop-blur-xl ring-1 ring-blue-400/15 supports-[backdrop-filter]:bg-zinc-950/25">
             <CardHeader>
               <CardTitle className="text-xl text-white" style={{ fontFamily: "var(--font-heading)" }}>
                 CSV 업로드
               </CardTitle>
-              <CardDescription className="text-violet-200/85">
+              <CardDescription className="text-blue-200/90">
                 확장자{" "}
-                <code className="rounded border border-white/10 bg-white/10 px-1.5 py-0.5 text-violet-100">
+                <code className="rounded border border-blue-400/25 bg-blue-500/15 px-1.5 py-0.5 text-blue-100">
                   .csv
                 </code>{" "}
                 만 허용됩니다.
@@ -162,19 +162,19 @@ export default function TitanicHomePage() {
                 className={cn(
                   "flex cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed px-6 py-14 transition-colors",
                   dragActive
-                    ? "border-primary bg-primary/20 shadow-inner shadow-primary/15 backdrop-blur-sm"
-                    : "border-white/30 bg-white/[0.06] hover:border-white/40 hover:bg-white/[0.1] backdrop-blur-sm",
+                    ? "border-blue-400 bg-blue-500/20 shadow-inner shadow-blue-500/20 backdrop-blur-sm"
+                    : "border-white/30 bg-white/[0.06] hover:border-blue-400/40 hover:bg-blue-500/10 backdrop-blur-sm",
                 )}
               >
-                <FileUp className="mb-3 h-10 w-10 text-violet-300/90" />
+                <FileUp className="mb-3 h-10 w-10 text-blue-300" />
                 <p className="text-center font-medium text-white/95">클릭하여 파일 선택</p>
-                <p className="mt-1 text-center text-sm text-violet-200/80">
+                <p className="mt-1 text-center text-sm text-blue-200/85">
                   또는 CSV 파일을 이 영역으로 드래그
                 </p>
               </div>
 
               <div className="flex flex-wrap items-center gap-3">
-                <Label className="text-violet-200/90">선택된 파일</Label>
+                <Label className="text-blue-200/90">선택된 파일</Label>
                 <span className="text-sm text-white/85">
                   {file ? `${file.name} (${(file.size / 1024).toFixed(1)} KB)` : "없음"}
                 </span>
@@ -195,12 +195,12 @@ export default function TitanicHomePage() {
 
               {preview.length > 0 && (
                 <div className="space-y-2">
-                  <p className="text-sm font-medium text-violet-100">미리보기 (최대 8행)</p>
+                  <p className="text-sm font-medium text-blue-100">미리보기 (최대 8행)</p>
                   <Table>
                     <TableHeader>
                       <TableRow className="border-white/15 hover:bg-white/5">
                         {(preview[0] ?? []).map((h, i) => (
-                          <TableHead key={i} className="text-violet-200/95">
+                          <TableHead key={i} className="text-blue-200/95">
                             {h || `열 ${i + 1}`}
                           </TableHead>
                         ))}
@@ -240,7 +240,7 @@ export default function TitanicHomePage() {
               <div className="flex justify-end gap-2">
                 <Button
                   type="button"
-                  className="min-w-[120px] bg-primary text-primary-foreground hover:bg-primary/90"
+                  className="min-w-[120px] bg-[#2563eb] text-white shadow-md shadow-blue-500/25 hover:bg-[#1d4ed8]"
                   disabled={!file || uploading}
                   onClick={() => void upload()}
                 >
