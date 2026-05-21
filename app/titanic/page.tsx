@@ -1,15 +1,9 @@
 "use client"
 
 import { useCallback, useRef, useState } from "react"
-import { FileUp, Loader2, Trash2 } from "lucide-react"
+import { Database, FileUp, Loader2, Trash2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
+import { Card, CardContent } from "@/components/ui/card"
 import { Label } from "@/components/ui/label"
 import {
   Table,
@@ -26,7 +20,10 @@ function parseCsvPreview(text: string, maxLines: number): string[][] {
   return lines.slice(0, maxLines).map((line) => line.split(",").map((c) => c.trim()))
 }
 
+type StepId = "data-collection"
+
 export default function TitanicHomePage() {
+  const [activeStep, setActiveStep] = useState<StepId | null>(null)
   const inputRef = useRef<HTMLInputElement>(null)
   const [file, setFile] = useState<File | null>(null)
   const [preview, setPreview] = useState<string[][]>([])
@@ -92,7 +89,6 @@ export default function TitanicHomePage() {
 
   return (
     <div className="relative -mt-20 min-h-[100dvh] overflow-hidden">
-      {/* 배경: 흑백 + 짙은 톤 (전체 뷰포트) */}
       <div
         className="absolute inset-0 scale-105 bg-cover bg-center bg-no-repeat"
         style={{
@@ -106,34 +102,45 @@ export default function TitanicHomePage() {
         aria-hidden
       />
 
-      <div className="relative z-10 flex mt-20 min-h-[calc(100dvh-5rem)] w-full flex-col items-center justify-center overflow-y-auto px-4 py-8 text-white">
-        <div className="mx-auto w-full max-w-3xl space-y-8">
-          <div className="text-center">
+      <div className="relative z-10 mt-20 flex min-h-[calc(100dvh-5rem)] w-full overflow-y-auto px-4 py-8 text-white md:px-6">
+        <div className="mx-auto w-full max-w-6xl space-y-8">
+          <div>
             <h1
               className="text-2xl font-bold tracking-tight text-white drop-shadow md:text-3xl"
               style={{ fontFamily: "var(--font-heading)" }}
             >
-              타이타닉 홈
+              타이타닉 모델 분석
             </h1>
-            <p className="mt-2 text-sm text-zinc-300 drop-shadow">
-              타이타닉 데이터용 CSV 파일을 선택하거나 여기로 끌어다 놓으세요.
-            </p>
           </div>
 
+          <div className="flex flex-col gap-8 lg:flex-row lg:gap-10">
+            <nav
+              className="flex shrink-0 flex-row gap-2 overflow-x-auto lg:w-52 lg:flex-col lg:gap-1"
+              aria-label="분석 단계"
+            >
+              <button
+                type="button"
+                onClick={() => setActiveStep("data-collection")}
+                className={cn(
+                  "flex shrink-0 items-center gap-2 rounded-lg border px-4 py-3 text-left text-sm font-medium transition-colors",
+                  activeStep === "data-collection"
+                    ? "border-blue-400/50 bg-blue-500/20 text-white shadow-sm shadow-blue-500/15"
+                    : "border-white/10 bg-white/5 text-zinc-300 hover:border-blue-400/30 hover:bg-blue-500/10 hover:text-white",
+                )}
+              >
+                <Database className="h-4 w-4 shrink-0 text-blue-300" aria-hidden />
+                1. 데이터 수집
+              </button>
+            </nav>
+
+            <div className="min-w-0 flex-1">
+              {activeStep !== "data-collection" ? (
+                <p className="rounded-lg border border-white/10 bg-white/5 px-4 py-8 text-center text-sm text-zinc-400">
+                  왼쪽에서 「1. 데이터 수집」을 선택하세요.
+                </p>
+              ) : (
           <Card className="border border-blue-400/25 bg-zinc-950/35 text-white shadow-2xl shadow-black/25 backdrop-blur-xl ring-1 ring-blue-400/15 supports-[backdrop-filter]:bg-zinc-950/25">
-            <CardHeader>
-              <CardTitle className="text-xl text-white" style={{ fontFamily: "var(--font-heading)" }}>
-                CSV 업로드
-              </CardTitle>
-              <CardDescription className="text-blue-200/90">
-                확장자{" "}
-                <code className="rounded border border-blue-400/25 bg-blue-500/15 px-1.5 py-0.5 text-blue-100">
-                  .csv
-                </code>{" "}
-                만 허용됩니다.
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-6">
+            <CardContent className="space-y-6 pt-6">
               <input
                 ref={inputRef}
                 type="file"
@@ -256,9 +263,11 @@ export default function TitanicHomePage() {
               </div>
             </CardContent>
           </Card>
+              )}
+            </div>
+          </div>
         </div>
       </div>
     </div>
   )
 }
-

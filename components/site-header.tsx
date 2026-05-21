@@ -173,9 +173,31 @@ export function SiteHeader() {
             <Button asChild variant="outline" className="rounded-none border-cyan-500/45 bg-cyan-950/25 px-3 py-2 text-xs font-bold text-cyan-300 shadow-none hover:border-cyan-400/70 hover:bg-cyan-950/40 hover:text-cyan-200 sm:px-4 sm:text-sm">
               <Link href="/studio">스튜디오로 가기</Link>
             </Button>
-            <Button asChild variant="ghost" className={navLinkClass}>
-              <Link href="/titanic">수업용</Link>
-            </Button>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  className={cn(navLinkClass, "gap-1")}
+                  aria-haspopup="menu"
+                  aria-label="수업용 메뉴"
+                >
+                  수업용
+                  <ChevronDown className="h-4 w-4 opacity-70" aria-hidden />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent
+                align="end"
+                className="min-w-[10rem] border-zinc-800 bg-zinc-950 text-zinc-100"
+              >
+                <DropdownMenuItem
+                  asChild
+                  className="cursor-pointer focus:bg-zinc-800 focus:text-cyan-300"
+                >
+                  <Link href="/titanic">타이타닉</Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button
