@@ -47,7 +47,7 @@ export function GeminiChatPanel({
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: text }),
+        body: JSON.stringify({ message: text, model }),
       })
       const raw = await res.text()
       let data: { reply?: string; error?: string } = {}
@@ -55,9 +55,10 @@ export function GeminiChatPanel({
         try {
           data = JSON.parse(raw) as { reply?: string; error?: string }
         } catch {
-          throw new Error(
-            raw.slice(0, 120) || `응답을 읽을 수 없습니다. (${res.status})`,
-          )
+          const preview = raw.trimStart().startsWith("<!")
+            ? "채팅 API(/api/chat)가 없거나 HTML 오류 페이지가 반환되었습니다. 배포에 app/api/chat/route.ts가 포함됐는지 확인하세요."
+            : raw.slice(0, 120) || `응답을 읽을 수 없습니다. (${res.status})`
+          throw new Error(preview)
         }
       } else if (!res.ok) {
         throw new Error(`서버 오류 (${res.status})`)
