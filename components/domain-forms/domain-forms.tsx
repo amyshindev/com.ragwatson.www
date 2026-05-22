@@ -9,7 +9,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { cn } from "@/lib/utils"
 
 const fieldClass =
-  "rounded-none border-zinc-700 bg-black/40 text-zinc-100 shadow-none placeholder:text-zinc-500 focus-visible:border-cyan-500/50 focus-visible:ring-cyan-500/20 md:text-sm"
+  "rounded-none border-zinc-700 bg-black/40 text-zinc-100 shadow-none placeholder:text-zinc-500 focus-visible:border-maestro-500/50 focus-visible:ring-maestro-500/20 md:text-sm"
 
 const selectClass = cn(
   fieldClass,
@@ -83,7 +83,7 @@ async function submitDomainForm(
     form.reset()
   } catch {
     window.alert(
-      `${successLabel}\n\n백엔드에 연결할 수 없습니다. FastAPI(기본 127.0.0.1:8000) 실행 여부와 NEXT_PUBLIC_BACKEND_URL 을 확인하세요.`,
+      `${successLabel}\n\n백엔드에 연결할 수 없습니다. FastAPI(기본 127.0.0.1:8000) 실행 여부와 NEXT_PUBLIC_BACKEND_URL 값을 확인하세요.`,
     )
   }
 }
@@ -102,7 +102,7 @@ export function LibraryDataForm() {
           id="library-title"
           name="projectTitle"
           required
-          placeholder="예: 싱글 A — 캔버스 루프 v2"
+          placeholder="예: 앨범 A 캔버스 루프 v2"
           className={fieldClass}
         />
       </div>
@@ -114,7 +114,7 @@ export function LibraryDataForm() {
           id="library-memo"
           name="memo"
           rows={3}
-          placeholder="렌더 버전, 출시일 메모 등"
+          placeholder="폴더 버전, 출시일 메모 등"
           className={fieldClass}
         />
       </div>
@@ -156,7 +156,7 @@ export function StudioWorkspaceDataForm() {
           id="ws-name"
           name="workspaceName"
           required
-          placeholder="예: Neon break — draft"
+          placeholder="예: Neon break draft"
           className={fieldClass}
         />
       </div>
@@ -182,7 +182,7 @@ export function StudioWorkspaceDataForm() {
           id="ws-notes"
           name="notes"
           rows={4}
-          placeholder="팔레트, 비트 트리거, 내보내기 규격 등"
+          placeholder="프레임, 비트 트리거,보내기 규격 등"
           className={fieldClass}
         />
       </div>
@@ -213,7 +213,7 @@ export function StudioAnalyticsDataForm() {
           id="an-track"
           name="trackTitle"
           required
-          placeholder="곡 제목 또는 내부 ID"
+          placeholder="곡 제목 또는 임시 ID"
           className={fieldClass}
         />
       </div>
@@ -240,7 +240,7 @@ export function StudioAnalyticsDataForm() {
           </option>
           <option value="dreamy">몽환적</option>
           <option value="aggressive">파괴적 / 강렬</option>
-          <option value="melancholic">우울·서정</option>
+          <option value="melancholic">우울·정적</option>
           <option value="bright">밝음·에너지</option>
         </select>
       </div>
@@ -261,60 +261,6 @@ export function StudioAnalyticsDataForm() {
         className="mt-2 w-full rounded-none border-zinc-600 bg-zinc-900/80 text-zinc-100 hover:bg-zinc-800 hover:text-white"
       >
         분석 결과 저장
-      </Button>
-    </form>
-  )
-}
-
-export function PricingInquiryForm() {
-  return (
-    <form
-      className="grid gap-5"
-      onSubmit={(e) =>
-        submitDomainForm(e, "/api/domain/membership/inquiry", "멤버십 문의")
-      }
-    >
-      <div className="grid gap-2">
-        <Label htmlFor="pr-email" className="text-zinc-400">
-          이메일
-        </Label>
-        <Input
-          id="pr-email"
-          name="email"
-          type="email"
-          required
-          placeholder="you@example.com"
-          className={fieldClass}
-        />
-      </div>
-      <div className="grid gap-2">
-        <Label htmlFor="pr-plan" className="text-zinc-400">
-          희망 플랜
-        </Label>
-        <select id="pr-plan" name="plan" className={selectClass} required>
-          <option value="free">무료 (720p, 워터마크)</option>
-          <option value="pro">프로 (4K, 워터마크 해제 예정)</option>
-          <option value="team">팀 · 맞춤 (문의)</option>
-        </select>
-      </div>
-      <div className="grid gap-2">
-        <Label htmlFor="pr-message" className="text-zinc-400">
-          문의 내용
-        </Label>
-        <Textarea
-          id="pr-message"
-          name="message"
-          rows={4}
-          placeholder="예산, 팀 규모, 필요한 기능"
-          className={fieldClass}
-        />
-      </div>
-      <Button
-        type="submit"
-        variant="outline"
-        className="mt-2 w-full rounded-none border-cyan-500/35 bg-cyan-950/30 text-cyan-200 hover:bg-cyan-950/50 hover:text-white"
-      >
-        문의 보내기
       </Button>
     </form>
   )
@@ -350,7 +296,7 @@ export function GalleryEntryForm() {
         <Input
           id="gal-genre"
           name="genreTags"
-          placeholder="Industrial, Canvas"
+          placeholder="Industrial, Electronica"
           className={fieldClass}
         />
       </div>

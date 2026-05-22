@@ -1,4 +1,12 @@
-"use client"
+# -*- coding: utf-8 -*-
+"""Restore UTF-8 corrupted by bulk cyan->maestro replace."""
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+
+FILES: dict[str, str] = {}
+
+FILES["app/login/page.tsx"] = '''"use client"
 
 import Link from "next/link"
 import { useRouter } from "next/navigation"
@@ -94,7 +102,7 @@ export default function LoginPage() {
                 user?.role ? `역할: ${user.role}` : "",
               ]
                 .filter(Boolean)
-                .join("\n"),
+                .join("\\n"),
             )
             router.push("/")
           } catch (err) {
@@ -137,3 +145,91 @@ export default function LoginPage() {
     </MaestroAuthLayout>
   )
 }
+'''
+
+FILES["components/marketing/marketing-placeholder.tsx"] = '''import Link from "next/link"
+
+type MarketingPlaceholderProps = {
+  title: string
+  lead?: string
+  /** 기본 `/` 스튜디오 톤 하위 페이지 등에 재사용 */
+  backHref?: string
+  backLabel?: string
+}
+
+export function MarketingPlaceholder({
+  title,
+  lead = "콘텐츠를 준비 중입니다.",
+  backHref = "/",
+  backLabel = "홈으로",
+}: MarketingPlaceholderProps) {
+  return (
+    <div className="mx-auto max-w-2xl px-4 py-12 text-zinc-300">
+      <h1
+        className="text-3xl font-semibold tracking-tight text-zinc-100"
+        style={{ fontFamily: "var(--font-heading)" }}
+      >
+        {title}
+      </h1>
+      <p className="mt-4 leading-relaxed text-zinc-500">{lead}</p>
+      <Link
+        href={backHref}
+        className="mt-8 inline-block text-sm font-medium text-maestro-500/90 hover:text-maestro-400 hover:underline"
+      >
+        ← {backLabel}
+      </Link>
+    </div>
+  )
+}
+'''
+
+FILES["components/marketing/domain-form-shell.tsx"] = '''import Link from "next/link"
+import type { ReactNode } from "react"
+
+type DomainFormShellProps = {
+  title: string
+  lead?: string
+  backHref?: string
+  backLabel?: string
+  children: ReactNode
+}
+
+export function DomainFormShell({
+  title,
+  lead,
+  backHref = "/",
+  backLabel = "홈으로",
+  children,
+}: DomainFormShellProps) {
+  return (
+    <div className="mx-auto max-w-2xl px-4 py-12 text-zinc-300 md:py-16">
+      <header className="mb-8">
+        <h1
+          className="text-3xl font-semibold tracking-tight text-zinc-100"
+          style={{ fontFamily: "var(--font-heading)" }}
+        >
+          {title}
+        </h1>
+        {lead ? (
+          <p className="mt-4 leading-relaxed text-zinc-500">{lead}</p>
+        ) : null}
+      </header>
+      <div className="border border-white/10 bg-zinc-950/70 p-6 shadow-xl shadow-black/20 backdrop-blur-xl md:p-8">
+        {children}
+      </div>
+      <Link
+        href={backHref}
+        className="mt-8 inline-block text-sm font-medium text-maestro-500/90 hover:text-maestro-400 hover:underline"
+      >
+        ← {backLabel}
+      </Link>
+    </div>
+  )
+}
+'''
+
+for rel, content in FILES.items():
+    path = ROOT / rel
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(content, encoding="utf-8", newline="\n")
+    print("wrote", rel)

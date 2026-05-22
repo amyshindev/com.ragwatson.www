@@ -1,15 +1,12 @@
-import { StudioAnalyticsDataForm } from "@/components/domain-forms/domain-forms"
-import { DomainFormShell } from "@/components/marketing/domain-form-shell"
+import { MarketingPlaceholder } from "@/components/marketing/marketing-placeholder"
 
 export default function StudioAnalyticsPage() {
   return (
-    <DomainFormShell
+    <MarketingPlaceholder
       title="AI 오디오 분석 대시보드"
-      lead="분석에 쓸 메타데이터를 수동으로 적어 둘 수 있습니다. 자동 분석 파이프라인과 합치면 히스토리로 쓰입니다."
+      lead="BPM·무드·장르 분석 결과를 차트와 태그로 보여 주는 대시보드를 준비 중입니다."
       backHref="/studio"
       backLabel="스튜디오"
-    >
-      <StudioAnalyticsDataForm />
-    </DomainFormShell>
+    />
   )
 }

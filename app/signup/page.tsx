@@ -129,7 +129,7 @@ export default function SignupPage() {
             className={cn(
               "rounded-none border px-3 py-2 text-sm",
               message.type === "ok"
-                ? "border-cyan-500/30 bg-cyan-950/40 text-cyan-200"
+                ? "border-maestro-500/30 bg-maestro-950/40 text-maestro-200"
                 : "border-red-500/30 bg-red-950/40 text-red-300",
             )}
             role="status"
@@ -150,7 +150,7 @@ export default function SignupPage() {
         이미 계정이 있으신가요?{" "}
         <Link
           href="/login"
-          className="font-medium text-cyan-500/90 hover:text-cyan-400 hover:underline"
+          className="font-medium text-maestro-500/90 hover:text-maestro-400 hover:underline"
         >
           로그인
         </Link>

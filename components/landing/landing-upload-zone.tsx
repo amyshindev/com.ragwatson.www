@@ -45,7 +45,7 @@ export function LandingUploadZone({
             ? "px-8 py-10 text-base sm:px-10 sm:py-12 sm:text-lg"
             : "px-6 py-8 text-sm",
           dragActive
-            ? "border-cyan-500/50 bg-cyan-950/20 text-cyan-200/90"
+            ? "border-maestro-500/50 bg-maestro-950/20 text-maestro-200/90"
             : "border-zinc-700 bg-black/30 text-zinc-500 hover:border-zinc-500 hover:text-zinc-400",
         )}
         onClick={openPicker}

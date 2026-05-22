@@ -1,9 +1,19 @@
 "use client"
 
-import { useCallback, useState } from "react"
-import { motion } from "framer-motion"
+import { useCallback, useRef, useState } from "react"
+import { motion, useMotionTemplate, useScroll, useTransform } from "framer-motion"
 
 export function LandingHero() {
+  const sectionRef = useRef<HTMLElement>(null)
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  })
+  /* 스크롤할수록 검정 그라데이션 시작점이 위로 올라감 (색상 레이어는 그대로) */
+  const fadeStart = useTransform(scrollYProgress, [0, 0.4, 1], [52, 28, 0])
+  const fadeMid = useTransform(scrollYProgress, [0, 0.4, 1], [78, 52, 22])
+  const scrollBlackGradient = useMotionTemplate`linear-gradient(180deg, transparent 0%, transparent ${fadeStart}%, rgba(10, 10, 10, 0.5) ${fadeMid}%, #0a0a0a 100%)`
+
   const [parallax, setParallax] = useState({ x: 0, y: 0 })
 
   const onMouseMove = useCallback((e: React.MouseEvent<HTMLElement>) => {
@@ -14,6 +24,7 @@ export function LandingHero() {
 
   return (
     <section
+      ref={sectionRef}
       className="relative box-border flex min-h-[100dvh] min-h-[100svh] items-center justify-center px-6 py-24"
       onMouseMove={onMouseMove}
     >
@@ -26,12 +37,14 @@ export function LandingHero() {
           }}
         />
         <motion.div
-          className="absolute inset-0 opacity-30"
+          className="landing-hero-parallax-glow absolute inset-0"
           style={{
-            backgroundImage:
-              "radial-gradient(circle at 20% 80%, rgba(0,255,200,0.12) 0%, transparent 40%), radial-gradient(circle at 80% 20%, rgba(180,0,255,0.1) 0%, transparent 35%)",
             transform: `translate(${parallax.x * 1.5}px, ${parallax.y * 1.5}px)`,
           }}
+        />
+        <motion.div
+          className="absolute inset-0 z-[2]"
+          style={{ background: scrollBlackGradient }}
         />
       </div>
 
@@ -43,12 +56,9 @@ export function LandingHero() {
       >
         <div className="w-full max-w-4xl">
           <h1 className="landing-hero-title font-semibold tracking-tight text-zinc-100">
-            눈으로 듣는 당신의 음악.
+            Your sound. Visualized.
           </h1>
-          <p className="landing-hero-subtitle mt-5 tracking-wide text-zinc-400 sm:mt-6">
-            Your sound. Interpreted. Visualized.
-          </p>
-          <p className="landing-hero-desc mx-auto mt-6 max-w-2xl leading-relaxed text-zinc-500 sm:mt-8">
+          <p className="landing-hero-desc mx-auto mt-6 max-w-2xl leading-relaxed text-white sm:mt-8">
             장르를 이해하는 AI 에이전트가 만드는 스포티파이·숏폼 최적화 아티스틱 비주얼.
           </p>
         </div>

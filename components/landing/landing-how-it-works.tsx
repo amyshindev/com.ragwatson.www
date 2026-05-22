@@ -8,7 +8,8 @@ const STEPS = [
   {
     icon: Music,
     title: "Drop Your Sound",
-    description: "MP3/WAV 파일이나 사운드클라우드/유튜브 링크를 넣습니다.",
+    description:
+      "MP3/WAV 파일이나 사운드클라우드/유튜브 링크를 넣습니다.",
   },
   {
     icon: Brain,
@@ -18,7 +19,8 @@ const STEPS = [
   {
     icon: Clapperboard,
     title: "Get Your Artwork",
-    description: "단 몇 초 만에 내 곡에 완벽히 녹아드는 고화질 루프 영상 완성.",
+    description:
+      "단 몇 초 만에 내 곡에 완벽히 녹아드는 고화질 루프 영상 완성.",
   },
 ] as const
 
@@ -44,7 +46,7 @@ export function LandingHowItWorks() {
                   className="flex max-w-md flex-col items-center text-center"
                   delay={index * 0.2}
                 >
-                  <div className="flex h-14 w-14 items-center justify-center text-cyan-400/90">
+                  <div className="flex h-14 w-14 items-center justify-center text-maestro-400/90">
                     <Icon className="h-10 w-10" strokeWidth={1.25} />
                   </div>
                   <h3 className="mt-4 text-base font-medium text-zinc-200 sm:text-lg">

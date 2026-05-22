@@ -74,7 +74,7 @@ export function LandingGenreShowcase() {
                 className={cn(
                   "text-left text-xs transition-colors sm:text-sm",
                   active === genre.id
-                    ? "text-cyan-400 underline decoration-cyan-400/80 underline-offset-4"
+                    ? "text-maestro-400 underline decoration-maestro-400/80 underline-offset-4"
                     : "text-zinc-600 hover:text-zinc-400",
                 )}
               >
@@ -105,7 +105,7 @@ export function LandingGenreShowcase() {
             </div>
 
             <p className="mt-6 text-center text-xs italic text-zinc-600 lg:text-left">
-              💡 실제 업로드 시, AI가 당신의 곡 BPM·악기·감성을 분석해 이 비주얼을 자동
+              실제 업로드 시, AI가 당신의 곡 BPM·악기·감성을 분석해 이 비주얼을 자동
               생성합니다.
             </p>
           </div>

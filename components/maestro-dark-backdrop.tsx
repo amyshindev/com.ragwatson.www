@@ -10,11 +10,7 @@ export function MaestroDarkBackdrop() {
         aria-hidden
       />
       <div
-        className="pointer-events-none fixed inset-0 -z-10 opacity-30"
-        style={{
-          backgroundImage:
-            "radial-gradient(circle at 20% 80%, rgba(0,255,200,0.12) 0%, transparent 40%), radial-gradient(circle at 80% 20%, rgba(180,0,255,0.1) 0%, transparent 35%)",
-        }}
+        className="landing-hero-parallax-glow pointer-events-none fixed inset-0 -z-10"
         aria-hidden
       />
       <LandingGrain />

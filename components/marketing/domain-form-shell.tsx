@@ -34,7 +34,7 @@ export function DomainFormShell({
       </div>
       <Link
         href={backHref}
-        className="mt-8 inline-block text-sm font-medium text-cyan-500/90 hover:text-cyan-400 hover:underline"
+        className="mt-8 inline-block text-sm font-medium text-maestro-500/90 hover:text-maestro-400 hover:underline"
       >
         ← {backLabel}
       </Link>

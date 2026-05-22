@@ -15,21 +15,21 @@ const GENRES = [
   {
     id: "industrial",
     label: "Industrial Rock",
-    hint: "다른 예시 루프를 보려면 클릭",
+    hint: "마우스를 올려 미리보기",
     gradient:
       "bg-gradient-to-br from-zinc-900 via-red-950/90 to-zinc-800",
   },
   {
     id: "electronica",
     label: "Electronica",
-    hint: "다른 예시 루프를 보려면 클릭",
+    hint: "마우스를 올려 미리보기",
     gradient:
-      "bg-gradient-to-br from-violet-950 via-fuchsia-900/80 to-cyan-950",
+      "bg-gradient-to-br from-violet-950 via-fuchsia-900/80 to-maestro-950",
   },
   {
     id: "citypop",
     label: "City Pop",
-    hint: "다른 예시 루프를 보려면 클릭",
+    hint: "마우스를 올려 미리보기",
     gradient:
       "bg-gradient-to-br from-rose-400 via-orange-300 to-sky-400",
     featured: true,
@@ -37,7 +37,7 @@ const GENRES = [
   {
     id: "synthpop",
     label: "Synth Pop",
-    hint: "다른 예시 루프를 보려면 클릭",
+    hint: "마우스를 올려 미리보기",
     gradient:
       "bg-gradient-to-br from-pink-500 via-purple-600 to-indigo-900",
   },
@@ -47,17 +47,17 @@ const STEPS = [
   {
     icon: FileAudio,
     title: "1. Drop Audio",
-    description: "음원 파일 업로드",
+    description: "원본 파일 업로드",
   },
   {
     icon: Brain,
     title: "2. AI Analyzes Aesthetic",
-    description: "AI가 장르·무드 분석",
+    description: "AI가 무드·리듬 분석",
   },
   {
     icon: Repeat2,
     title: "3. Get Loop",
-    description: "숏폼·캔버스용 루프 생성",
+    description: "캔버스·루프용 영상 생성",
   },
 ] as const
 
@@ -66,13 +66,12 @@ export function HeroShowcaseSection() {
 
   return (
     <div className="mt-14 w-full max-w-5xl space-y-12 text-left">
-      {/* 장르별 미학 쇼케이스 */}
       <div>
         <h2
           className="text-center text-lg font-semibold text-slate-900 sm:text-xl"
           style={{ fontFamily: "var(--font-heading)" }}
         >
-          장르별 미학 쇼케이스
+          장르별 미학 인터페이스
         </h2>
 
         <div className="mt-5 -mx-2 flex gap-3 overflow-x-auto px-2 pb-2 scrollbar-thin sm:justify-center sm:overflow-visible sm:pb-0">
@@ -116,13 +115,12 @@ export function HeroShowcaseSection() {
         </div>
       </div>
 
-      {/* 서비스 이용 단계 */}
       <div>
         <h2
           className="text-center text-lg font-semibold text-slate-900 sm:text-xl"
           style={{ fontFamily: "var(--font-heading)" }}
         >
-          서비스 이용 단계
+          서비스 이용 절차
         </h2>
 
         <div className="mt-8 flex flex-col items-center gap-8 sm:flex-row sm:justify-center sm:gap-4">

@@ -3,10 +3,10 @@ import Link from "next/link"
 import { Music } from "lucide-react"
 
 const footerLinkClass =
-  "text-sm text-zinc-500 transition-colors hover:text-cyan-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500/40"
+  "text-sm text-zinc-500 transition-colors hover:text-maestro-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-maestro-500/40"
 
 const socialIconClass =
-  "inline-flex h-9 w-9 items-center justify-center rounded-lg border border-zinc-800 text-zinc-500 transition-colors hover:border-cyan-500/40 hover:text-cyan-400"
+  "inline-flex h-9 w-9 items-center justify-center rounded-lg border border-zinc-800 text-zinc-500 transition-colors hover:border-maestro-500/40 hover:text-maestro-400"
 
 function DiscordGlyph(props: SVGProps<SVGSVGElement>) {
   return (
@@ -27,7 +27,6 @@ export function LandingSiteFooter() {
     <footer className="border-t border-white/10 bg-[#0a0a0a] px-6 pb-12 pt-14 text-zinc-400">
       <div className="mx-auto max-w-7xl">
         <div className="flex flex-col gap-10 lg:flex-row lg:items-start lg:justify-between lg:gap-16">
-          {/* 브랜드 · 상단 GNB와 중복되지 않는 소개만 */}
           <div className="max-w-lg space-y-4">
             <Link
               href="/"
@@ -35,19 +34,18 @@ export function LandingSiteFooter() {
               style={{ fontFamily: "var(--font-heading)" }}
             >
               <span className="flex h-10 w-10 items-center justify-center rounded-2xl border border-zinc-700 bg-zinc-900/50">
-                <Music className="h-5 w-5 text-cyan-400" strokeWidth={1.25} />
+                <Music className="h-5 w-5 text-maestro-400" strokeWidth={1.25} />
               </span>
               <span className="text-xl font-bold tracking-tight">maestro</span>
             </Link>
             <p className="text-sm leading-relaxed text-zinc-500">
-              장르를 이해하는 AI로, 스포티파이·숏폼에 맞는 아티스틱 비주얼을 만듭니다.
+              장르를 이해하는 AI가 만드는 스포티파이·숏폼 최적화 아티스틱 비주얼.
             </p>
             <p className="text-xs text-zinc-600">
               베타 서비스 운영 중 · 문의: support@maestro.example
             </p>
           </div>
 
-          {/* 법적 고지 · 소셜 — GNB에 없는 링크만 */}
           <div className="flex flex-col gap-6 sm:gap-8 lg:max-w-md lg:items-end">
             <div className="flex flex-wrap gap-2 lg:justify-end">
               <a
@@ -94,25 +92,19 @@ export function LandingSiteFooter() {
             </div>
 
             <nav
-              aria-label="법적 고지 및 라이선스"
+              aria-label="법적 고지 및 사이트맵"
               className="flex flex-col gap-3 text-sm sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-1 sm:gap-y-2 lg:justify-end"
             >
               <Link href="/licensing" className={footerLinkClass}>
                 저작권 및 라이선스
               </Link>
-              <span
-                className="hidden text-zinc-700 sm:inline"
-                aria-hidden
-              >
+              <span className="hidden text-zinc-700 sm:inline" aria-hidden>
                 &nbsp;·&nbsp;
               </span>
               <Link href="/terms" className={footerLinkClass}>
                 이용약관
               </Link>
-              <span
-                className="hidden text-zinc-700 sm:inline"
-                aria-hidden
-              >
+              <span className="hidden text-zinc-700 sm:inline" aria-hidden>
                 &nbsp;·&nbsp;
               </span>
               <Link href="/privacy" className={footerLinkClass}>

@@ -1,10 +1,15 @@
-import { MarketingPlaceholder } from "@/components/marketing/marketing-placeholder"
+import { FaqEntryForm } from "@/components/domain-forms/domain-forms"
+import { DomainFormShell } from "@/components/marketing/domain-form-shell"
 
 export default function AdminFaqRegisterPage() {
   return (
-    <MarketingPlaceholder
+    <DomainFormShell
       title="FAQ 등록"
-      lead="FAQ 항목을 추가·편집·정렬하는 관리자 화면을 준비 중입니다."
-    />
+      lead="FastAPI POST /api/domain/faq 로 DB에 저장합니다."
+      backHref="/admin"
+      backLabel="관리 홈"
+    >
+      <FaqEntryForm />
+    </DomainFormShell>
   )
 }

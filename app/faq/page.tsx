@@ -1,13 +1,10 @@
-import { FaqEntryForm } from "@/components/domain-forms/domain-forms"
-import { DomainFormShell } from "@/components/marketing/domain-form-shell"
+import { MarketingPlaceholder } from "@/components/marketing/marketing-placeholder"
 
 export default function FaqPage() {
   return (
-    <DomainFormShell
+    <MarketingPlaceholder
       title="FAQ"
-      lead="카테고리·질문·답변을 적어 두면 향후 FAQ API와 렌더 모듈에 연결하기 쉽습니다."
-    >
-      <FaqEntryForm />
-    </DomainFormShell>
+      lead="캔버스 등록, 계정, 요금 등 자주 묻는 질문을 정리해 둘 예정입니다."
+    />
   )
 }

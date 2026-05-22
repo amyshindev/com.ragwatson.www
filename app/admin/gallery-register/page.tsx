@@ -1,10 +1,15 @@
-import { MarketingPlaceholder } from "@/components/marketing/marketing-placeholder"
+import { GalleryEntryForm } from "@/components/domain-forms/domain-forms"
+import { DomainFormShell } from "@/components/marketing/domain-form-shell"
 
 export default function AdminGalleryRegisterPage() {
   return (
-    <MarketingPlaceholder
+    <DomainFormShell
       title="갤러리 등록"
-      lead="커뮤니티 갤러리에 노출할 작품을 등록·심사하는 관리자 화면을 준비 중입니다."
-    />
+      lead="FastAPI POST /api/domain/gallery 로 DB에 저장합니다."
+      backHref="/admin"
+      backLabel="관리 홈"
+    >
+      <GalleryEntryForm />
+    </DomainFormShell>
   )
 }

@@ -99,11 +99,60 @@
   }
 }
 
+/*
+ * Mountain dusk palette: #161638 #1B435E #38667E #563457 #3A2B50
+ */
 .landing-hero-mesh {
   background:
-    radial-gradient(ellipse 80% 60% at 30% 20%, rgba(0, 255, 200, 0.06) 0%, transparent 55%),
-    radial-gradient(ellipse 70% 50% at 80% 70%, rgba(120, 0, 255, 0.08) 0%, transparent 50%),
-    linear-gradient(180deg, #0a0a0a 0%, #0d0d0f 45%, #0a0a0a 100%);
+    radial-gradient(
+      ellipse 95% 70% at 50% 8%,
+      rgba(27, 67, 94, 0.45) 0%,
+      transparent 55%
+    ),
+    radial-gradient(
+      ellipse 90% 55% at 48% 62%,
+      rgba(86, 52, 87, 0.38) 0%,
+      transparent 52%
+    ),
+    radial-gradient(
+      ellipse 80% 60% at 78% 38%,
+      rgba(56, 102, 126, 0.28) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      ellipse 70% 50% at 22% 72%,
+      rgba(58, 43, 80, 0.32) 0%,
+      transparent 48%
+    ),
+    linear-gradient(
+      180deg,
+      #161638 0%,
+      #1b435e 22%,
+      #38667e 42%,
+      #563457 58%,
+      #3a2b50 76%,
+      #161638 100%
+    );
+}
+
+.landing-hero-parallax-glow {
+  opacity: 0.42;
+  background-image:
+    radial-gradient(
+      circle at 22% 18%,
+      rgba(56, 102, 126, 0.55) 0%,
+      transparent 44%
+    ),
+    radial-gradient(
+      circle at 72% 28%,
+      rgba(27, 67, 94, 0.5) 0%,
+      transparent 42%
+    ),
+    radial-gradient(
+      circle at 50% 72%,
+      rgba(86, 52, 87, 0.48) 0%,
+      transparent 48%
+    );
 }
 
 .landing-hero-mesh.landing-scanlines {
@@ -115,9 +164,35 @@
       rgba(255, 255, 255, 0.02) 2px,
       rgba(255, 255, 255, 0.02) 4px
     ),
-    radial-gradient(ellipse 80% 60% at 30% 20%, rgba(0, 255, 200, 0.06) 0%, transparent 55%),
-    radial-gradient(ellipse 70% 50% at 80% 70%, rgba(120, 0, 255, 0.08) 0%, transparent 50%),
-    linear-gradient(180deg, #0a0a0a 0%, #0d0d0f 45%, #0a0a0a 100%);
+    radial-gradient(
+      ellipse 95% 70% at 50% 8%,
+      rgba(27, 67, 94, 0.45) 0%,
+      transparent 55%
+    ),
+    radial-gradient(
+      ellipse 90% 55% at 48% 62%,
+      rgba(86, 52, 87, 0.38) 0%,
+      transparent 52%
+    ),
+    radial-gradient(
+      ellipse 80% 60% at 78% 38%,
+      rgba(56, 102, 126, 0.28) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      ellipse 70% 50% at 22% 72%,
+      rgba(58, 43, 80, 0.32) 0%,
+      transparent 48%
+    ),
+    linear-gradient(
+      180deg,
+      #161638 0%,
+      #1b435e 22%,
+      #38667e 42%,
+      #563457 58%,
+      #3a2b50 76%,
+      #161638 100%
+    );
   animation: landing-scan 8s linear infinite;
 }
 

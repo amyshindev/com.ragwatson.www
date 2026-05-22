@@ -1,10 +1,15 @@
-import { MarketingPlaceholder } from "@/components/marketing/marketing-placeholder"
+import { MagazineArticleForm } from "@/components/domain-forms/domain-forms"
+import { DomainFormShell } from "@/components/marketing/domain-form-shell"
 
 export default function AdminMagazineRegisterPage() {
   return (
-    <MarketingPlaceholder
+    <DomainFormShell
       title="매거진 등록"
-      lead="매거진에 게시할 아티클을 작성·발행하는 관리자 화면을 준비 중입니다."
-    />
+      lead="FastAPI POST /api/domain/magazine 로 DB에 저장합니다."
+      backHref="/admin"
+      backLabel="관리 홈"
+    >
+      <MagazineArticleForm />
+    </DomainFormShell>
   )
 }

@@ -1,13 +1,14 @@
-import { PricingInquiryForm } from "@/components/domain-forms/domain-forms"
 import { DomainFormShell } from "@/components/marketing/domain-form-shell"
 
 export default function PricingPage() {
   return (
     <DomainFormShell
-      title="멤버십"
-      lead="플랜 선택과 문의 내용을 남겨 두세요. 결제(PG) 연동 전까지는 데모로만 동작합니다."
+      title="요금제"
+      lead="무료·프로·팀 플랜 비교는 준비 중입니다."
     >
-      <PricingInquiryForm />
+      <p className="text-sm text-zinc-500">
+        플랜 비교표와 문의 폼은 추후 업데이트됩니다.
+      </p>
     </DomainFormShell>
   )
 }
