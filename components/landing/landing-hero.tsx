@@ -59,7 +59,7 @@ export function LandingHero() {
             Your sound. Visualized.
           </h1>
           <p className="landing-hero-desc mx-auto mt-6 max-w-2xl leading-relaxed text-white sm:mt-8">
-            장르를 이해하는 AI 에이전트가 만드는 스포티파이·숏폼 최적화 아티스틱 비주얼.
+            장르를 이해하는 AI 에이전트로, 숏폼 최적화 아티스틱 비주얼을.
           </p>
         </div>
       </motion.div>
