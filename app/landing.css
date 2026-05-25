@@ -23,10 +23,10 @@
 
 /* Hero typography: scale with viewport so 1080p does not clip */
 .landing-hero-title {
-  font-size: clamp(2.25rem, 2.5vw + 2.8vh, 4.25rem);
-  line-height: 1.2;
+  font-size: clamp(1.75rem, 5.8vw, 4.25rem);
+  line-height: 1.08;
+  white-space: nowrap;
   word-break: keep-all;
-  text-wrap: balance;
 }
 
 .landing-hero-subtitle {
@@ -35,6 +35,9 @@
 
 .landing-hero-desc {
   font-size: clamp(0.9375rem, 0.5vw + 1vh, 1.125rem);
+  line-height: 1.7;
+  overflow-wrap: normal;
+  word-break: keep-all;
 }
 
 /* Full-viewport CTA — scale with viewport like hero */
@@ -75,7 +78,7 @@
 
 @media (max-height: 900px) {
   .landing-hero-title {
-    font-size: clamp(2rem, 2vw + 2.2vh, 3.25rem);
+    font-size: clamp(1.55rem, 5.2vw, 3.25rem);
   }
 
   .landing-hero-subtitle {

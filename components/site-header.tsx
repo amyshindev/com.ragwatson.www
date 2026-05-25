@@ -16,7 +16,7 @@ import { clearAuthUser, useAuthSession } from "@/lib/auth-session"
 import { cn } from "@/lib/utils"
 
 const navLinkButtonClass =
-  "rounded-full bg-transparent px-3 py-2 text-xs font-bold shadow-none hover:bg-transparent sm:px-4 sm:text-sm"
+  "shrink-0 whitespace-nowrap rounded-full bg-transparent px-2.5 py-2 text-xs font-bold shadow-none hover:bg-transparent sm:px-4 sm:text-sm"
 
 const TRANSPARENT_NAV_PATHS = [
   "/",
@@ -69,8 +69,8 @@ export function SiteHeader() {
             : "border-b border-white/60 bg-white/55 shadow-sm shadow-slate-900/[0.06] backdrop-blur-xl",
       )}
     >
-      <div className="relative z-10 mx-auto max-w-7xl px-6 py-4">
-        <div className="flex items-center justify-between gap-4">
+      <div className="relative z-10 mx-auto max-w-7xl px-4 py-4 sm:px-6">
+        <div className="flex items-center justify-between gap-3 sm:gap-4">
           <Link href="/" className="flex shrink-0 items-center gap-3">
             <div
               className={cn(
@@ -100,7 +100,7 @@ export function SiteHeader() {
             </span>
           </Link>
 
-          <div className="flex flex-wrap items-center justify-end gap-x-2 gap-y-2 sm:gap-3">
+          <div className="flex min-w-0 flex-1 items-center gap-1 overflow-x-auto whitespace-nowrap [scrollbar-width:none] sm:justify-end sm:gap-3 [&::-webkit-scrollbar]:hidden">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button
@@ -126,7 +126,9 @@ export function SiteHeader() {
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
-            <SeoulWeather light={isDarkHeader} />
+            <div className="shrink-0">
+              <SeoulWeather light={isDarkHeader} />
+            </div>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button
@@ -170,7 +172,7 @@ export function SiteHeader() {
             <Button
               asChild
               variant="outline"
-              className="rounded-none border-maestro-500/45 bg-maestro-950/25 px-3 py-2 text-xs font-bold text-maestro-300 shadow-none hover:border-maestro-400/70 hover:bg-maestro-950/40 hover:text-maestro-200 sm:px-4 sm:text-sm"
+              className="shrink-0 whitespace-nowrap rounded-none border-maestro-500/45 bg-maestro-950/25 px-3 py-2 text-xs font-bold text-maestro-300 shadow-none hover:border-maestro-400/70 hover:bg-maestro-950/40 hover:text-maestro-200 sm:px-4 sm:text-sm"
             >
               <Link href="/studio">스튜디오로 가기</Link>
             </Button>

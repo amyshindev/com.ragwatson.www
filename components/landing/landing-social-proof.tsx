@@ -6,7 +6,7 @@ const DELIVERABLES = [
   "Spotify Canvas 규격 (9:16 vertical) 지원",
   "TikTok / Reels / Shorts 최적화",
   "고화질 루프 비디오 (MP4 export)",
-  "숏폼 바이럴을 위한 최적적인 치트키",
+  "숏폼 바이럴을 위한 최적의 치트키",
 ] as const
 
 const TESTIMONIALS = [
@@ -15,7 +15,7 @@ const TESTIMONIALS = [
     author: "maestro stats",
   },
   {
-    quote: "캔버스 하나만 올리면 스트리밍 체류 시간이 확 늘었어요.",
+    quote: "캔버스 하나만 올렸는데 스트리밍 체류 시간이 확 늘었어요.",
     author: "bedroom producer · 서울",
   },
   {

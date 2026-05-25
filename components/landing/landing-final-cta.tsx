@@ -6,10 +6,13 @@ import { LandingUploadZone } from "@/components/landing/landing-upload-zone"
 
 export function LandingFinalCta() {
   return (
-    <section className="landing-final-cta-section relative box-border flex min-h-[100dvh] min-h-[100svh] w-full items-center justify-center border-t border-white/5 bg-[#0a0a0a] px-4 py-16 sm:px-6 sm:py-20">
+    <section
+      id="landing-final-cta"
+      className="landing-final-cta-section relative box-border flex min-h-[100dvh] min-h-[100svh] w-full items-center justify-center border-t border-white/5 bg-[#0a0a0a] px-4 py-16 sm:px-6 sm:py-20"
+    >
       <SectionReveal className="flex w-full max-w-5xl flex-col items-center text-center">
         <h2 className="landing-final-cta-title font-semibold tracking-tight text-zinc-100">
-          지금 바로 당신의 사운드를 비주얼로.
+          지금 바로 당신의 음악을 눈앞에서.
         </h2>
         <p className="landing-final-cta-subtitle mt-5 w-full text-zinc-500 sm:mt-6">
           무료로 시작하세요. 카드 없이.
