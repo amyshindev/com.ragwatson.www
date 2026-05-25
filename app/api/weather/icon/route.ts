@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server"
 
 export const revalidate = 86400
 
-/** Proxy OWM icons — avoids hotlink/referrer blocks in production browsers */
+/** Proxy OWM icons to avoid hotlink/referrer blocks in production browsers. */
 export async function GET(request: NextRequest) {
   const code = request.nextUrl.searchParams.get("code")?.trim()
   if (!code || !/^[0-9]{2}[dn]$/i.test(code)) {
