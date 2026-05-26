@@ -137,6 +137,26 @@
   }
 }
 
+@media (max-width: 1023.98px) {
+  .site-header-desktop-nav {
+    display: none !important;
+  }
+
+  .site-header-mobile-actions {
+    display: flex !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  .site-header-desktop-nav {
+    display: flex !important;
+  }
+
+  .site-header-mobile-actions {
+    display: none !important;
+  }
+}
+
 @keyframes flow {
   0%, 100% {
     transform: translateX(0) translateY(0);
