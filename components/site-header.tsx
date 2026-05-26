@@ -111,9 +111,9 @@ export function SiteHeader() {
                   variant="ghost"
                   className={cn(navLinkClass, "gap-1")}
                   aria-haspopup="menu"
-                  aria-label="수업용 메뉴"
+                  aria-label="Lesson 메뉴"
                 >
-                  수업용
+                  Lesson
                   <ChevronDown className="h-4 w-4 opacity-70" aria-hidden />
                 </Button>
               </DropdownMenuTrigger>
@@ -337,10 +337,9 @@ export function SiteHeader() {
                 <DropdownMenuSeparator className="bg-zinc-800" />
                 <DropdownMenuSub>
                   <DropdownMenuSubTrigger className="cursor-pointer focus:bg-zinc-800 focus:text-maestro-300 data-[state=open]:bg-zinc-800 data-[state=open]:text-maestro-300 [&>svg]:order-first [&>svg]:!ml-0 [&>svg]:rotate-180">
-                    수업용
+                    Lesson
                   </DropdownMenuSubTrigger>
                   <DropdownMenuSubContent
-                    side="left"
                     sideOffset={8}
                     className="min-w-[10rem] border-zinc-800 bg-zinc-950 text-zinc-100"
                   >
@@ -357,7 +356,6 @@ export function SiteHeader() {
                     둘러보기
                   </DropdownMenuSubTrigger>
                   <DropdownMenuSubContent
-                    side="left"
                     sideOffset={8}
                     className="min-w-[10rem] border-zinc-800 bg-zinc-950 text-zinc-100"
                   >
