@@ -25,7 +25,7 @@ const hubs = [
     Icon: Sparkles,
   },
   {
-    href: "/library",
+    href: "/studio/library",
     title: "마이 아카이브",
     role: "업로드한 프로젝트와 완성된 비주얼을 관리하는 개인 저장소입니다.",
     detail:

@@ -4,8 +4,6 @@ import {
   BookOpen,
   HelpCircle,
   ImageIcon,
-  Library,
-  Sparkles,
 } from "lucide-react"
 
 const tasks = [
@@ -28,22 +26,10 @@ const tasks = [
     Icon: HelpCircle,
   },
   {
-    href: "/admin/library",
-    title: "아카이브 인입",
-    description: "마이 라이브러리 프로젝트·태그",
-    Icon: Library,
-  },
-  {
     href: "/admin/studio-analytics",
     title: "오디오 분석 인입",
     description: "트랙·BPM·무드 분석 데이터",
     Icon: BarChart3,
-  },
-  {
-    href: "/admin/studio-workspace",
-    title: "워크스페이스 인입",
-    description: "비주얼 커스텀 프리셋·글리치 설정",
-    Icon: Sparkles,
   },
 ] as const
 

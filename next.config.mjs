@@ -10,6 +10,7 @@ const nextConfig = {
     return [
       { source: "/artists", destination: "/magazine", permanent: true },
       { source: "/explore", destination: "/gallery", permanent: true },
+      { source: "/library", destination: "/studio/library", permanent: true },
     ]
   },
 }

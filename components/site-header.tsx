@@ -35,10 +35,9 @@ const TRANSPARENT_NAV_PATHS = [
   "/licensing",
   "/terms",
   "/privacy",
-  "/library",
+  "/studio/library",
   "/billing",
   "/account",
-  "/features",
   "/pricing",
 ] as const
 
@@ -163,9 +162,6 @@ export function SiteHeader() {
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
-            <Button asChild variant="ghost" className={navLinkClass}>
-              <Link href="/features">기술 소개</Link>
-            </Button>
             <Button asChild variant="ghost" className={navLinkClass}>
               <Link href="/pricing">멤버십</Link>
             </Button>
@@ -374,12 +370,6 @@ export function SiteHeader() {
                   </DropdownMenuSubContent>
                 </DropdownMenuSub>
                 <DropdownMenuSeparator className="bg-zinc-800" />
-                <DropdownMenuItem
-                  asChild
-                  className="cursor-pointer focus:bg-zinc-800 focus:text-maestro-300"
-                >
-                  <Link href="/features">기술 소개</Link>
-                </DropdownMenuItem>
                 <DropdownMenuItem
                   asChild
                   className="cursor-pointer focus:bg-zinc-800 focus:text-maestro-300"

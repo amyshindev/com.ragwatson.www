@@ -15,6 +15,11 @@ const STEPS = [
     icon: Brain,
     title: "AI Aesthetic Analysis",
     description: "AI가 곡의 BPM, 악기 구성, 장르적 감성을 매핑합니다.",
+    details: [
+      "BPM, 에너지, 무드, 장르 신호를 추출해 비주얼 생성의 기준점으로 사용합니다.",
+      "곡의 분위기에 맞는 색감, 움직임, 질감을 조합해 숏폼에 어울리는 화면 언어로 변환합니다.",
+      "분석 결과와 프롬프트를 바탕으로 Spotify Canvas, Reels, Shorts에 맞는 루프 비주얼을 만듭니다.",
+    ],
   },
   {
     icon: Clapperboard,
@@ -27,7 +32,7 @@ const STEPS = [
 export function LandingHowItWorks() {
   return (
     <section
-      id="features"
+      id="how-it-works"
       className="scroll-mt-24 border-y border-white/5 bg-[#111114] px-4 py-20 sm:px-6 md:py-28"
     >
       <div className="mx-auto max-w-6xl text-center">
@@ -55,6 +60,18 @@ export function LandingHowItWorks() {
                   <p className="mt-2 text-sm leading-relaxed text-zinc-500 sm:text-base">
                     {step.description}
                   </p>
+                  {"details" in step ? (
+                    <ul className="mt-5 space-y-2 text-left text-xs leading-relaxed text-zinc-500 sm:text-sm">
+                      {step.details.map((detail) => (
+                        <li key={detail} className="flex gap-2">
+                          <span className="text-maestro-500/90" aria-hidden>
+                            ✓
+                          </span>
+                          <span>{detail}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  ) : null}
                 </SectionReveal>
                 {index < STEPS.length - 1 && (
                   <ArrowDown

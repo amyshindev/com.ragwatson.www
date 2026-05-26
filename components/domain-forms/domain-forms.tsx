@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
+import { getAuthUser } from "@/lib/auth-session"
 import { cn } from "@/lib/utils"
 
 const fieldClass =
@@ -58,10 +59,14 @@ async function submitDomainForm(
     body[key] = typeof value === "string" ? value : ""
   })
   const url = `${backendBaseUrl()}${path}`
+  const authUser = getAuthUser()
   try {
     const res = await fetch(url, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        ...(authUser ? { "X-Maestro-User-Id": String(authUser.id) } : {}),
+      },
       body: JSON.stringify(body),
     })
     const raw = await res.text()

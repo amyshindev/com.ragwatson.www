@@ -1,7 +1,7 @@
 import { LibraryDataForm } from "@/components/domain-forms/domain-forms"
 import { DomainFormShell } from "@/components/marketing/domain-form-shell"
 
-export default function LibraryPage() {
+export default function StudioLibraryPage() {
   return (
     <DomainFormShell
       title="마이 아카이브"
