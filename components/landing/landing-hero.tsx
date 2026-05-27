@@ -59,7 +59,8 @@ export function LandingHero() {
             Your sound, through our eye.
           </h1>
           <p className="landing-hero-desc mx-auto mt-6 max-w-2xl leading-relaxed text-white sm:mt-8">
-            당신의 음악을 이해하는 AI 에이전트로, 숏폼 최적화 아티스틱 비주얼을.
+            당신의 음악을 이해하는 AI 에이전트로,
+            <br className="sm:hidden" /> 숏폼 최적화 아티스틱 비주얼을.
           </p>
         </div>
       </motion.div>

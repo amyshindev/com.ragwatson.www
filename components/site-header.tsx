@@ -120,12 +120,19 @@ export function SiteHeader() {
                 align="end"
                 className="min-w-[10rem] border-zinc-800 bg-zinc-950 text-zinc-100"
               >
-                <DropdownMenuItem
-                  asChild
-                  className="cursor-pointer focus:bg-zinc-800 focus:text-maestro-300"
-                >
-                  <Link href="/titanic">타이타닉</Link>
-                </DropdownMenuItem>
+                <DropdownMenuSub>
+                  <DropdownMenuSubTrigger className="cursor-pointer focus:bg-zinc-800 focus:text-maestro-300 data-[state=open]:bg-zinc-800 data-[state=open]:text-maestro-300">
+                    타이타닉
+                  </DropdownMenuSubTrigger>
+                  <DropdownMenuSubContent className="min-w-[11rem] border-zinc-800 bg-zinc-950 text-zinc-100">
+                    <DropdownMenuItem
+                      asChild
+                      className="cursor-pointer focus:bg-zinc-800 focus:text-maestro-300"
+                    >
+                      <Link href="/titanic#data-collection">1. 데이터 수집</Link>
+                    </DropdownMenuItem>
+                  </DropdownMenuSubContent>
+                </DropdownMenuSub>
               </DropdownMenuContent>
             </DropdownMenu>
             <div className="shrink-0">
@@ -339,12 +346,22 @@ export function SiteHeader() {
                     sideOffset={8}
                     className="min-w-[10rem] border-zinc-800 bg-zinc-950 text-zinc-100"
                   >
-                    <DropdownMenuItem
-                      asChild
-                      className="cursor-pointer focus:bg-zinc-800 focus:text-maestro-300"
-                    >
-                      <Link href="/titanic">타이타닉</Link>
-                    </DropdownMenuItem>
+                    <DropdownMenuSub>
+                      <DropdownMenuSubTrigger className="cursor-pointer focus:bg-zinc-800 focus:text-maestro-300 data-[state=open]:bg-zinc-800 data-[state=open]:text-maestro-300">
+                        타이타닉
+                      </DropdownMenuSubTrigger>
+                      <DropdownMenuSubContent
+                        sideOffset={8}
+                        className="min-w-[11rem] border-zinc-800 bg-zinc-950 text-zinc-100"
+                      >
+                        <DropdownMenuItem
+                          asChild
+                          className="cursor-pointer focus:bg-zinc-800 focus:text-maestro-300"
+                        >
+                          <Link href="/titanic#data-collection">1. 데이터 수집</Link>
+                        </DropdownMenuItem>
+                      </DropdownMenuSubContent>
+                    </DropdownMenuSub>
                   </DropdownMenuSubContent>
                 </DropdownMenuSub>
                 <DropdownMenuSub>
