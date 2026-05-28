@@ -1,10 +1,10 @@
 "use client"
 
-import { useCallback, useRef, useState } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 import { FileUp, Loader2, Trash2 } from "lucide-react"
+import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { Label } from "@/components/ui/label"
 import {
   Table,
   TableBody,
@@ -21,14 +21,43 @@ function parseCsvPreview(text: string, maxLines: number): string[][] {
 }
 
 export default function TitanicHomePage() {
+  const apiBase = process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://127.0.0.1:8000"
+  const rowsPerPage = 50
   const inputRef = useRef<HTMLInputElement>(null)
   const [file, setFile] = useState<File | null>(null)
   const [preview, setPreview] = useState<string[][]>([])
+  const [currentPage, setCurrentPage] = useState(1)
   const [dragActive, setDragActive] = useState(false)
   const [uploading, setUploading] = useState(false)
   const [message, setMessage] = useState<{ type: "ok" | "err"; text: string } | null>(
     null,
   )
+  const [lastUploadedInfo, setLastUploadedInfo] = useState<{
+    filename: string
+    count: number
+  } | null>(null)
+
+  useEffect(() => {
+    const hasUploaded = localStorage.getItem("hasUploadedTitanicData") === "true"
+    const rawInfo = localStorage.getItem("titanicLastUploadInfo")
+    if (!hasUploaded || !rawInfo) return
+
+    try {
+      const parsed = JSON.parse(rawInfo) as { filename?: string; count?: number }
+      if (!parsed.filename) return
+      const restored = {
+        filename: parsed.filename,
+        count: Number(parsed.count ?? 0),
+      }
+      setLastUploadedInfo(restored)
+      setMessage({
+        type: "ok",
+        text: `업로드 완료: ${restored.filename} (${restored.count} rows)`,
+      })
+    } catch {
+      localStorage.removeItem("titanicLastUploadInfo")
+    }
+  }, [])
 
   const loadFile = useCallback(async (f: File) => {
     if (!f.name.toLowerCase().endsWith(".csv")) {
@@ -38,7 +67,8 @@ export default function TitanicHomePage() {
     setFile(f)
     setMessage(null)
     const text = await f.text()
-    setPreview(parseCsvPreview(text, 8))
+    setPreview(parseCsvPreview(text, Number.MAX_SAFE_INTEGER))
+    setCurrentPage(1)
   }, [])
 
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -57,7 +87,11 @@ export default function TitanicHomePage() {
   const clearFile = () => {
     setFile(null)
     setPreview([])
+    setCurrentPage(1)
     setMessage(null)
+    setLastUploadedInfo(null)
+    localStorage.removeItem("hasUploadedTitanicData")
+    localStorage.removeItem("titanicLastUploadInfo")
   }
 
   const upload = async () => {
@@ -67,27 +101,55 @@ export default function TitanicHomePage() {
     try {
       const fd = new FormData()
       fd.append("file", file)
-      const res = await fetch("/api/titanic/csv", { method: "POST", body: fd })
-      const data = (await res.json()) as { ok?: boolean; error?: string; filename?: string; size?: number }
+      const res = await fetch(`${apiBase}/api/james/v1/upload`, { method: "POST", body: fd })
+      const data = (await res.json()) as {
+        detail?: string
+        error?: string
+        filename?: string
+        count?: number
+      }
       if (!res.ok) {
-        setMessage({ type: "err", text: data.error ?? "업로드에 실패했습니다." })
+        setMessage({ type: "err", text: data.detail ?? data.error ?? "업로드에 실패했습니다." })
+        localStorage.removeItem("hasUploadedTitanicData")
         return
       }
       setMessage({
         type: "ok",
-        text: `업로드 완료: ${data.filename} (${(data.size! / 1024).toFixed(1)} KB)`,
+        text: `업로드 완료: ${data.filename ?? file.name} (${data.count ?? 0} rows)`,
       })
+      const uploadedInfo = {
+        filename: data.filename ?? file.name,
+        count: data.count ?? 0,
+      }
+      setLastUploadedInfo(uploadedInfo)
+      localStorage.setItem("hasUploadedTitanicData", "true")
+      localStorage.setItem("titanicLastUploadInfo", JSON.stringify(uploadedInfo))
     } catch {
       setMessage({ type: "err", text: "네트워크 오류가 발생했습니다." })
+      localStorage.removeItem("hasUploadedTitanicData")
+      localStorage.removeItem("titanicLastUploadInfo")
     } finally {
       setUploading(false)
     }
   }
 
+  const header = preview[0] ?? []
+  const dataRows = preview.slice(1)
+  const totalPages = Math.max(1, Math.ceil(dataRows.length / rowsPerPage))
+  const safePage = Math.min(currentPage, totalPages)
+  const start = (safePage - 1) * rowsPerPage
+  const pageRows = dataRows.slice(start, start + rowsPerPage)
+  const pageWindowStart = Math.max(1, safePage - 2)
+  const pageWindowEnd = Math.min(totalPages, safePage + 2)
+  const visiblePages = Array.from(
+    { length: pageWindowEnd - pageWindowStart + 1 },
+    (_, i) => pageWindowStart + i,
+  )
+
   return (
-    <div className="relative -mt-20 min-h-[100dvh] overflow-hidden">
+    <div className="relative -mt-20 min-h-screen overflow-x-hidden">
       <div
-        className="absolute inset-0 scale-105 bg-cover bg-center bg-no-repeat"
+        className="fixed inset-0 scale-105 bg-cover bg-center bg-no-repeat"
         style={{
           backgroundImage: "url(/titanic-ship-bg.png)",
           filter: "grayscale(1) brightness(0.32) contrast(1.12)",
@@ -95,13 +157,32 @@ export default function TitanicHomePage() {
         aria-hidden
       />
       <div
-        className="absolute inset-0 bg-gradient-to-b from-black/82 via-zinc-950/88 to-black/92"
+        className="fixed inset-0 bg-gradient-to-b from-black/82 via-zinc-950/88 to-black/92"
         aria-hidden
       />
 
-      <div className="relative z-10 mt-20 flex min-h-[calc(100dvh-5rem)] w-full overflow-y-auto px-4 py-8 text-white md:px-6">
-        <div className="mx-auto w-full max-w-6xl space-y-8">
-          <div className="mx-auto w-full max-w-4xl">
+      <div className="relative z-10 mt-20 w-full px-4 py-8 pb-16 text-white md:px-6">
+        <div className="mx-auto flex w-full max-w-6xl gap-6">
+          <aside className="sticky top-24 hidden h-fit w-52 rounded-xl border border-blue-400/20 bg-zinc-950/45 p-3 backdrop-blur md:block">
+            <p className="mb-2 text-xs font-semibold tracking-wide text-blue-200/75">섹션</p>
+            <nav className="space-y-1">
+              <a
+                href="#data-collection"
+                className="block rounded-md px-3 py-2 text-sm text-white/85 transition hover:bg-white/10 hover:text-white"
+              >
+                1. 데이터 수집
+              </a>
+              <Link
+                href="/titanic/preview"
+                className="block rounded-md px-3 py-2 text-sm text-white/85 transition hover:bg-white/10 hover:text-white"
+              >
+                2. 자료 보기
+              </Link>
+            </nav>
+          </aside>
+
+          <div className="w-full space-y-8">
+            <div className="mx-auto w-full max-w-4xl">
             <h1
               className="text-2xl font-bold tracking-tight text-white drop-shadow md:text-3xl"
               style={{ fontFamily: "var(--font-heading)" }}
@@ -155,28 +236,30 @@ export default function TitanicHomePage() {
                   "flex cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed px-6 py-14 transition-colors",
                   dragActive
                     ? "border-blue-400 bg-blue-500/20 shadow-inner shadow-blue-500/20 backdrop-blur-sm"
-                    : "border-white/30 bg-white/[0.06] hover:border-blue-400/40 hover:bg-blue-500/10 backdrop-blur-sm",
+                    : file
+                      ? "border-blue-400/55 bg-blue-500/10 backdrop-blur-sm"
+                      : "border-white/30 bg-white/[0.06] hover:border-blue-400/40 hover:bg-blue-500/10 backdrop-blur-sm",
                 )}
               >
                 <FileUp className="mb-3 h-10 w-10 text-blue-300" />
-                <p className="text-center font-medium text-white/95">클릭하여 파일 선택</p>
-                <p className="mt-1 text-center text-sm text-blue-200/85">
-                  또는 CSV 파일을 이 영역으로 드래그
+                <p className="text-center font-medium text-white/95">
+                  {file ? file.name : "클릭하여 파일 선택"}
                 </p>
-              </div>
-
-              <div className="flex flex-wrap items-center gap-3">
-                <Label className="text-blue-200/90">선택된 파일</Label>
-                <span className="text-sm text-white/85">
-                  {file ? `${file.name} (${(file.size / 1024).toFixed(1)} KB)` : "없음"}
-                </span>
+                <p className="mt-1 text-center text-sm text-blue-200/85">
+                  {file
+                    ? `${(file.size / 1024).toFixed(1)} KB · 다른 CSV를 선택하려면 클릭`
+                    : "또는 CSV 파일을 이 영역으로 드래그"}
+                </p>
                 {file && (
                   <Button
                     type="button"
                     variant="outline"
                     size="sm"
-                    className="gap-1 border-white/20 bg-white/5 text-white hover:bg-white/10"
-                    onClick={clearFile}
+                    className="mt-4 gap-1 border-white/20 bg-white/5 text-white hover:bg-white/10"
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      clearFile()
+                    }}
                     disabled={uploading}
                   >
                     <Trash2 className="h-4 w-4" />
@@ -185,34 +268,23 @@ export default function TitanicHomePage() {
                 )}
               </div>
 
-              {preview.length > 0 && (
-                <div className="space-y-2">
-                  <p className="text-sm font-medium text-blue-100">미리보기 (최대 8행)</p>
-                  <Table>
-                    <TableHeader>
-                      <TableRow className="border-white/15 hover:bg-white/5">
-                        {(preview[0] ?? []).map((h, i) => (
-                          <TableHead key={i} className="text-blue-200/95">
-                            {h || `열 ${i + 1}`}
-                          </TableHead>
-                        ))}
-                      </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                      {preview.slice(1).map((row, ri) => (
-                        <TableRow key={ri} className="border-white/10 hover:bg-white/5">
-                          {(preview[0] ?? []).map((_, ci) => (
-                            <TableCell
-                              key={ci}
-                              className="max-w-[160px] truncate text-white/90"
-                            >
-                              {row[ci] ?? ""}
-                            </TableCell>
-                          ))}
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
+              {file && (
+                <div className="flex justify-end gap-2">
+                  <Button
+                    type="button"
+                    className="min-w-[120px] bg-[#2563eb] text-white shadow-md shadow-blue-500/25 hover:bg-[#1d4ed8]"
+                    disabled={uploading}
+                    onClick={() => void upload()}
+                  >
+                    {uploading ? (
+                      <>
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        업로드 중…
+                      </>
+                    ) : (
+                      "업로드"
+                    )}
+                  </Button>
                 </div>
               )}
 
@@ -228,26 +300,144 @@ export default function TitanicHomePage() {
                   {message.text}
                 </p>
               )}
+              {!file && lastUploadedInfo && (
+                <div className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2">
+                  <p className="text-xs text-blue-100/80">
+                    최근 업로드 유지됨: {lastUploadedInfo.filename} ({lastUploadedInfo.count} rows)
+                  </p>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    className="h-7 border-white/20 bg-white/5 px-2 text-xs text-white hover:bg-white/10"
+                    onClick={() => {
+                      setLastUploadedInfo(null)
+                      setMessage(null)
+                      localStorage.removeItem("hasUploadedTitanicData")
+                      localStorage.removeItem("titanicLastUploadInfo")
+                    }}
+                  >
+                    제거
+                  </Button>
+                </div>
+              )}
 
-              <div className="flex justify-end gap-2">
-                <Button
-                  type="button"
-                  className="min-w-[120px] bg-[#2563eb] text-white shadow-md shadow-blue-500/25 hover:bg-[#1d4ed8]"
-                  disabled={!file || uploading}
-                  onClick={() => void upload()}
-                >
-                  {uploading ? (
-                    <>
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      업로드 중…
-                    </>
-                  ) : (
-                    "업로드"
+              <div id="preview-section" className="space-y-2">
+                {preview.length > 0 ? (
+                  <>
+                  <p className="text-sm font-medium text-blue-100">
+                    미리보기 ({dataRows.length} rows, 페이지당 {rowsPerPage} rows)
+                  </p>
+                  <Table>
+                    <TableHeader>
+                      <TableRow className="border-white/15 hover:bg-white/5">
+                        {header.map((h, i) => (
+                          <TableHead key={i} className="text-blue-200/95">
+                            {h || `열 ${i + 1}`}
+                          </TableHead>
+                        ))}
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {pageRows.map((row, ri) => (
+                        <TableRow key={ri} className="border-white/10 hover:bg-white/5">
+                          {header.map((_, ci) => (
+                            <TableCell
+                              key={ci}
+                              className="max-w-[160px] truncate text-white/90"
+                            >
+                              {row[ci] ?? ""}
+                            </TableCell>
+                          ))}
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                  {totalPages > 1 && (
+                    <div className="flex flex-wrap items-center justify-between gap-3 pt-2">
+                      <p className="text-xs text-blue-200/80">
+                        {safePage} / {totalPages} 페이지
+                      </p>
+                      <div className="flex items-center gap-1 rounded-lg border border-white/10 bg-white/[0.03] p-1">
+                        <Button
+                          type="button"
+                          size="sm"
+                          variant="ghost"
+                          className="h-8 px-2 text-xs text-white/85 hover:bg-white/10 disabled:opacity-40"
+                          disabled={safePage === 1}
+                          onClick={() => setCurrentPage(safePage - 1)}
+                        >
+                          이전
+                        </Button>
+                        {pageWindowStart > 1 && (
+                          <>
+                            <Button
+                              type="button"
+                              size="sm"
+                              variant="ghost"
+                              className="h-8 min-w-8 px-2 text-xs text-white/85 hover:bg-white/10"
+                              onClick={() => setCurrentPage(1)}
+                            >
+                              1
+                            </Button>
+                            {pageWindowStart > 2 && (
+                              <span className="px-1 text-xs text-white/50">...</span>
+                            )}
+                          </>
+                        )}
+                        {visiblePages.map((page) => (
+                          <Button
+                            key={page}
+                            type="button"
+                            size="sm"
+                            variant={page === safePage ? "default" : "ghost"}
+                            className={
+                              page === safePage
+                                ? "h-8 min-w-8 bg-blue-600 px-2 text-xs text-white hover:bg-blue-700"
+                                : "h-8 min-w-8 px-2 text-xs text-white/85 hover:bg-white/10"
+                            }
+                            onClick={() => setCurrentPage(page)}
+                          >
+                            {page}
+                          </Button>
+                        ))}
+                        {pageWindowEnd < totalPages && (
+                          <>
+                            {pageWindowEnd < totalPages - 1 && (
+                              <span className="px-1 text-xs text-white/50">...</span>
+                            )}
+                            <Button
+                              type="button"
+                              size="sm"
+                              variant="ghost"
+                              className="h-8 min-w-8 px-2 text-xs text-white/85 hover:bg-white/10"
+                              onClick={() => setCurrentPage(totalPages)}
+                            >
+                              {totalPages}
+                            </Button>
+                          </>
+                        )}
+                        <Button
+                          type="button"
+                          size="sm"
+                          variant="ghost"
+                          className="h-8 px-2 text-xs text-white/85 hover:bg-white/10 disabled:opacity-40"
+                          disabled={safePage === totalPages}
+                          onClick={() => setCurrentPage(safePage + 1)}
+                        >
+                          다음
+                        </Button>
+                      </div>
+                    </div>
                   )}
-                </Button>
+                  </>
+                ) : (
+                  <p className="text-sm text-blue-100/75">CSV를 업로드하면 미리보기가 표시됩니다.</p>
+                )}
               </div>
             </CardContent>
           </Card>
+          </div>
         </div>
       </div>
     </div>
