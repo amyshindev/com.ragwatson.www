@@ -8,7 +8,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 
 export default function TitanicPreviewPage() {
   const apiBase = process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://127.0.0.1:8000"
-  const rowsPerPage = 50
+  const rowsPerPage = 15
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [rows, setRows] = useState<Record<string, unknown>[]>([])
