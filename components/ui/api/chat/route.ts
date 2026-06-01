@@ -48,7 +48,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(
       {
         error:
-          "백엔드에 연결할 수 없습니다. BACKEND_URL(Vercel)과 Railway 서버 상태를 확인하세요.",
+          "백엔드에 연결할 수 없습니다. BACKEND_URL 설정과 백엔드 서버 실행 여부를 확인하세요.",
       },
       { status: 503 },
     )
