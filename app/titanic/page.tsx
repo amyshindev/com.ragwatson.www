@@ -52,7 +52,7 @@ export default function TitanicHomePage() {
       setLastUploadedInfo(restored)
       setMessage({
         type: "ok",
-        text: `업로드 완료: ${restored.filename} (${restored.count} rows)`,
+        text: `업로드 완료: ${restored.filename}`,
       })
     } catch {
       localStorage.removeItem("titanicLastUploadInfo")
@@ -102,7 +102,8 @@ export default function TitanicHomePage() {
       const fd = new FormData()
       fd.append("file", file)
       const res = await fetch(`${apiBase}/api/james/v1/upload`, { method: "POST", body: fd })
-      const data = (await res.json()) as {
+      const raw = await res.text()
+      const data = (raw ? JSON.parse(raw) : {}) as {
         detail?: string
         error?: string
         filename?: string
@@ -115,7 +116,7 @@ export default function TitanicHomePage() {
       }
       setMessage({
         type: "ok",
-        text: `업로드 완료: ${data.filename ?? file.name} (${data.count ?? 0} rows)`,
+        text: `업로드 완료: ${data.filename ?? file.name}`,
       })
       const uploadedInfo = {
         filename: data.filename ?? file.name,
@@ -124,8 +125,11 @@ export default function TitanicHomePage() {
       setLastUploadedInfo(uploadedInfo)
       localStorage.setItem("hasUploadedTitanicData", "true")
       localStorage.setItem("titanicLastUploadInfo", JSON.stringify(uploadedInfo))
-    } catch {
-      setMessage({ type: "err", text: "네트워크 오류가 발생했습니다." })
+    } catch (error) {
+      setMessage({
+        type: "err",
+        text: error instanceof TypeError ? "네트워크 오류가 발생했습니다." : "응답 처리 중 오류가 발생했습니다.",
+      })
       localStorage.removeItem("hasUploadedTitanicData")
       localStorage.removeItem("titanicLastUploadInfo")
     } finally {
@@ -303,7 +307,7 @@ export default function TitanicHomePage() {
               {!file && lastUploadedInfo && (
                 <div className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2">
                   <p className="text-xs text-blue-100/80">
-                    최근 업로드 유지됨: {lastUploadedInfo.filename} ({lastUploadedInfo.count} rows)
+                    최근 업로드 유지됨: {lastUploadedInfo.filename}
                   </p>
                   <Button
                     type="button"
