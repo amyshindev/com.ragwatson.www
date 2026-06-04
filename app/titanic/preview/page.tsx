@@ -1,72 +1,66 @@
 "use client"
 
 import Link from "next/link"
-import { useEffect, useMemo, useState } from "react"
+import { useEffect, useState } from "react"
 
 import { Card, CardContent } from "@/components/ui/card"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 
+type WalterMyself = {
+  id: number
+  name: string
+  memo: string
+}
+
+const DEFAULT_WALTER: WalterMyself = {
+  id: 1,
+  name: "Walter",
+  memo: "월터는 타이타닉의 승무원이다.",
+}
+
 export default function TitanicPreviewPage() {
   const apiBase = process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://127.0.0.1:8000"
-  const rowsPerPage = 15
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
-  const [rows, setRows] = useState<Record<string, unknown>[]>([])
-  const [currentPage, setCurrentPage] = useState(1)
+  const [walter, setWalter] = useState<WalterMyself | null>(null)
 
   useEffect(() => {
-    const loadPreview = async () => {
-      const hasUploaded = localStorage.getItem("hasUploadedTitanicData") === "true"
-      if (!hasUploaded) {
-        setRows([])
-        setError("업로드 성공 후에만 자료를 볼 수 있습니다.")
-        setLoading(false)
-        return
-      }
-
+    const loadMyself = async () => {
       try {
         setLoading(true)
         setError(null)
-        const res = await fetch(`${apiBase}/api/walter/v1/preview`, {
+        const res = await fetch(`${apiBase}/api/walter/v1/myself`, {
           method: "GET",
           headers: { "Cache-Control": "no-cache" },
         })
-        const data = (await res.json()) as { detail?: string; items?: Record<string, unknown>[] }
+        const raw = await res.text()
+        const data = (raw ? JSON.parse(raw) : null) as {
+          detail?: string
+          id?: number
+          name?: string
+          memo?: string
+        } | null
+
         if (!res.ok) {
-          setError(data.detail ?? "자료를 불러오지 못했습니다.")
-          setRows([])
+          setError(data?.detail ?? "자료를 불러오지 못했습니다.")
+          setWalter(null)
           return
         }
-        const items = data.items ?? []
-        if (items.length === 0) {
-          setError("업로드된 자료가 없거나 서버가 재시작되었습니다. 다시 업로드해 주세요.")
-          setRows([])
-          localStorage.removeItem("hasUploadedTitanicData")
-          return
-        }
-        setRows(items)
-        setCurrentPage(1)
+
+        setWalter({
+          id: data?.id ?? DEFAULT_WALTER.id,
+          name: data?.name ?? DEFAULT_WALTER.name,
+          memo: data?.memo ?? DEFAULT_WALTER.memo,
+        })
       } catch {
         setError("네트워크 오류가 발생했습니다.")
-        setRows([])
+        setWalter(null)
       } finally {
         setLoading(false)
       }
     }
-    void loadPreview()
+    void loadMyself()
   }, [apiBase])
-
-  const columns = useMemo(() => Object.keys(rows[0] ?? {}), [rows])
-  const totalPages = Math.max(1, Math.ceil(rows.length / rowsPerPage))
-  const safePage = Math.min(currentPage, totalPages)
-  const start = (safePage - 1) * rowsPerPage
-  const pageRows = rows.slice(start, start + rowsPerPage)
-  const pageWindowStart = Math.max(1, safePage - 2)
-  const pageWindowEnd = Math.min(totalPages, safePage + 2)
-  const visiblePages = Array.from(
-    { length: pageWindowEnd - pageWindowStart + 1 },
-    (_, i) => pageWindowStart + i,
-  )
 
   return (
     <div className="relative -mt-20 min-h-screen overflow-x-hidden">
@@ -98,7 +92,7 @@ export default function TitanicPreviewPage() {
                 href="/titanic/preview"
                 className="block rounded-md bg-white/10 px-3 py-2 text-sm text-white"
               >
-                2. 자료 보기
+                2. 월터 자기소개
               </Link>
             </nav>
           </aside>
@@ -119,107 +113,32 @@ export default function TitanicPreviewPage() {
                   className="text-xl font-semibold tracking-tight text-white md:text-2xl"
                   style={{ fontFamily: "var(--font-heading)" }}
                 >
-                  2. 자료 보기
+                  2. 월터 자기소개
                 </h2>
                 {loading && <p className="text-sm text-blue-100/80">자료를 불러오는 중입니다...</p>}
                 {error && <p className="text-sm text-red-200">{error}</p>}
-                {!loading && !error && rows.length === 0 && (
-                  <p className="text-sm text-blue-100/80">표시할 자료가 없습니다.</p>
-                )}
-                {!loading && !error && rows.length > 0 && (
+                {!loading && !error && walter && (
                   <div className="space-y-2">
                     <p className="text-sm text-blue-100/80">
-                      총 {rows.length} rows (페이지당 {rowsPerPage} rows)
+                      백엔드: WalterSchema 기본값 생성 → UseCase에서 DTO로 옮겨 담음 → Repository 로그
+                      처리 후 JSON 응답
                     </p>
                     <Table>
                       <TableHeader>
                         <TableRow className="border-white/15 hover:bg-white/5">
-                          {columns.map((column) => (
-                            <TableHead key={column} className="text-blue-200/95">
-                              {column}
-                            </TableHead>
-                          ))}
+                          <TableHead className="text-blue-200/95">id</TableHead>
+                          <TableHead className="text-blue-200/95">name</TableHead>
+                          <TableHead className="text-blue-200/95">memo</TableHead>
                         </TableRow>
                       </TableHeader>
                       <TableBody>
-                        {pageRows.map((row, idx) => (
-                          <TableRow key={idx} className="border-white/10 hover:bg-white/5">
-                            {columns.map((column) => (
-                              <TableCell key={`${idx}-${column}`} className="max-w-[180px] truncate text-white/90">
-                                {String(row[column] ?? "")}
-                              </TableCell>
-                            ))}
-                          </TableRow>
-                        ))}
+                        <TableRow className="border-white/10 hover:bg-white/5">
+                          <TableCell className="text-white/90">{walter.id}</TableCell>
+                          <TableCell className="text-white/90">{walter.name}</TableCell>
+                          <TableCell className="max-w-[320px] text-white/90">{walter.memo}</TableCell>
+                        </TableRow>
                       </TableBody>
                     </Table>
-                    {totalPages > 1 && (
-                      <div className="flex flex-wrap items-center justify-between gap-3 pt-2">
-                        <p className="text-xs text-blue-200/80">
-                          {safePage} / {totalPages} 페이지
-                        </p>
-                        <div className="flex items-center gap-1 rounded-lg border border-white/10 bg-white/[0.03] p-1">
-                          <button
-                            type="button"
-                            className="h-8 rounded-md px-2 text-xs text-white/85 hover:bg-white/10 disabled:opacity-40"
-                            disabled={safePage === 1}
-                            onClick={() => setCurrentPage(safePage - 1)}
-                          >
-                            이전
-                          </button>
-                          {pageWindowStart > 1 && (
-                            <>
-                              <button
-                                type="button"
-                                className="h-8 min-w-8 rounded-md px-2 text-xs text-white/85 hover:bg-white/10"
-                                onClick={() => setCurrentPage(1)}
-                              >
-                                1
-                              </button>
-                              {pageWindowStart > 2 && (
-                                <span className="px-1 text-xs text-white/50">...</span>
-                              )}
-                            </>
-                          )}
-                          {visiblePages.map((page) => (
-                            <button
-                              key={page}
-                              type="button"
-                              className={
-                                page === safePage
-                                  ? "h-8 min-w-8 rounded-md bg-blue-600 px-2 text-xs text-white hover:bg-blue-700"
-                                  : "h-8 min-w-8 rounded-md px-2 text-xs text-white/85 hover:bg-white/10"
-                              }
-                              onClick={() => setCurrentPage(page)}
-                            >
-                              {page}
-                            </button>
-                          ))}
-                          {pageWindowEnd < totalPages && (
-                            <>
-                              {pageWindowEnd < totalPages - 1 && (
-                                <span className="px-1 text-xs text-white/50">...</span>
-                              )}
-                              <button
-                                type="button"
-                                className="h-8 min-w-8 rounded-md px-2 text-xs text-white/85 hover:bg-white/10"
-                                onClick={() => setCurrentPage(totalPages)}
-                              >
-                                {totalPages}
-                              </button>
-                            </>
-                          )}
-                          <button
-                            type="button"
-                            className="h-8 rounded-md px-2 text-xs text-white/85 hover:bg-white/10 disabled:opacity-40"
-                            disabled={safePage === totalPages}
-                            onClick={() => setCurrentPage(safePage + 1)}
-                          >
-                            다음
-                          </button>
-                        </div>
-                      </div>
-                    )}
                   </div>
                 )}
               </CardContent>
@@ -230,4 +149,3 @@ export default function TitanicPreviewPage() {
     </div>
   )
 }
-

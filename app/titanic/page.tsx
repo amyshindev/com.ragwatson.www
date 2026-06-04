@@ -180,7 +180,7 @@ export default function TitanicHomePage() {
                 href="/titanic/preview"
                 className="block rounded-md px-3 py-2 text-sm text-white/85 transition hover:bg-white/10 hover:text-white"
               >
-                2. 자료 보기
+                2. 월터 자기소개
               </Link>
             </nav>
           </aside>
