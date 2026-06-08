@@ -14,6 +14,7 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import { cn } from "@/lib/utils"
+import { uploadTitanicCsv } from "@/lib/titanic-api"
 
 function parseCsvPreview(text: string, maxLines: number): string[][] {
   const lines = text.split(/\r?\n/).filter((line) => line.trim().length > 0)
@@ -21,7 +22,6 @@ function parseCsvPreview(text: string, maxLines: number): string[][] {
 }
 
 export default function TitanicHomePage() {
-  const apiBase = process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://127.0.0.1:8000"
   const rowsPerPage = 15
   const inputRef = useRef<HTMLInputElement>(null)
   const [file, setFile] = useState<File | null>(null)
@@ -34,7 +34,7 @@ export default function TitanicHomePage() {
   )
   const [lastUploadedInfo, setLastUploadedInfo] = useState<{
     filename: string
-    count: number
+    saved: number
   } | null>(null)
 
   useEffect(() => {
@@ -43,11 +43,11 @@ export default function TitanicHomePage() {
     if (!hasUploaded || !rawInfo) return
 
     try {
-      const parsed = JSON.parse(rawInfo) as { filename?: string; count?: number }
+      const parsed = JSON.parse(rawInfo) as { filename?: string; saved?: number; count?: number }
       if (!parsed.filename) return
       const restored = {
         filename: parsed.filename,
-        count: Number(parsed.count ?? 0),
+        saved: Number(parsed.saved ?? parsed.count ?? 0),
       }
       setLastUploadedInfo(restored)
       setMessage({
@@ -99,28 +99,14 @@ export default function TitanicHomePage() {
     setUploading(true)
     setMessage(null)
     try {
-      const fd = new FormData()
-      fd.append("file", file)
-      const res = await fetch(`${apiBase}/api/james/v1/upload`, { method: "POST", body: fd })
-      const raw = await res.text()
-      const data = (raw ? JSON.parse(raw) : {}) as {
-        detail?: string
-        error?: string
-        filename?: string
-        count?: number
-      }
-      if (!res.ok) {
-        setMessage({ type: "err", text: data.detail ?? data.error ?? "업로드에 실패했습니다." })
-        localStorage.removeItem("hasUploadedTitanicData")
-        return
-      }
+      const data = await uploadTitanicCsv(file)
       setMessage({
         type: "ok",
-        text: `업로드 완료: ${data.filename ?? file.name}`,
+        text: `업로드 완료: ${data.filename ?? file.name} (${data.saved ?? 0}건 저장)`,
       })
       const uploadedInfo = {
         filename: data.filename ?? file.name,
-        count: data.count ?? 0,
+        saved: data.saved ?? 0,
       }
       setLastUploadedInfo(uploadedInfo)
       localStorage.setItem("hasUploadedTitanicData", "true")
@@ -128,7 +114,12 @@ export default function TitanicHomePage() {
     } catch (error) {
       setMessage({
         type: "err",
-        text: error instanceof TypeError ? "네트워크 오류가 발생했습니다." : "응답 처리 중 오류가 발생했습니다.",
+        text:
+          error instanceof Error
+            ? error.message
+            : error instanceof TypeError
+              ? "네트워크 오류가 발생했습니다."
+              : "응답 처리 중 오류가 발생했습니다.",
       })
       localStorage.removeItem("hasUploadedTitanicData")
       localStorage.removeItem("titanicLastUploadInfo")
@@ -180,7 +171,7 @@ export default function TitanicHomePage() {
                 href="/titanic/preview"
                 className="block rounded-md px-3 py-2 text-sm text-white/85 transition hover:bg-white/10 hover:text-white"
               >
-                2. 월터 자기소개
+                2. 캐릭터 자기소개
               </Link>
             </nav>
           </aside>
@@ -307,7 +298,7 @@ export default function TitanicHomePage() {
               {!file && lastUploadedInfo && (
                 <div className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2">
                   <p className="text-xs text-blue-100/80">
-                    최근 업로드 유지됨: {lastUploadedInfo.filename}
+                    최근 업로드 유지됨: {lastUploadedInfo.filename} ({lastUploadedInfo.saved}건)
                   </p>
                   <Button
                     type="button"
