@@ -1,6 +1,6 @@
 "use client"
 
-import { useCallback, useEffect, useRef, useState } from "react"
+import { useCallback, useRef, useState } from "react"
 import { FileUp, Loader2, Trash2 } from "lucide-react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
@@ -32,32 +32,6 @@ export default function TitanicHomePage() {
   const [message, setMessage] = useState<{ type: "ok" | "err"; text: string } | null>(
     null,
   )
-  const [lastUploadedInfo, setLastUploadedInfo] = useState<{
-    filename: string
-    saved: number
-  } | null>(null)
-
-  useEffect(() => {
-    const hasUploaded = localStorage.getItem("hasUploadedTitanicData") === "true"
-    const rawInfo = localStorage.getItem("titanicLastUploadInfo")
-    if (!hasUploaded || !rawInfo) return
-
-    try {
-      const parsed = JSON.parse(rawInfo) as { filename?: string; saved?: number; count?: number }
-      if (!parsed.filename) return
-      const restored = {
-        filename: parsed.filename,
-        saved: Number(parsed.saved ?? parsed.count ?? 0),
-      }
-      setLastUploadedInfo(restored)
-      setMessage({
-        type: "ok",
-        text: `업로드 완료: ${restored.filename}`,
-      })
-    } catch {
-      localStorage.removeItem("titanicLastUploadInfo")
-    }
-  }, [])
 
   const loadFile = useCallback(async (f: File) => {
     if (!f.name.toLowerCase().endsWith(".csv")) {
@@ -89,9 +63,6 @@ export default function TitanicHomePage() {
     setPreview([])
     setCurrentPage(1)
     setMessage(null)
-    setLastUploadedInfo(null)
-    localStorage.removeItem("hasUploadedTitanicData")
-    localStorage.removeItem("titanicLastUploadInfo")
   }
 
   const upload = async () => {
@@ -104,13 +75,6 @@ export default function TitanicHomePage() {
         type: "ok",
         text: `업로드 완료: ${data.filename ?? file.name} (${data.saved ?? 0}건 저장)`,
       })
-      const uploadedInfo = {
-        filename: data.filename ?? file.name,
-        saved: data.saved ?? 0,
-      }
-      setLastUploadedInfo(uploadedInfo)
-      localStorage.setItem("hasUploadedTitanicData", "true")
-      localStorage.setItem("titanicLastUploadInfo", JSON.stringify(uploadedInfo))
     } catch (error) {
       setMessage({
         type: "err",
@@ -121,8 +85,6 @@ export default function TitanicHomePage() {
               ? "네트워크 오류가 발생했습니다."
               : "응답 처리 중 오류가 발생했습니다.",
       })
-      localStorage.removeItem("hasUploadedTitanicData")
-      localStorage.removeItem("titanicLastUploadInfo")
     } finally {
       setUploading(false)
     }
@@ -172,6 +134,12 @@ export default function TitanicHomePage() {
                 className="block rounded-md px-3 py-2 text-sm text-white/85 transition hover:bg-white/10 hover:text-white"
               >
                 2. 캐릭터 자기소개
+              </Link>
+              <Link
+                href="/titanic/smith"
+                className="block rounded-md px-3 py-2 text-sm text-white/85 transition hover:bg-white/10 hover:text-white"
+              >
+                3. 스미스 선장과 대화
               </Link>
             </nav>
           </aside>
@@ -294,27 +262,6 @@ export default function TitanicHomePage() {
                 >
                   {message.text}
                 </p>
-              )}
-              {!file && lastUploadedInfo && (
-                <div className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2">
-                  <p className="text-xs text-blue-100/80">
-                    최근 업로드 유지됨: {lastUploadedInfo.filename} ({lastUploadedInfo.saved}건)
-                  </p>
-                  <Button
-                    type="button"
-                    variant="outline"
-                    size="sm"
-                    className="h-7 border-white/20 bg-white/5 px-2 text-xs text-white hover:bg-white/10"
-                    onClick={() => {
-                      setLastUploadedInfo(null)
-                      setMessage(null)
-                      localStorage.removeItem("hasUploadedTitanicData")
-                      localStorage.removeItem("titanicLastUploadInfo")
-                    }}
-                  >
-                    제거
-                  </Button>
-                </div>
               )}
 
               <div id="preview-section" className="space-y-2">

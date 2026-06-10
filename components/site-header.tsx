@@ -47,8 +47,10 @@ export function SiteHeader() {
   const { isLoggedIn } = useAuthSession()
   const isHomeLanding = pathname === "/"
   const isAdminPath = pathname.startsWith("/admin")
+  const isTitanicPath = pathname.startsWith("/titanic")
   const isTransparentNav =
     isAdminPath ||
+    isTitanicPath ||
     TRANSPARENT_NAV_PATHS.includes(
       pathname as (typeof TRANSPARENT_NAV_PATHS)[number],
     )

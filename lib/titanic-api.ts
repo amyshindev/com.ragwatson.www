@@ -14,17 +14,17 @@ export type JamesUploadResponse = {
 }
 
 export const TITANIC_MYSELF_ENDPOINTS = [
-  { slug: "walter", label: "Walter", path: "/api/walter/v1/myself" },
-  { slug: "andrews", label: "Andrews", path: "/api/andrews/v1/myself" },
-  { slug: "hartley", label: "Hartley", path: "/api/hartley/v1/myself" },
-  { slug: "lowe", label: "Lowe", path: "/api/lowe/v1/myself" },
-  { slug: "smith", label: "Smith", path: "/api/smith/v1/myself" },
-  { slug: "cal", label: "Cal", path: "/api/cal/v1/myself" },
-  { slug: "isidor", label: "Isidor", path: "/api/isidor/v1/myself" },
-  { slug: "jack", label: "Jack", path: "/api/jack/v1/myself" },
-  { slug: "molly", label: "Molly", path: "/api/molly/v1/myself" },
-  { slug: "rose", label: "Rose", path: "/api/rose/v1/myself" },
-  { slug: "ruth", label: "Ruth", path: "/api/ruth/v1/myself" },
+  { slug: "walter", label: "Walter", path: "/titanic/walter/myself" },
+  { slug: "andrews", label: "Andrews", path: "/titanic/andrews/myself" },
+  { slug: "hartley", label: "Hartley", path: "/titanic/hartley/myself" },
+  { slug: "lowe", label: "Lowe", path: "/titanic/lowe/myself" },
+  { slug: "smith", label: "Smith", path: "/titanic/smith/myself" },
+  { slug: "cal", label: "Cal", path: "/titanic/cal/myself" },
+  { slug: "isidor", label: "Isidor", path: "/titanic/isidor/myself" },
+  { slug: "jack", label: "Jack", path: "/titanic/jack/myself" },
+  { slug: "molly", label: "Molly", path: "/titanic/molly/myself" },
+  { slug: "rose", label: "Rose", path: "/titanic/rose/myself" },
+  { slug: "ruth", label: "Ruth", path: "/titanic/ruth/myself" },
 ] as const
 
 export async function fetchMyself(path: string): Promise<MyselfResponse> {
@@ -43,6 +43,28 @@ export async function fetchMyself(path: string): Promise<MyselfResponse> {
     id: data.id,
     name: data.name,
   }
+}
+
+export async function chatWithSmithCaptain(message: string): Promise<string> {
+  const res = await fetch(`${TITANIC_API_BASE}/titanic/smith/chat`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ message }),
+  })
+
+  const raw = await res.text()
+  let data: { reply?: string; detail?: string; error?: string } = {}
+  if (raw) {
+    try {
+      data = JSON.parse(raw)
+    } catch {
+      throw new Error("채팅 응답을 읽을 수 없습니다.")
+    }
+  }
+  if (!res.ok) {
+    throw new Error(data.detail ?? data.error ?? "선장과의 대화에 실패했습니다.")
+  }
+  return data.reply?.trim() ?? ""
 }
 
 export async function uploadTitanicCsv(file: File): Promise<JamesUploadResponse> {

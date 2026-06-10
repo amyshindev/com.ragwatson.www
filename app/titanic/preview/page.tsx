@@ -99,6 +99,12 @@ export default function TitanicPreviewPage() {
               >
                 2. 캐릭터 자기소개
               </Link>
+              <Link
+                href="/titanic/smith"
+                className="block rounded-md px-3 py-2 text-sm text-white/85 transition hover:bg-white/10 hover:text-white"
+              >
+                3. 스미스 선장과 대화
+              </Link>
             </nav>
           </aside>
 
@@ -122,7 +128,7 @@ export default function TitanicPreviewPage() {
                     2. 캐릭터 자기소개
                   </h2>
                   <p className="mt-2 text-sm text-blue-100/75">
-                    각 캐릭터의 <code className="text-blue-200">/api/&#123;slug&#125;/v1/myself</code>{" "}
+                    각 캐릭터의 <code className="text-blue-200">/titanic/&#123;slug&#125;/myself</code>{" "}
                     응답입니다.
                   </p>
                 </div>
