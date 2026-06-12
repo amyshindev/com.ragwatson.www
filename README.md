@@ -1,3 +1,9 @@
+---
+tags:
+  - harness/readme
+graph-group: readme
+---
+
 # com.ragwatson.agora-frontend
 
 This is a [Next.js](https://nextjs.org) project bootstrapped with [v0](https://v0.app).
