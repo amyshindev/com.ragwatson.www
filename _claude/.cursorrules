@@ -1,18 +1,18 @@
 # Cursor Execution Harness (Frontend)
 
-**Canonical:** [`../CLAUDE.md`](../CLAUDE.md) · **Frontend scope:** [`CLAUDE.md`](CLAUDE.md).
+**Scope:** [`CLAUDE.md`](CLAUDE.md) · **Vault:** `docs/Frontend/` only (Backend vault와 wikilink 분리).
 
-> **`docs/DevOps/Frontend/REACT_RULES.md`** is mandatory for UI work.
+> [`REACT_RULES.md`](REACT_RULES.md) is mandatory for UI work.
 
 ---
 
 ## Before `frontend/` changes
 
-1. [`../CLAUDE.md`](../CLAUDE.md) — blueprint + agent behavior
+1. Repository root `CLAUDE.md` — blueprint + agent behavior
 2. [`CLAUDE.md`](CLAUDE.md) — layout, API integration
-3. [`docs/DevOps/Frontend/REACT_RULES.md`](../docs/DevOps/Frontend/REACT_RULES.md) — React patterns (full rules)
+3. [`REACT_RULES.md`](REACT_RULES.md) — React patterns (full rules)
 
-If the page maps to a backend domain, read that app's doc (e.g. [`../backend/apps/titanic/_docs/CLAUDE.md`](../backend/apps/titanic/_docs/CLAUDE.md)).
+API 도메인 계약: code tree `backend/apps/{app}/_docs/CLAUDE.md` (vault wikilink 없음).
 
 ---
 
@@ -25,13 +25,13 @@ If the page maps to a backend domain, read that app's doc (e.g. [`../backend/app
 | State | One object per related UI state — avoid field-per-`useState` |
 | Forms | `FormData`; capture `form = e.currentTarget` before `await` |
 | Errors | Inline UI — no `alert()` |
-| Backend | `http://127.0.0.1:8000`; Titanic uses `/titanic/*` (no extra `/api` prefix) |
+| Backend HTTP | `http://127.0.0.1:8000`; Titanic `/titanic/*` |
 
 ---
 
 ## Agent behavior (summary)
 
-→ [`../CLAUDE.md`](../CLAUDE.md) § Agent Behavioral Guidelines: think · simplify · surgical · goal-driven.
+Think · simplify · surgical · goal-driven (root `CLAUDE.md` § Agent Behavioral Guidelines).
 
 ---
 
