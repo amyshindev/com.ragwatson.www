@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { useRouter, useSearchParams } from "next/navigation"
-import { Suspense } from "react"
+import { Suspense, useState } from "react"
 import { Input } from "@/components/ui/input"
 import { GlitchButton } from "@/components/landing/glitch-button"
 import {
@@ -16,6 +16,8 @@ function AdminLoginForm() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const nextPath = searchParams.get("next") || "/admin"
+  const [error, setError] = useState<string | null>(null)
+  const [submitting, setSubmitting] = useState(false)
 
   return (
     <MaestroAuthLayout
@@ -26,17 +28,21 @@ function AdminLoginForm() {
         className="space-y-4"
         onSubmit={async (e) => {
           e.preventDefault()
-          const data = new FormData(e.currentTarget)
+          const form = e.currentTarget
+          const data = new FormData(form)
           const email = String(data.get("email") ?? "").trim()
           const password = String(data.get("password") ?? "")
 
           if (!email || !password) {
-            alert("이메일과 비밀번호를 입력해 주세요.")
+            setError("이메일과 비밀번호를 입력해 주세요.")
             return
           }
 
+          setSubmitting(true)
+          setError(null)
+
           try {
-            const res = await fetch("/api/login", {
+            const res = await fetch("/api/admin/login", {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({ email, password }),
@@ -75,7 +81,7 @@ function AdminLoginForm() {
             }
 
             if (!isAdminUser(sessionUser)) {
-              alert("관리자 권한이 없는 계정입니다.")
+              setError("관리자 권한이 없는 계정입니다.")
               return
             }
 
@@ -84,14 +90,21 @@ function AdminLoginForm() {
               nextPath.startsWith("/admin") ? nextPath : "/admin",
             )
           } catch (err) {
-            alert(
+            setError(
               err instanceof Error
                 ? err.message
                 : "로그인 요청에 실패했습니다.",
             )
+          } finally {
+            setSubmitting(false)
           }
         }}
       >
+        {error && (
+          <p className="rounded-lg bg-red-500/10 px-3 py-2 text-sm text-red-300" role="status">
+            {error}
+          </p>
+        )}
         <Input
           type="email"
           name="email"
@@ -108,10 +121,14 @@ function AdminLoginForm() {
           className={authInputClassName}
           required
         />
-        <GlitchButton type="submit" className="w-full">
-          관리자 로그인
+        <GlitchButton type="submit" className="w-full" disabled={submitting}>
+          {submitting ? "로그인 중…" : "관리자 로그인"}
         </GlitchButton>
       </form>
+
+      <p className="mt-4 text-center text-xs text-zinc-500">
+        로컬 개발 기본 계정: admin@example.com / admin1234
+      </p>
 
       <p className="mt-6 text-center text-xs text-zinc-500">
         일반 회원은{" "}

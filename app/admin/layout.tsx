@@ -9,8 +9,15 @@ export default function AdminLayout({
   children: React.ReactNode
 }) {
   const pathname = usePathname()
-  if (pathname === "/admin/login") {
+  const isLogin = pathname === "/admin/login"
+
+  if (isLogin) {
     return children
   }
-  return <AdminShell>{children}</AdminShell>
+
+  return (
+    <div className="-mt-20 min-h-[100dvh] md:min-h-screen">
+      <AdminShell>{children}</AdminShell>
+    </div>
+  )
 }

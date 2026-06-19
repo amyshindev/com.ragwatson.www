@@ -26,14 +26,14 @@ export function MaestroAuthLayout({
     <div className="relative -mt-20 min-h-screen overflow-hidden bg-[#0a0a0a] text-zinc-300">
       <MaestroDarkBackdrop />
 
-      <main className="relative flex min-h-[100dvh] min-h-[100svh] items-center justify-center px-6 py-24">
+      <main className="relative flex min-h-[100dvh] items-center justify-center px-4 py-16 sm:px-6 sm:py-24">
         <div className="w-full max-w-md">
-          <div className="mb-8 flex flex-col items-center text-center">
-            <div className="mb-5 flex h-20 w-20 items-center justify-center rounded-2xl border border-zinc-700 bg-zinc-900/50 shadow-sm">
-              <Music className="h-10 w-10 text-maestro-400" strokeWidth={1.25} />
+          <div className="mb-6 flex flex-col items-center text-center sm:mb-8">
+            <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-2xl border border-zinc-700 bg-zinc-900/50 shadow-sm sm:mb-5 sm:h-20 sm:w-20">
+              <Music className="h-8 w-8 text-maestro-400 sm:h-10 sm:w-10" strokeWidth={1.25} />
             </div>
             <h1
-              className="text-3xl font-bold tracking-tight text-zinc-100 md:text-4xl"
+              className="text-2xl font-bold tracking-tight text-zinc-100 sm:text-3xl md:text-4xl"
               style={{ fontFamily: "var(--font-heading)" }}
             >
               maestro
@@ -42,9 +42,9 @@ export function MaestroAuthLayout({
 
           <p className="mb-5 text-center text-sm text-zinc-500">{lead}</p>
 
-          <div className="border border-white/10 bg-zinc-950/60 p-8 shadow-xl shadow-black/40 backdrop-blur-xl">
+          <div className="border border-white/10 bg-zinc-950/60 p-5 shadow-xl shadow-black/40 backdrop-blur-xl sm:p-8">
             <h2
-              className="mb-6 text-center text-xl font-semibold text-zinc-100"
+              className="mb-5 text-center text-lg font-semibold text-zinc-100 sm:mb-6 sm:text-xl"
               style={{ fontFamily: "var(--font-heading)" }}
             >
               {cardTitle}

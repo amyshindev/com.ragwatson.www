@@ -27,6 +27,7 @@ const TRANSPARENT_NAV_PATHS = [
   "/signup",
   "/titanic",
   "/titanic/preview",
+  "/siliconvalley",
   "/gallery",
   "/studio",
   "/studio/analytics",
@@ -48,13 +49,17 @@ export function SiteHeader() {
   const isHomeLanding = pathname === "/"
   const isAdminPath = pathname.startsWith("/admin")
   const isTitanicPath = pathname.startsWith("/titanic")
+  const isSiliconValleyPath = pathname.startsWith("/siliconvalley")
   const isTransparentNav =
     isAdminPath ||
     isTitanicPath ||
+    isSiliconValleyPath ||
     TRANSPARENT_NAV_PATHS.includes(
       pathname as (typeof TRANSPARENT_NAV_PATHS)[number],
     )
   const isDarkHeader = isTransparentNav
+  const isAdminDashboard =
+    pathname.startsWith("/admin") && pathname !== "/admin/login"
 
   const navLinkClass = cn(
     navLinkButtonClass,
@@ -62,6 +67,10 @@ export function SiteHeader() {
       ? "text-zinc-200 hover:text-maestro-400"
       : "text-slate-800 hover:text-[#2563eb]",
   )
+
+  if (isAdminDashboard) {
+    return null
+  }
 
   return (
     <header
@@ -128,6 +137,12 @@ export function SiteHeader() {
                   className="cursor-pointer focus:bg-zinc-800 focus:text-maestro-300"
                 >
                   <Link href="/titanic">타이타닉</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  asChild
+                  className="cursor-pointer focus:bg-zinc-800 focus:text-maestro-300"
+                >
+                  <Link href="/siliconvalley">실리콘밸리</Link>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
@@ -347,6 +362,12 @@ export function SiteHeader() {
                       className="cursor-pointer focus:bg-zinc-800 focus:text-maestro-300"
                     >
                       <Link href="/titanic">타이타닉</Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      asChild
+                      className="cursor-pointer focus:bg-zinc-800 focus:text-maestro-300"
+                    >
+                      <Link href="/siliconvalley">실리콘밸리</Link>
                     </DropdownMenuItem>
                   </DropdownMenuSubContent>
                 </DropdownMenuSub>
