@@ -45,8 +45,8 @@ export function LandingUploadZone({
             ? "px-8 py-10 text-base sm:px-10 sm:py-12 sm:text-lg"
             : "px-6 py-8 text-sm",
           dragActive
-            ? "border-maestro-500/50 bg-maestro-950/20 text-maestro-200/90"
-            : "border-zinc-700 bg-black/30 text-zinc-500 hover:border-zinc-500 hover:text-zinc-400",
+            ? "border-blue-400 bg-blue-50 text-blue-800 dark:border-maestro-500/50 dark:bg-maestro-950/20 dark:text-maestro-200/90"
+            : "border-gray-300 bg-white/80 text-gray-600 hover:border-gray-400 hover:text-gray-800 dark:border-zinc-700 dark:bg-black/30 dark:text-zinc-500 dark:hover:border-zinc-500 dark:hover:text-zinc-400",
         )}
         onClick={openPicker}
         onKeyDown={(e) => {
@@ -68,7 +68,7 @@ export function LandingUploadZone({
       >
         <Upload
           className={cn(
-            "mx-auto mb-2 text-zinc-600",
+            "mx-auto mb-2 text-gray-500 dark:text-zinc-600",
             imposing ? "h-10 w-10 sm:h-12 sm:w-12" : "h-8 w-8",
           )}
         />

@@ -33,11 +33,11 @@ export function LandingHowItWorks() {
   return (
     <section
       id="how-it-works"
-      className="scroll-mt-24 border-y border-white/5 bg-[#111114] px-4 py-20 sm:px-6 md:py-28"
+      className="scroll-mt-24 border-y border-gray-200 bg-gray-100 px-4 py-20 dark:border-white/5 dark:bg-[#111114] sm:px-6 md:py-28"
     >
       <div className="mx-auto max-w-6xl text-center">
         <SectionReveal>
-          <h2 className="text-3xl font-semibold tracking-tight text-zinc-100 sm:text-4xl md:text-5xl">
+          <h2 className="text-3xl font-semibold tracking-tight text-gray-900 dark:text-zinc-100 sm:text-4xl md:text-5xl">
             How it works
           </h2>
         </SectionReveal>
@@ -51,20 +51,20 @@ export function LandingHowItWorks() {
                   className="flex max-w-md flex-col items-center text-center"
                   delay={index * 0.2}
                 >
-                  <div className="flex h-14 w-14 items-center justify-center text-maestro-400/90">
+                  <div className="flex h-14 w-14 items-center justify-center text-blue-600 dark:text-maestro-400/90">
                     <Icon className="h-10 w-10" strokeWidth={1.25} />
                   </div>
-                  <h3 className="mt-4 text-base font-medium text-zinc-200 sm:text-lg">
+                  <h3 className="mt-4 text-base font-medium text-gray-800 dark:text-zinc-200 sm:text-lg">
                     {step.title}
                   </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-zinc-500 sm:text-base">
+                  <p className="mt-2 text-sm leading-relaxed text-gray-600 dark:text-zinc-500 sm:text-base">
                     {step.description}
                   </p>
                   {"details" in step ? (
-                    <ul className="mt-5 space-y-2 text-left text-xs leading-relaxed text-zinc-500 sm:text-sm">
+                    <ul className="mt-5 space-y-2 text-left text-xs leading-relaxed text-gray-600 dark:text-zinc-500 sm:text-sm">
                       {step.details.map((detail) => (
                         <li key={detail} className="flex gap-2">
-                          <span className="text-maestro-500/90" aria-hidden>
+                          <span className="text-blue-600 dark:text-maestro-500/90" aria-hidden>
                             ✓
                           </span>
                           <span>{detail}</span>
@@ -75,7 +75,7 @@ export function LandingHowItWorks() {
                 </SectionReveal>
                 {index < STEPS.length - 1 && (
                   <ArrowDown
-                    className="mx-auto h-5 w-5 shrink-0 text-zinc-700"
+                    className="mx-auto h-5 w-5 shrink-0 text-gray-400 dark:text-zinc-700"
                     aria-hidden
                   />
                 )}

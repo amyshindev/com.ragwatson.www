@@ -48,14 +48,14 @@ export function GeminiChatWidget() {
               exit={{ opacity: 0, y: 20, scale: 0.92 }}
               transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
               style={{ transformOrigin: "bottom right" }}
-              className="w-[min(calc(100vw-2.5rem),26rem)] overflow-hidden rounded-2xl border border-white/10 bg-zinc-950/95 shadow-2xl shadow-black/60 backdrop-blur-xl sm:w-[28rem]"
+              className="w-[min(calc(100vw-2.5rem),26rem)] overflow-hidden rounded-2xl border border-gray-200 bg-white/95 shadow-2xl shadow-gray-300/40 backdrop-blur-xl dark:border-white/10 dark:bg-zinc-950/95 dark:shadow-black/60 sm:w-[28rem]"
             >
-              <header className="flex items-center justify-between border-b border-white/10 px-4 py-3">
+              <header className="flex items-center justify-between border-b border-gray-200 px-4 py-3 dark:border-white/10">
                 <div>
-                  <p className="text-[10px] font-medium uppercase tracking-wide text-zinc-500">
+                  <p className="text-[10px] font-medium uppercase tracking-wide text-gray-500 dark:text-zinc-500">
                     AI Assistant
                   </p>
-                  <h2 className="text-sm font-semibold text-zinc-100">
+                  <h2 className="text-sm font-semibold text-gray-900 dark:text-zinc-100">
                     maestro와 대화하기
                   </h2>
                 </div>
@@ -63,14 +63,14 @@ export function GeminiChatWidget() {
                   type="button"
                   variant="ghost"
                   size="icon"
-                  className="h-8 w-8 rounded-full text-zinc-400 hover:bg-white/10 hover:text-zinc-100"
+                  className="h-8 w-8 rounded-full text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-zinc-400 dark:hover:bg-white/10 dark:hover:text-zinc-100"
                   onClick={() => setOpen(false)}
                   aria-label="닫기"
                 >
                   <X className="h-4 w-4" />
                 </Button>
               </header>
-              <div className="max-h-[min(70vh,32rem)] overflow-y-auto border-t border-white/5 bg-[#111114] p-2">
+              <div className="max-h-[min(70vh,32rem)] overflow-y-auto border-t border-gray-100 bg-gray-50 p-2 dark:border-white/5 dark:bg-[#111114]">
                 <GeminiChatPanel className="max-w-none" embedded />
               </div>
             </motion.div>
@@ -84,7 +84,7 @@ export function GeminiChatWidget() {
           className={cn(
             "h-14 w-14 rounded-full shadow-lg transition-transform",
             open
-              ? "bg-zinc-800 text-zinc-200 hover:bg-zinc-700"
+              ? "bg-gray-200 text-gray-800 hover:bg-gray-300 dark:bg-zinc-800 dark:text-zinc-200 dark:hover:bg-zinc-700"
               : "bg-[#2563eb] text-white shadow-blue-500/40 hover:bg-[#1d4ed8] hover:scale-105",
           )}
           aria-label={open ? "채팅 닫기" : "AI 채팅 열기"}

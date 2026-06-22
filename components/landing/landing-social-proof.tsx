@@ -28,20 +28,20 @@ export function LandingSocialProof() {
   return (
     <section
       id="pricing"
-      className="landing-social-proof-section relative box-border flex min-h-[100dvh] min-h-[100svh] scroll-mt-24 items-center border-b border-white/5 px-4 py-16 sm:px-6 sm:py-20"
+      className="landing-social-proof-section relative box-border flex min-h-[100dvh] min-h-[100svh] scroll-mt-24 items-center border-b border-gray-200 px-4 py-16 dark:border-white/5 sm:px-6 sm:py-20"
     >
       <div className="mx-auto grid w-full max-w-6xl gap-12 lg:grid-cols-2 lg:gap-x-20 lg:gap-y-14">
         <SectionReveal>
-          <h2 className="landing-sp-heading font-semibold tracking-tight text-zinc-100">
+          <h2 className="landing-sp-heading font-semibold tracking-tight text-gray-900 dark:text-zinc-100">
             제공 사양
           </h2>
           <ul className="mt-8 space-y-5 sm:mt-10 sm:space-y-6">
             {DELIVERABLES.map((item) => (
               <li
                 key={item}
-                className="landing-sp-list-item flex gap-3 text-zinc-400"
+                className="landing-sp-list-item flex gap-3 text-gray-600 dark:text-zinc-400"
               >
-                <span className="text-maestro-500/90" aria-hidden>
+                <span className="text-blue-600 dark:text-maestro-500/90" aria-hidden>
                   ✓
                 </span>
                 {item}
@@ -51,7 +51,7 @@ export function LandingSocialProof() {
         </SectionReveal>
 
         <SectionReveal delay={0.15}>
-          <h2 className="landing-sp-heading font-semibold tracking-tight text-zinc-100">
+          <h2 className="landing-sp-heading font-semibold tracking-tight text-gray-900 dark:text-zinc-100">
             크리에이터 후기
           </h2>
           <div className="mt-8 space-y-4 sm:mt-10 sm:space-y-5">
@@ -60,14 +60,14 @@ export function LandingSocialProof() {
                 key={t.author}
                 className={
                   i === 0
-                    ? "border border-maestro-500/30 bg-maestro-950/20 px-5 py-4 sm:px-6 sm:py-5"
-                    : "border border-zinc-800 bg-zinc-950/50 px-5 py-4 sm:px-6 sm:py-5"
+                    ? "border border-blue-200 bg-blue-50/80 px-5 py-4 dark:border-maestro-500/30 dark:bg-maestro-950/20 sm:px-6 sm:py-5"
+                    : "border border-gray-200 bg-white px-5 py-4 dark:border-zinc-800 dark:bg-zinc-950/50 sm:px-6 sm:py-5"
                 }
               >
-                <p className="landing-sp-quote leading-relaxed text-zinc-300">
+                <p className="landing-sp-quote leading-relaxed text-gray-700 dark:text-zinc-300">
                   &ldquo;{t.quote}&rdquo;
                 </p>
-                <footer className="landing-sp-attribution mt-2 text-zinc-600">
+                <footer className="landing-sp-attribution mt-2 text-gray-500 dark:text-zinc-600">
                   — {t.author}
                 </footer>
               </blockquote>

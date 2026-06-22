@@ -12,7 +12,9 @@ import {
   authInputClassName,
   authOAuthButtonClassName,
 } from "@/components/auth/maestro-auth-layout"
+import { surfaceLink, surfaceSubtle } from "@/lib/theme-surface"
 import { setAuthUser } from "@/lib/auth-session"
+import { cn } from "@/lib/utils"
 
 export default function LoginPage() {
   const router = useRouter()
@@ -125,12 +127,9 @@ export default function LoginPage() {
         </GlitchButton>
       </form>
 
-      <p className="mt-6 text-center text-sm text-zinc-400">
+      <p className={cn("mt-6 text-center text-sm", surfaceSubtle)}>
         계정이 없으신가요?{" "}
-        <Link
-          href="/signup"
-          className="font-medium text-maestro-500/90 hover:text-maestro-400 hover:underline"
-        >
+        <Link href="/signup" className={cn("font-medium", surfaceLink)}>
           회원가입
         </Link>
       </p>

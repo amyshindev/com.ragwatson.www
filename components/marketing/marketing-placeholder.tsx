@@ -1,5 +1,13 @@
 import Link from "next/link"
 
+import {
+  surfaceBody,
+  surfaceLink,
+  surfaceMuted,
+  surfaceTitle,
+} from "@/lib/theme-surface"
+import { cn } from "@/lib/utils"
+
 type MarketingPlaceholderProps = {
   title: string
   lead?: string
@@ -15,18 +23,15 @@ export function MarketingPlaceholder({
   backLabel = "홈으로",
 }: MarketingPlaceholderProps) {
   return (
-    <div className="mx-auto max-w-2xl px-4 py-12 text-zinc-300">
+    <div className={cn("mx-auto max-w-2xl px-4 py-12", surfaceBody)}>
       <h1
-        className="text-3xl font-semibold tracking-tight text-zinc-100"
+        className={cn("text-3xl font-semibold tracking-tight", surfaceTitle)}
         style={{ fontFamily: "var(--font-heading)" }}
       >
         {title}
       </h1>
-      <p className="mt-4 leading-relaxed text-zinc-500">{lead}</p>
-      <Link
-        href={backHref}
-        className="mt-8 inline-block text-sm font-medium text-maestro-500/90 hover:text-maestro-400 hover:underline"
-      >
+      <p className={cn("mt-4 leading-relaxed", surfaceMuted)}>{lead}</p>
+      <Link href={backHref} className={cn("mt-8 inline-block text-sm", surfaceLink)}>
         ← {backLabel}
       </Link>
     </div>

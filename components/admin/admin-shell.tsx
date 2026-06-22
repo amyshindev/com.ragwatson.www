@@ -22,7 +22,7 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
 
   if (!ready) {
     return (
-      <div className="flex min-h-[40vh] items-center justify-center text-sm text-zinc-500">
+      <div className="flex min-h-[40vh] items-center justify-center text-sm text-gray-500 dark:text-zinc-500">
         확인 중…
       </div>
     )

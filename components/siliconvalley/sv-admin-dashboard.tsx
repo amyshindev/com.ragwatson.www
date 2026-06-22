@@ -85,7 +85,7 @@ function SoftCard({
   return (
     <div
       className={cn(
-        "rounded-2xl bg-zinc-900/80 p-4 shadow-[0_4px_20px_rgba(0,0,0,0.35)] ring-1 ring-zinc-800 sm:rounded-[20px] sm:p-5 lg:p-6",
+        "rounded-2xl bg-white p-4 shadow-md ring-1 ring-gray-200 sm:rounded-[20px] sm:p-5 lg:p-6 dark:bg-zinc-900/80 dark:shadow-[0_4px_20px_rgba(0,0,0,0.35)] dark:ring-zinc-800",
         className,
       )}
     >
@@ -123,21 +123,21 @@ function RingProgress({
       <div
         className={cn("relative flex items-center justify-center rounded-full", outer)}
         style={{
-          background: `conic-gradient(${color} ${clamped * 3.6}deg, #27272a ${clamped * 3.6}deg)`,
+          background: `conic-gradient(${color} ${clamped * 3.6}deg, var(--ring-track) ${clamped * 3.6}deg)`,
         }}
       >
         <div
           className={cn(
-            "flex flex-col items-center justify-center rounded-full bg-zinc-950 text-center shadow-inner ring-1 ring-zinc-800",
+            "flex flex-col items-center justify-center rounded-full bg-white text-center shadow-inner ring-1 ring-gray-200 dark:bg-zinc-950 dark:ring-zinc-800",
             inner,
           )}
         >
-          <span className={cn("font-bold text-zinc-100", valueText)}>{clamped}%</span>
-          <span className="text-[9px] leading-tight text-zinc-500 sm:text-[10px]">{label}</span>
+          <span className={cn("font-bold text-gray-900 dark:text-zinc-100", valueText)}>{clamped}%</span>
+          <span className="text-[9px] leading-tight text-gray-500 sm:text-[10px] dark:text-zinc-500">{label}</span>
         </div>
       </div>
       {sublabel && (
-        <p className="max-w-[8rem] text-center text-[11px] text-zinc-500 sm:text-xs">{sublabel}</p>
+        <p className="max-w-[8rem] text-center text-[11px] text-gray-500 sm:text-xs dark:text-zinc-500">{sublabel}</p>
       )}
     </div>
   )
@@ -153,14 +153,14 @@ function StatPill({
   tone?: "default" | "success" | "danger"
 }) {
   return (
-    <div className="flex min-w-0 flex-col rounded-2xl bg-zinc-900/90 px-4 py-3 shadow-sm ring-1 ring-zinc-800 lg:rounded-[20px] lg:p-5">
-      <span className="text-[11px] text-zinc-500 lg:text-xs">{label}</span>
+    <div className="flex min-w-0 flex-col rounded-2xl bg-white px-4 py-3 shadow-sm ring-1 ring-gray-200 lg:rounded-[20px] lg:p-5 dark:bg-zinc-900/90 dark:ring-zinc-800">
+      <span className="text-[11px] text-gray-500 lg:text-xs dark:text-zinc-500">{label}</span>
       <span
         className={cn(
           "mt-0.5 text-lg font-bold lg:text-2xl",
-          tone === "success" && "text-emerald-400",
-          tone === "danger" && "text-rose-400",
-          tone === "default" && "text-zinc-100",
+          tone === "success" && "text-emerald-600 dark:text-emerald-400",
+          tone === "danger" && "text-rose-600 dark:text-rose-400",
+          tone === "default" && "text-gray-900 dark:text-zinc-100",
         )}
       >
         {value}
@@ -175,12 +175,12 @@ function ApiDetailCards({ rows }: { rows: CharacterStatus[] }) {
       {rows.map((row) => (
         <div
           key={row.slug}
-          className="rounded-2xl border border-zinc-800 bg-zinc-900/60 p-3.5"
+          className="rounded-2xl border border-gray-200 bg-gray-50 p-3.5 dark:border-zinc-800 dark:bg-zinc-900/60"
         >
           <div className="flex items-start justify-between gap-2">
             <div>
-              <p className="font-medium text-zinc-100">{row.label}</p>
-              <p className="text-xs text-zinc-500">{row.role}</p>
+              <p className="font-medium text-gray-900 dark:text-zinc-100">{row.label}</p>
+              <p className="text-xs text-gray-500 dark:text-zinc-500">{row.role}</p>
             </div>
             {row.error ? (
               <span className="rounded-full bg-rose-500/15 px-2 py-0.5 text-[11px] font-medium text-rose-400">
@@ -193,8 +193,8 @@ function ApiDetailCards({ rows }: { rows: CharacterStatus[] }) {
               </span>
             )}
           </div>
-          <p className="mt-2 break-all font-mono text-[11px] text-zinc-500">{row.path}</p>
-          <div className="mt-2 flex gap-4 text-xs text-zinc-400">
+          <p className="mt-2 break-all font-mono text-[11px] text-gray-500 dark:text-zinc-500">{row.path}</p>
+          <div className="mt-2 flex gap-4 text-xs text-gray-600 dark:text-zinc-400">
             <span>ID {row.data?.id ?? "—"}</span>
             <span>{row.latencyMs !== null ? `${row.latencyMs}ms` : "—"}</span>
           </div>
@@ -262,12 +262,12 @@ export function SvAdminDashboard() {
     >
       <div className="mb-4 sm:mb-6 lg:mb-8">
         <h1
-          className="text-xl font-bold tracking-tight text-zinc-100 sm:text-2xl lg:text-3xl"
+          className="text-xl font-bold tracking-tight text-gray-900 dark:text-zinc-100 sm:text-2xl lg:text-3xl"
           style={{ fontFamily: "var(--font-heading)" }}
         >
           Dashboard
         </h1>
-        <p className="mt-1 text-xs text-zinc-500 sm:text-sm lg:text-base">
+        <p className="mt-1 text-xs text-gray-500 sm:text-sm lg:text-base dark:text-zinc-500">
           Silicon Valley API health · character modules · intent routing
         </p>
       </div>
@@ -331,8 +331,8 @@ export function SvAdminDashboard() {
         {/* Mobile: team first · Desktop: row 2 center */}
         <SoftCard className="order-1 lg:order-none lg:col-span-5 lg:col-start-5 lg:row-start-2">
           <div className="mb-4 flex items-center justify-between">
-            <h2 className="text-sm font-semibold text-zinc-100 sm:text-base">Character team</h2>
-            <Badge variant="secondary" className="rounded-full bg-zinc-800 text-[11px] text-zinc-300 sm:text-xs">
+            <h2 className="text-sm font-semibold text-gray-900 sm:text-base dark:text-zinc-100">Character team</h2>
+            <Badge variant="secondary" className="rounded-full bg-gray-100 text-[11px] text-gray-700 sm:text-xs dark:bg-zinc-800 dark:text-zinc-300">
               {total} members
             </Badge>
           </div>
@@ -358,14 +358,14 @@ export function SvAdminDashboard() {
                     </div>
                     <div className="min-w-0 flex-1">
                       <div className="flex items-center justify-between gap-2">
-                        <p className="truncate text-sm font-medium text-zinc-200">
+                        <p className="truncate text-sm font-medium text-gray-800 dark:text-zinc-200">
                           {row.label}
                         </p>
-                        <span className="shrink-0 text-[11px] text-zinc-500 sm:text-xs">
+                        <span className="shrink-0 text-[11px] text-gray-500 sm:text-xs dark:text-zinc-500">
                           {row.latencyMs !== null ? `${row.latencyMs}ms` : "—"}
                         </span>
                       </div>
-                      <div className="mt-1.5 h-2.5 overflow-hidden rounded-full bg-zinc-800 sm:h-2">
+                      <div className="mt-1.5 h-2.5 overflow-hidden rounded-full bg-gray-200 sm:h-2 dark:bg-zinc-800">
                         <div
                           className={cn(
                             "h-full rounded-full transition-all",
@@ -377,7 +377,7 @@ export function SvAdminDashboard() {
                         />
                       </div>
                     </div>
-                    <span className="w-7 shrink-0 text-right text-[11px] font-medium text-zinc-400 sm:w-8 sm:text-xs">
+                    <span className="w-7 shrink-0 text-right text-[11px] font-medium text-gray-500 sm:w-8 sm:text-xs dark:text-zinc-400">
                       {row.data?.id ?? "—"}
                     </span>
                   </div>
@@ -417,7 +417,7 @@ export function SvAdminDashboard() {
                     <div
                       key={row.slug}
                       className={cn(
-                        "flex h-6 w-6 items-center justify-center rounded-full border-2 border-zinc-950 text-[8px] font-bold text-white sm:h-7 sm:w-7 sm:text-[9px]",
+                        "flex h-6 w-6 items-center justify-center rounded-full border-2 border-white text-[8px] font-bold text-white dark:border-zinc-950 sm:h-7 sm:w-7 sm:text-[9px]",
                         BAR_COLORS[i % BAR_COLORS.length],
                       )}
                       title={row.label}
@@ -434,9 +434,9 @@ export function SvAdminDashboard() {
         <SoftCard className="order-3 lg:order-none lg:col-span-5 lg:col-start-1 lg:row-start-1">
           <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between lg:mb-6">
             <div>
-              <p className="text-xs text-zinc-500 sm:text-sm">API Latency</p>
+              <p className="text-xs text-gray-500 sm:text-sm dark:text-zinc-500">API Latency</p>
               <div className="mt-1 flex flex-wrap items-center gap-2">
-                <span className="text-xl font-bold text-zinc-100 sm:text-2xl">
+                <span className="text-xl font-bold text-gray-900 sm:text-2xl dark:text-zinc-100">
                   {ui.loading || avgLatency === null ? "—" : `${avgLatency}ms`}
                 </span>
                 <span
@@ -456,20 +456,20 @@ export function SvAdminDashboard() {
                 </span>
               </div>
             </div>
-            <div className="hidden gap-4 text-xs text-zinc-500 sm:flex">
+            <div className="hidden gap-4 text-xs text-gray-500 sm:flex dark:text-zinc-500">
               <span className="flex items-center gap-1.5">
                 <span className="h-2 w-2 rounded-full bg-indigo-500" />
                 This poll
               </span>
               <span className="flex items-center gap-1.5">
-                <span className="h-2 w-2 rounded-full bg-zinc-600" />
+                <span className="h-2 w-2 rounded-full bg-gray-400 dark:bg-zinc-600" />
                 Baseline
               </span>
             </div>
           </div>
 
           {selectedBar && (
-            <p className="mb-2 rounded-lg bg-zinc-800/80 px-2 py-1.5 text-center text-[11px] text-zinc-300 md:hidden">
+            <p className="mb-2 rounded-lg bg-gray-100 px-2 py-1.5 text-center text-[11px] text-gray-700 md:hidden dark:bg-zinc-800/80 dark:text-zinc-300">
               {ui.rows.find((r) => r.slug === selectedBar)?.label}{" "}
               {ui.rows.find((r) => r.slug === selectedBar)?.latencyMs ?? "—"}ms
             </p>
@@ -497,19 +497,19 @@ export function SvAdminDashboard() {
                     className="group flex min-w-0 flex-1 flex-col items-center gap-1.5 sm:gap-2 lg:pointer-events-none lg:cursor-default"
                   >
                     <div className="relative flex h-28 w-full flex-col items-center justify-end sm:h-36 lg:h-44">
-                      <div className="absolute -top-7 hidden rounded-lg bg-zinc-800 px-2 py-1 text-[10px] text-white lg:group-hover:block">
+                      <div className="absolute -top-7 hidden rounded-lg bg-gray-800 px-2 py-1 text-[10px] text-white lg:group-hover:block dark:bg-zinc-800">
                         {row.label} {row.latencyMs ?? "—"}ms
                       </div>
                       <div
                         className={cn(
                           "w-full max-w-[1.75rem] rounded-t-lg transition-all sm:max-w-[2rem] sm:rounded-t-xl lg:max-w-[2.5rem]",
                           row.error ? "bg-rose-900/60" : BAR_COLORS[index % BAR_COLORS.length],
-                          isSelected && "ring-2 ring-indigo-400 ring-offset-2 ring-offset-zinc-900 lg:ring-0",
+                          isSelected && "ring-2 ring-indigo-400 ring-offset-2 ring-offset-white dark:ring-offset-zinc-900 lg:ring-0",
                         )}
                         style={{ height: `${height}%` }}
                       />
                     </div>
-                    <span className="truncate text-[9px] text-zinc-500 sm:text-[10px] lg:text-xs">
+                    <span className="truncate text-[9px] text-gray-500 sm:text-[10px] lg:text-xs dark:text-zinc-500">
                       {row.label}
                     </span>
                   </button>
@@ -562,8 +562,8 @@ export function SvAdminDashboard() {
         <SoftCard className="order-5 lg:order-none lg:col-span-4 lg:col-start-1 lg:row-start-2">
           <div className="mb-4 flex items-center justify-between gap-2">
             <div>
-              <p className="text-xs text-zinc-500 sm:text-sm">Modules</p>
-              <p className="text-lg font-bold text-zinc-100 sm:text-xl">
+              <p className="text-xs text-gray-500 sm:text-sm dark:text-zinc-500">Modules</p>
+              <p className="text-lg font-bold text-gray-900 sm:text-xl dark:text-zinc-100">
                 {SILICONVALLEY_INTENTS.length} intents
               </p>
             </div>
@@ -578,26 +578,26 @@ export function SvAdminDashboard() {
                   className={cn("w-full rounded-t-md sm:rounded-t-lg", BAR_COLORS[i % BAR_COLORS.length])}
                   style={{ height: `${40 + i * 12}%` }}
                 />
-                <span className="truncate text-[8px] text-zinc-500 sm:text-[9px]">
+                <span className="truncate text-[8px] text-gray-500 sm:text-[9px] dark:text-zinc-500">
                   {intent.key.slice(0, 3)}
                 </span>
               </div>
             ))}
           </div>
-          <div className="mt-4 flex items-center gap-3 rounded-2xl bg-zinc-950/80 px-3 py-2.5 ring-1 ring-zinc-800">
+          <div className="mt-4 flex items-center gap-3 rounded-2xl bg-gray-50 px-3 py-2.5 ring-1 ring-gray-200 dark:bg-zinc-950/80 dark:ring-zinc-800">
             <div
               className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full sm:h-12 sm:w-12"
               style={{
-                background: `conic-gradient(#10b981 ${uptimePct * 3.6}deg, #27272a ${uptimePct * 3.6}deg)`,
+                background: `conic-gradient(#10b981 ${uptimePct * 3.6}deg, var(--ring-track) ${uptimePct * 3.6}deg)`,
               }}
             >
-              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-zinc-950 text-[11px] font-bold text-emerald-400 ring-1 ring-zinc-800 sm:h-9 sm:w-9 sm:text-xs">
+              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white text-[11px] font-bold text-emerald-600 ring-1 ring-gray-200 dark:bg-zinc-950 dark:text-emerald-400 dark:ring-zinc-800 sm:h-9 sm:w-9 sm:text-xs">
                 {uptimePct}%
               </span>
             </div>
             <div className="min-w-0 flex-1">
-              <p className="text-xs font-medium text-zinc-200 sm:text-sm">Backend endpoints</p>
-              <p className="truncate font-mono text-[10px] text-zinc-500 sm:text-[11px]">
+              <p className="text-xs font-medium text-gray-800 sm:text-sm dark:text-zinc-200">Backend endpoints</p>
+              <p className="truncate font-mono text-[10px] text-gray-500 sm:text-[11px] dark:text-zinc-500">
                 {SILICONVALLEY_API_BASE}
               </p>
             </div>
@@ -606,7 +606,7 @@ export function SvAdminDashboard() {
 
         <div className="order-6 flex flex-col gap-3 sm:gap-5 lg:order-none lg:col-span-3 lg:col-start-10 lg:row-start-2">
           <SoftCard>
-            <h2 className="mb-3 text-sm font-semibold text-zinc-100 sm:mb-4 sm:text-base">
+            <h2 className="mb-3 text-sm font-semibold text-gray-900 sm:mb-4 sm:text-base dark:text-zinc-100">
               Intent map
             </h2>
             <ul className="space-y-2 sm:space-y-3">
@@ -616,14 +616,14 @@ export function SvAdminDashboard() {
                 return (
                   <li
                     key={intent.key}
-                    className="flex items-center gap-3 rounded-xl px-1 py-2 active:bg-zinc-800/80 sm:px-2 sm:py-1.5 sm:hover:bg-zinc-800/60"
+                    className="flex items-center gap-3 rounded-xl px-1 py-2 active:bg-gray-100 sm:px-2 sm:py-1.5 sm:hover:bg-gray-100 dark:active:bg-zinc-800/80 dark:sm:hover:bg-zinc-800/60"
                   >
-                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-indigo-500/15 text-indigo-400 sm:h-8 sm:w-8">
+                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-indigo-100 text-indigo-600 sm:h-8 sm:w-8 dark:bg-indigo-500/15 dark:text-indigo-400">
                       <Icon className="h-4 w-4" />
                     </div>
                     <div className="min-w-0 flex-1">
-                      <p className="text-sm font-medium text-zinc-200">{intent.label}</p>
-                      <p className="truncate text-xs text-zinc-500">{intent.owner}</p>
+                      <p className="text-sm font-medium text-gray-800 dark:text-zinc-200">{intent.label}</p>
+                      <p className="truncate text-xs text-gray-500 dark:text-zinc-500">{intent.owner}</p>
                     </div>
                     <CheckCircle2 className="h-4 w-4 shrink-0 text-emerald-400" />
                   </li>
@@ -656,7 +656,7 @@ export function SvAdminDashboard() {
       </div>
 
       <SoftCard className="mt-4 sm:mt-5 lg:mt-8">
-        <h2 className="mb-3 text-sm font-semibold text-zinc-100 sm:mb-4 sm:text-base lg:text-lg">
+        <h2 className="mb-3 text-sm font-semibold text-gray-900 sm:mb-4 sm:text-base lg:text-lg dark:text-zinc-100">
           API detail
         </h2>
         {!ui.loading && ui.rows.length > 0 && (
@@ -665,7 +665,7 @@ export function SvAdminDashboard() {
             <div className="hidden overflow-x-auto lg:block">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="border-b border-zinc-800 text-left text-xs text-zinc-500">
+                  <tr className="border-b border-gray-200 text-left text-xs text-gray-500 dark:border-zinc-800 dark:text-zinc-500">
                     <th className="pb-3 pr-4 font-medium">Character</th>
                     <th className="pb-3 pr-4 font-medium">Role</th>
                     <th className="pb-3 pr-4 font-medium">Endpoint</th>
@@ -676,14 +676,14 @@ export function SvAdminDashboard() {
                 </thead>
                 <tbody>
                   {ui.rows.map((row) => (
-                    <tr key={row.slug} className="border-b border-zinc-800/60 last:border-0">
-                      <td className="py-3 pr-4 font-medium text-zinc-200">{row.label}</td>
-                      <td className="py-3 pr-4 text-zinc-400">{row.role}</td>
-                      <td className="max-w-[200px] truncate py-3 pr-4 font-mono text-xs text-zinc-500">
+                    <tr key={row.slug} className="border-b border-gray-100 last:border-0 dark:border-zinc-800/60">
+                      <td className="py-3 pr-4 font-medium text-gray-800 dark:text-zinc-200">{row.label}</td>
+                      <td className="py-3 pr-4 text-gray-600 dark:text-zinc-400">{row.role}</td>
+                      <td className="max-w-[200px] truncate py-3 pr-4 font-mono text-xs text-gray-500 dark:text-zinc-500">
                         {row.path}
                       </td>
-                      <td className="py-3 pr-4 text-zinc-400">{row.data?.id ?? "—"}</td>
-                      <td className="py-3 pr-4 text-zinc-400">{row.latencyMs ?? "—"}</td>
+                      <td className="py-3 pr-4 text-gray-600 dark:text-zinc-400">{row.data?.id ?? "—"}</td>
+                      <td className="py-3 pr-4 text-gray-600 dark:text-zinc-400">{row.latencyMs ?? "—"}</td>
                       <td className="py-3">
                         {row.error ? (
                           <span className="text-rose-400">{row.error}</span>

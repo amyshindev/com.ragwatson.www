@@ -57,10 +57,10 @@ export function LandingGenreShowcase() {
   return (
     <section
       id="genre-showcase"
-      className="relative scroll-mt-24 border-b border-white/5 px-4 py-16 sm:px-6 sm:py-20 md:py-24"
+      className="relative scroll-mt-24 border-b border-gray-200 px-4 py-16 dark:border-white/5 sm:px-6 sm:py-20 md:py-24"
     >
       <SectionReveal className="mx-auto max-w-6xl">
-        <h2 className="text-left text-4xl font-semibold tracking-tight text-zinc-100 sm:text-5xl md:text-6xl">
+        <h2 className="text-left text-4xl font-semibold tracking-tight text-gray-900 dark:text-zinc-100 sm:text-5xl md:text-6xl">
           장르별 미학 쇼케이스
         </h2>
 
@@ -74,8 +74,8 @@ export function LandingGenreShowcase() {
                 className={cn(
                   "text-left text-xs transition-colors sm:text-sm",
                   active === genre.id
-                    ? "text-maestro-400 underline decoration-maestro-400/80 underline-offset-4"
-                    : "text-zinc-600 hover:text-zinc-400",
+                    ? "text-blue-600 underline decoration-blue-500/80 underline-offset-4 dark:text-maestro-400 dark:decoration-maestro-400/80"
+                    : "text-gray-500 hover:text-gray-800 dark:text-zinc-600 dark:hover:text-zinc-400",
                 )}
               >
                 {genre.tag}
@@ -84,7 +84,7 @@ export function LandingGenreShowcase() {
           </div>
 
           <div className="flex-1">
-            <div className="relative mx-auto aspect-[9/16] w-full max-w-[280px] overflow-hidden border border-zinc-800 bg-black sm:max-w-[320px] md:max-w-[400px]">
+            <div className="relative mx-auto aspect-[9/16] w-full max-w-[280px] overflow-hidden border border-gray-300 bg-black dark:border-zinc-800 sm:max-w-[320px] md:max-w-[400px]">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={active}
@@ -104,7 +104,7 @@ export function LandingGenreShowcase() {
               </div>
             </div>
 
-            <p className="mt-6 text-center text-xs italic text-zinc-600 lg:text-left">
+            <p className="mt-6 text-center text-xs italic text-gray-500 dark:text-zinc-600 lg:text-left">
               실제 업로드 시, AI가 당신의 곡 BPM·악기·감성을 분석해 이 비주얼을 자동
               생성합니다.
             </p>

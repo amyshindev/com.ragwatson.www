@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import { Inter, Noto_Sans_KR, Outfit } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { SiteHeader } from "@/components/site-header"
+import { ThemeProvider } from "@/components/theme-provider"
 import "./globals.css"
 
 const outfit = Outfit({
@@ -50,14 +51,20 @@ export default function RootLayout({
   return (
     <html
       lang="ko"
+      suppressHydrationWarning
       className={`${outfit.variable} ${inter.variable} ${notoSansKr.variable}`}
     >
-      <body
-        className={`${notoSansKr.className} antialiased bg-[#0a0a0a] text-zinc-300`}
-      >
-        <SiteHeader />
-        <div className="pt-20">{children}</div>
-        {process.env.NODE_ENV === "production" && <Analytics />}
+      <body className={`${notoSansKr.className} antialiased`}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="light"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <SiteHeader />
+          <div className="pt-20">{children}</div>
+          {process.env.NODE_ENV === "production" && <Analytics />}
+        </ThemeProvider>
       </body>
     </html>
   )

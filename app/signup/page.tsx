@@ -12,6 +12,7 @@ import {
   authInputClassName,
   authOAuthButtonClassName,
 } from "@/components/auth/maestro-auth-layout"
+import { surfaceLink, surfaceSubtle } from "@/lib/theme-surface"
 import { cn } from "@/lib/utils"
 
 export default function SignupPage() {
@@ -129,8 +130,8 @@ export default function SignupPage() {
             className={cn(
               "rounded-none border px-3 py-2 text-sm",
               message.type === "ok"
-                ? "border-maestro-500/30 bg-maestro-950/40 text-maestro-200"
-                : "border-red-500/30 bg-red-950/40 text-red-300",
+                ? "border-blue-200 bg-blue-50 text-blue-800 dark:border-maestro-500/30 dark:bg-maestro-950/40 dark:text-maestro-200"
+                : "border-red-200 bg-red-50 text-red-700 dark:border-red-500/30 dark:bg-red-950/40 dark:text-red-300",
             )}
             role="status"
           >
@@ -146,12 +147,9 @@ export default function SignupPage() {
         </GlitchButton>
       </form>
 
-      <p className="mt-6 text-center text-sm text-zinc-400">
+      <p className={cn("mt-6 text-center text-sm", surfaceSubtle)}>
         이미 계정이 있으신가요?{" "}
-        <Link
-          href="/login"
-          className="font-medium text-maestro-500/90 hover:text-maestro-400 hover:underline"
-        >
+        <Link href="/login" className={cn("font-medium", surfaceLink)}>
           로그인
         </Link>
       </p>

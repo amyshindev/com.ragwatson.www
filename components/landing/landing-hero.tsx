@@ -9,10 +9,10 @@ export function LandingHero() {
     target: sectionRef,
     offset: ["start start", "end start"],
   })
-  /* 스크롤할수록 검정 그라데이션 시작점이 위로 올라감 (색상 레이어는 그대로) */
   const fadeStart = useTransform(scrollYProgress, [0, 0.4, 1], [52, 28, 0])
   const fadeMid = useTransform(scrollYProgress, [0, 0.4, 1], [78, 52, 22])
   const scrollBlackGradient = useMotionTemplate`linear-gradient(180deg, transparent 0%, transparent ${fadeStart}%, rgba(10, 10, 10, 0.5) ${fadeMid}%, #0a0a0a 100%)`
+  const scrollLightGradient = useMotionTemplate`linear-gradient(180deg, transparent 0%, transparent ${fadeStart}%, rgba(249, 250, 251, 0.65) ${fadeMid}%, #f9fafb 100%)`
 
   const [parallax, setParallax] = useState({ x: 0, y: 0 })
 
@@ -30,20 +30,37 @@ export function LandingHero() {
     >
       <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
         <motion.div
-          className="landing-hero-mesh landing-scanlines absolute inset-0"
+          className="landing-hero-mesh-light absolute inset-0 dark:hidden"
           style={{
             transform: `translate(${parallax.x}px, ${parallax.y}px)`,
             transition: "transform 0.15s ease-out",
           }}
         />
         <motion.div
-          className="landing-hero-parallax-glow absolute inset-0"
+          className="landing-hero-mesh landing-scanlines absolute inset-0 hidden dark:block"
+          style={{
+            transform: `translate(${parallax.x}px, ${parallax.y}px)`,
+            transition: "transform 0.15s ease-out",
+          }}
+        />
+        <motion.div
+          className="landing-hero-parallax-glow-light absolute inset-0 dark:hidden"
           style={{
             transform: `translate(${parallax.x * 1.5}px, ${parallax.y * 1.5}px)`,
           }}
         />
         <motion.div
-          className="absolute inset-0 z-[2]"
+          className="landing-hero-parallax-glow absolute inset-0 hidden dark:block"
+          style={{
+            transform: `translate(${parallax.x * 1.5}px, ${parallax.y * 1.5}px)`,
+          }}
+        />
+        <motion.div
+          className="absolute inset-0 z-[2] dark:hidden"
+          style={{ background: scrollLightGradient }}
+        />
+        <motion.div
+          className="absolute inset-0 z-[2] hidden dark:block"
           style={{ background: scrollBlackGradient }}
         />
       </div>
@@ -55,10 +72,10 @@ export function LandingHero() {
         transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
       >
         <div className="w-full max-w-4xl">
-          <h1 className="landing-hero-title font-semibold tracking-tight text-zinc-100">
+          <h1 className="landing-hero-title font-semibold tracking-tight text-gray-900 dark:text-zinc-100">
             Your sound, through our eye.
           </h1>
-          <p className="landing-hero-desc mx-auto mt-6 max-w-2xl leading-relaxed text-white sm:mt-8">
+          <p className="landing-hero-desc mx-auto mt-6 max-w-2xl leading-relaxed text-gray-600 dark:text-white sm:mt-8">
             당신의 음악을 이해하는 AI 에이전트로,
             <br className="sm:hidden" /> 숏폼 최적화 아티스틱 비주얼을.
           </p>

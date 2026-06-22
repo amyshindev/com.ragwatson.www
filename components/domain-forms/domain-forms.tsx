@@ -10,7 +10,12 @@ import { getAuthUser } from "@/lib/auth-session"
 import { cn } from "@/lib/utils"
 
 const fieldClass =
-  "rounded-none border-zinc-700 bg-black/40 text-zinc-100 shadow-none placeholder:text-zinc-500 focus-visible:border-maestro-500/50 focus-visible:ring-maestro-500/20 md:text-sm"
+  "rounded-none border-gray-300 bg-white text-gray-900 shadow-none placeholder:text-gray-400 focus-visible:border-blue-500/50 focus-visible:ring-blue-500/20 md:text-sm dark:border-zinc-700 dark:bg-black/40 dark:text-zinc-100 dark:placeholder:text-zinc-500 dark:focus-visible:border-maestro-500/50 dark:focus-visible:ring-maestro-500/20"
+
+const labelClass = "text-gray-600 dark:text-zinc-400"
+
+const submitButtonClass =
+  "mt-2 w-full rounded-none border-gray-300 bg-gray-100 text-gray-900 hover:bg-gray-200 hover:text-gray-950 dark:border-zinc-600 dark:bg-zinc-900/80 dark:text-zinc-100 dark:hover:bg-zinc-800 dark:hover:text-white"
 
 const selectClass = cn(
   fieldClass,
@@ -100,7 +105,7 @@ export function LibraryDataForm() {
       onSubmit={(e) => submitDomainForm(e, "/api/domain/library", "마이 아카이브")}
     >
       <div className="grid gap-2">
-        <Label htmlFor="library-title" className="text-zinc-400">
+        <Label htmlFor="library-title" className={labelClass}>
           프로젝트 이름
         </Label>
         <Input
@@ -112,7 +117,7 @@ export function LibraryDataForm() {
         />
       </div>
       <div className="grid gap-2">
-        <Label htmlFor="library-memo" className="text-zinc-400">
+        <Label htmlFor="library-memo" className={labelClass}>
           메모
         </Label>
         <Textarea
@@ -124,7 +129,7 @@ export function LibraryDataForm() {
         />
       </div>
       <div className="grid gap-2">
-        <Label htmlFor="library-tags" className="text-zinc-400">
+        <Label htmlFor="library-tags" className={labelClass}>
           태그 (쉼표로 구분)
         </Label>
         <Input
@@ -137,7 +142,7 @@ export function LibraryDataForm() {
       <Button
         type="submit"
         variant="outline"
-        className="mt-2 w-full rounded-none border-zinc-600 bg-zinc-900/80 text-zinc-100 hover:bg-zinc-800 hover:text-white"
+        className={submitButtonClass}
       >
         등록
       </Button>
@@ -154,7 +159,7 @@ export function StudioWorkspaceDataForm() {
       }
     >
       <div className="grid gap-2">
-        <Label htmlFor="ws-name" className="text-zinc-400">
+        <Label htmlFor="ws-name" className={labelClass}>
           작업 / 프리셋 이름
         </Label>
         <Input
@@ -166,7 +171,7 @@ export function StudioWorkspaceDataForm() {
         />
       </div>
       <div className="grid gap-2">
-        <Label htmlFor="ws-glitch" className="text-zinc-400">
+        <Label htmlFor="ws-glitch" className={labelClass}>
           글리치 강도 (0–100)
         </Label>
         <Input
@@ -180,7 +185,7 @@ export function StudioWorkspaceDataForm() {
         />
       </div>
       <div className="grid gap-2">
-        <Label htmlFor="ws-notes" className="text-zinc-400">
+        <Label htmlFor="ws-notes" className={labelClass}>
           커스텀 노트
         </Label>
         <Textarea
@@ -194,7 +199,7 @@ export function StudioWorkspaceDataForm() {
       <Button
         type="submit"
         variant="outline"
-        className="mt-2 w-full rounded-none border-zinc-600 bg-zinc-900/80 text-zinc-100 hover:bg-zinc-800 hover:text-white"
+        className={submitButtonClass}
       >
         저장
       </Button>
@@ -211,7 +216,7 @@ export function StudioAnalyticsDataForm() {
       }
     >
       <div className="grid gap-2">
-        <Label htmlFor="an-track" className="text-zinc-400">
+        <Label htmlFor="an-track" className={labelClass}>
           트랙 / 작업명
         </Label>
         <Input
@@ -223,7 +228,7 @@ export function StudioAnalyticsDataForm() {
         />
       </div>
       <div className="grid gap-2">
-        <Label htmlFor="an-bpm" className="text-zinc-400">
+        <Label htmlFor="an-bpm" className={labelClass}>
           BPM
         </Label>
         <Input
@@ -236,7 +241,7 @@ export function StudioAnalyticsDataForm() {
         />
       </div>
       <div className="grid gap-2">
-        <Label htmlFor="an-mood" className="text-zinc-400">
+        <Label htmlFor="an-mood" className={labelClass}>
           무드
         </Label>
         <select id="an-mood" name="mood" className={selectClass} required defaultValue="">
@@ -250,7 +255,7 @@ export function StudioAnalyticsDataForm() {
         </select>
       </div>
       <div className="grid gap-2">
-        <Label htmlFor="an-genre" className="text-zinc-400">
+        <Label htmlFor="an-genre" className={labelClass}>
           장르 태그
         </Label>
         <Input
@@ -263,7 +268,7 @@ export function StudioAnalyticsDataForm() {
       <Button
         type="submit"
         variant="outline"
-        className="mt-2 w-full rounded-none border-zinc-600 bg-zinc-900/80 text-zinc-100 hover:bg-zinc-800 hover:text-white"
+        className={submitButtonClass}
       >
         분석 결과 저장
       </Button>
@@ -278,7 +283,7 @@ export function GalleryEntryForm() {
       onSubmit={(e) => submitDomainForm(e, "/api/domain/gallery", "갤러리 등록")}
     >
       <div className="grid gap-2">
-        <Label htmlFor="gal-title" className="text-zinc-400">
+        <Label htmlFor="gal-title" className={labelClass}>
           작품 제목
         </Label>
         <Input
@@ -289,13 +294,13 @@ export function GalleryEntryForm() {
         />
       </div>
       <div className="grid gap-2">
-        <Label htmlFor="gal-artist" className="text-zinc-400">
+        <Label htmlFor="gal-artist" className={labelClass}>
           아티스트명
         </Label>
         <Input id="gal-artist" name="artist" required className={fieldClass} />
       </div>
       <div className="grid gap-2">
-        <Label htmlFor="gal-genre" className="text-zinc-400">
+        <Label htmlFor="gal-genre" className={labelClass}>
           장르 · 태그
         </Label>
         <Input
@@ -306,7 +311,7 @@ export function GalleryEntryForm() {
         />
       </div>
       <div className="grid gap-2">
-        <Label htmlFor="gal-url" className="text-zinc-400">
+        <Label htmlFor="gal-url" className={labelClass}>
           미디어 URL (9:16 루프)
         </Label>
         <Input
@@ -320,7 +325,7 @@ export function GalleryEntryForm() {
       <Button
         type="submit"
         variant="outline"
-        className="mt-2 w-full rounded-none border-zinc-600 bg-zinc-900/80 text-zinc-100 hover:bg-zinc-800 hover:text-white"
+        className={submitButtonClass}
       >
         갤러리에 제출
       </Button>
@@ -335,19 +340,19 @@ export function MagazineArticleForm() {
       onSubmit={(e) => submitDomainForm(e, "/api/domain/magazine", "매거진 기사")}
     >
       <div className="grid gap-2">
-        <Label htmlFor="mag-title" className="text-zinc-400">
+        <Label htmlFor="mag-title" className={labelClass}>
           기사 제목
         </Label>
         <Input id="mag-title" name="articleTitle" required className={fieldClass} />
       </div>
       <div className="grid gap-2">
-        <Label htmlFor="mag-author" className="text-zinc-400">
+        <Label htmlFor="mag-author" className={labelClass}>
           저자
         </Label>
         <Input id="mag-author" name="author" required className={fieldClass} />
       </div>
       <div className="grid gap-2">
-        <Label htmlFor="mag-excerpt" className="text-zinc-400">
+        <Label htmlFor="mag-excerpt" className={labelClass}>
           요약
         </Label>
         <Textarea
@@ -358,7 +363,7 @@ export function MagazineArticleForm() {
         />
       </div>
       <div className="grid gap-2">
-        <Label htmlFor="mag-body" className="text-zinc-400">
+        <Label htmlFor="mag-body" className={labelClass}>
           본문
         </Label>
         <Textarea id="mag-body" name="body" rows={8} className={fieldClass} />
@@ -366,7 +371,7 @@ export function MagazineArticleForm() {
       <Button
         type="submit"
         variant="outline"
-        className="mt-2 w-full rounded-none border-zinc-600 bg-zinc-900/80 text-zinc-100 hover:bg-zinc-800 hover:text-white"
+        className={submitButtonClass}
       >
         초안 저장
       </Button>
@@ -381,7 +386,7 @@ export function FaqEntryForm() {
       onSubmit={(e) => submitDomainForm(e, "/api/domain/faq", "FAQ")}
     >
       <div className="grid gap-2">
-        <Label htmlFor="faq-cat" className="text-zinc-400">
+        <Label htmlFor="faq-cat" className={labelClass}>
           카테고리
         </Label>
         <Input
@@ -392,13 +397,13 @@ export function FaqEntryForm() {
         />
       </div>
       <div className="grid gap-2">
-        <Label htmlFor="faq-q" className="text-zinc-400">
+        <Label htmlFor="faq-q" className={labelClass}>
           질문
         </Label>
         <Textarea id="faq-q" name="question" rows={2} required className={fieldClass} />
       </div>
       <div className="grid gap-2">
-        <Label htmlFor="faq-a" className="text-zinc-400">
+        <Label htmlFor="faq-a" className={labelClass}>
           답변
         </Label>
         <Textarea id="faq-a" name="answer" rows={6} required className={fieldClass} />
@@ -406,7 +411,7 @@ export function FaqEntryForm() {
       <Button
         type="submit"
         variant="outline"
-        className="mt-2 w-full rounded-none border-zinc-600 bg-zinc-900/80 text-zinc-100 hover:bg-zinc-800 hover:text-white"
+        className={submitButtonClass}
       >
         FAQ 등록
       </Button>

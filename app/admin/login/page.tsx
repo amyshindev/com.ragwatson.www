@@ -9,8 +9,10 @@ import {
   MaestroAuthLayout,
   authInputClassName,
 } from "@/components/auth/maestro-auth-layout"
+import { surfaceLink, surfaceMuted } from "@/lib/theme-surface"
 import { isAdminUser } from "@/lib/admin-auth"
 import { setAuthUser } from "@/lib/auth-session"
+import { cn } from "@/lib/utils"
 
 function AdminLoginForm() {
   const router = useRouter()
@@ -101,7 +103,7 @@ function AdminLoginForm() {
         }}
       >
         {error && (
-          <p className="rounded-lg bg-red-500/10 px-3 py-2 text-sm text-red-300" role="status">
+          <p className="rounded-lg bg-red-500/10 px-3 py-2 text-sm text-red-600 dark:text-red-300" role="status">
             {error}
           </p>
         )}
@@ -126,16 +128,13 @@ function AdminLoginForm() {
         </GlitchButton>
       </form>
 
-      <p className="mt-4 text-center text-xs text-zinc-500">
+      <p className={cn("mt-4 text-center text-xs", surfaceMuted)}>
         로컬 개발 기본 계정: admin@example.com / admin1234
       </p>
 
-      <p className="mt-6 text-center text-xs text-zinc-500">
+      <p className={cn("mt-6 text-center text-xs", surfaceMuted)}>
         일반 회원은{" "}
-        <Link
-          href="/login"
-          className="text-maestro-500/90 hover:text-maestro-400 hover:underline"
-        >
+        <Link href="/login" className={surfaceLink}>
           서비스 로그인
         </Link>
         을 이용하세요. 이 URL은 GNB에 노출되지 않습니다.
@@ -148,7 +147,7 @@ export default function AdminLoginPage() {
   return (
     <Suspense
       fallback={
-        <div className="flex min-h-[50vh] items-center justify-center text-sm text-zinc-500">
+        <div className={cn("flex min-h-[50vh] items-center justify-center text-sm", surfaceMuted)}>
           로딩 중…
         </div>
       }

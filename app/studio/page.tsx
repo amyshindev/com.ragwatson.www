@@ -6,6 +6,15 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
+import {
+  surfaceBody,
+  surfaceEyebrow,
+  surfaceLink,
+  surfaceMuted,
+  surfaceSubtle,
+  surfaceTitle,
+} from "@/lib/theme-surface"
+import { cn } from "@/lib/utils"
 
 const hubs = [
   {
@@ -36,18 +45,19 @@ const hubs = [
 
 export default function StudioPage() {
   return (
-    <div className="mx-auto max-w-5xl px-4 py-12 text-zinc-300 md:py-16">
+    <div className={cn("mx-auto max-w-5xl px-4 py-12 md:py-16", surfaceBody)}>
       <header className="mb-10 text-center md:mb-14">
-        <p className="text-xs font-bold uppercase tracking-wider text-maestro-500/90">
-          Studio
-        </p>
+        <p className={surfaceEyebrow}>Studio</p>
         <h1
-          className="mt-2 text-3xl font-semibold tracking-tight text-zinc-100 md:text-4xl"
+          className={cn(
+            "mt-2 text-3xl font-semibold tracking-tight md:text-4xl",
+            surfaceTitle,
+          )}
           style={{ fontFamily: "var(--font-heading)" }}
         >
           비주얼 스튜디오
         </h1>
-        <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-zinc-500 md:text-base">
+        <p className={cn("mx-auto mt-4 max-w-2xl text-sm leading-relaxed md:text-base", surfaceMuted)}>
           작업 흐름에 맞게 분석 대시보드, 커스텀 워크스페이스, 아카이브로
           이동하세요.
         </p>
@@ -57,28 +67,28 @@ export default function StudioPage() {
         {hubs.map(({ href, title, role, detail, Icon }) => (
           <li key={href}>
             <Link href={href} className="group block h-full outline-none">
-              <Card className="h-full border-white/10 bg-zinc-950/60 py-0 shadow-lg shadow-black/30 backdrop-blur-xl transition-colors hover:border-maestro-500/35 hover:bg-zinc-950/80">
+              <Card className="h-full border-gray-200 bg-white py-0 shadow-md transition-colors hover:border-blue-300 hover:bg-gray-50 dark:border-white/10 dark:bg-zinc-950/60 dark:shadow-lg dark:shadow-black/30 dark:backdrop-blur-xl dark:hover:border-maestro-500/35 dark:hover:bg-zinc-950/80">
                 <CardHeader className="gap-4 px-6 py-6">
                   <div className="flex items-start justify-between gap-3">
-                    <span className="flex h-11 w-11 shrink-0 items-center justify-center border border-zinc-700 bg-black/40 text-maestro-400 transition-colors group-hover:border-maestro-500/40 group-hover:text-maestro-300">
+                    <span className="flex h-11 w-11 shrink-0 items-center justify-center border border-gray-200 bg-gray-50 text-blue-600 transition-colors group-hover:border-blue-300 group-hover:text-blue-700 dark:border-zinc-700 dark:bg-black/40 dark:text-maestro-400 dark:group-hover:border-maestro-500/40 dark:group-hover:text-maestro-300">
                       <Icon className="h-5 w-5" aria-hidden />
                     </span>
-                    <span className="text-xs font-medium text-zinc-600 transition-colors group-hover:text-maestro-500/80">
+                    <span className="text-xs font-medium text-gray-400 transition-colors group-hover:text-blue-600 dark:text-zinc-600 dark:group-hover:text-maestro-500/80">
                       이동 →
                     </span>
                   </div>
                   <div>
                     <CardTitle
-                      className="text-lg text-zinc-100"
+                      className={cn("text-lg", surfaceTitle)}
                       style={{ fontFamily: "var(--font-heading)" }}
                     >
                       {title}
                     </CardTitle>
-                    <CardDescription className="mt-2 text-pretty text-sm leading-relaxed text-zinc-500">
+                    <CardDescription className={cn("mt-2 text-pretty text-sm leading-relaxed", surfaceMuted)}>
                       {role}
                     </CardDescription>
                   </div>
-                  <p className="text-pretty text-xs leading-relaxed text-zinc-600">
+                  <p className={cn("text-pretty text-xs leading-relaxed", surfaceSubtle)}>
                     {detail}
                   </p>
                 </CardHeader>
@@ -88,11 +98,8 @@ export default function StudioPage() {
         ))}
       </ul>
 
-      <p className="mt-12 text-center text-sm text-zinc-600">
-        <Link
-          href="/"
-          className="font-medium text-maestro-500/90 hover:text-maestro-400 hover:underline"
-        >
+      <p className={cn("mt-12 text-center text-sm", surfaceSubtle)}>
+        <Link href="/" className={surfaceLink}>
           ← 홈으로
         </Link>
       </p>

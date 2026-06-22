@@ -19,6 +19,7 @@ import { useEffect, useState, type ReactNode } from "react"
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { ThemeToggle } from "@/components/theme-toggle"
 import { cn } from "@/lib/utils"
 
 const MAIN_NAV = [
@@ -65,8 +66,8 @@ function NavLink({
       className={cn(
         "relative flex items-center gap-3 rounded-2xl px-3 py-3 text-sm font-medium transition active:scale-[0.98]",
         active
-          ? "bg-indigo-500/15 text-indigo-300"
-          : "text-zinc-500 hover:bg-zinc-800/80 hover:text-zinc-200",
+          ? "bg-indigo-100 text-indigo-700 dark:bg-indigo-500/15 dark:text-indigo-300"
+          : "text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-zinc-500 dark:hover:bg-zinc-800/80 dark:hover:text-zinc-200",
         className,
       )}
     >
@@ -104,17 +105,17 @@ export function SvAdminShell({
   }, [menuOpen])
 
   return (
-    <div className="fixed inset-0 z-[60] flex min-h-[100dvh] flex-col bg-[#0a0a0a] text-zinc-200 md:static md:z-auto md:min-h-screen">
+    <div className="fixed inset-0 z-[60] flex min-h-[100dvh] flex-col bg-gray-50 text-gray-900 md:static md:z-auto md:min-h-screen dark:bg-[#0a0a0a] dark:text-zinc-200">
       {/* Mobile top bar */}
-      <header className="sticky top-0 z-30 shrink-0 border-b border-zinc-800/80 bg-[#0a0a0a]/95 px-3 pb-3 pt-[max(0.75rem,env(safe-area-inset-top))] backdrop-blur-md md:hidden">
+      <header className="sticky top-0 z-30 shrink-0 border-b border-gray-200 bg-white/95 px-3 pb-3 pt-[max(0.75rem,env(safe-area-inset-top))] backdrop-blur-md dark:border-zinc-800/80 dark:bg-[#0a0a0a]/95 md:hidden">
         <div className="flex items-center gap-2">
           <button
             type="button"
             onClick={() => setMenuOpen(true)}
-            className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-zinc-900 shadow-sm ring-1 ring-zinc-800"
+            className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-white shadow-sm ring-1 ring-gray-200 dark:bg-zinc-900 dark:ring-zinc-800"
             aria-label="Open menu"
           >
-            <Menu className="h-5 w-5 text-zinc-400" />
+            <Menu className="h-5 w-5 text-gray-500 dark:text-zinc-400" />
           </button>
           <Link href="/admin" className="flex min-w-0 flex-1 items-center gap-2">
             <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-indigo-600 text-xs font-bold text-white">
@@ -122,13 +123,13 @@ export function SvAdminShell({
             </div>
             <div className="min-w-0">
               <p
-                className="truncate text-sm font-semibold text-zinc-100"
+                className="truncate text-sm font-semibold text-gray-900 dark:text-zinc-100"
                 style={{ fontFamily: "var(--font-heading)" }}
               >
                 Pied Piper
               </p>
               {lastRefreshed && (
-                <p className="truncate text-[10px] text-zinc-500">
+                <p className="truncate text-[10px] text-gray-500 dark:text-zinc-500">
                   Updated {lastRefreshed}
                 </p>
               )}
@@ -137,32 +138,33 @@ export function SvAdminShell({
           <button
             type="button"
             onClick={() => setSearchOpen((open) => !open)}
-            className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-zinc-900 shadow-sm ring-1 ring-zinc-800"
+            className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-white shadow-sm ring-1 ring-gray-200 dark:bg-zinc-900 dark:ring-zinc-800"
             aria-label="Toggle search"
             aria-expanded={searchOpen}
           >
-            <Search className="h-5 w-5 text-zinc-400" />
+            <Search className="h-5 w-5 text-gray-500 dark:text-zinc-400" />
           </button>
+          <ThemeToggle className="shrink-0" />
           {onRefresh && (
             <button
               type="button"
               disabled={refreshing}
               onClick={onRefresh}
-              className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-zinc-900 shadow-sm ring-1 ring-zinc-800 disabled:opacity-60"
+              className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-white shadow-sm ring-1 ring-gray-200 disabled:opacity-60 dark:bg-zinc-900 dark:ring-zinc-800"
               aria-label="Refresh"
             >
               <RefreshCw
-                className={cn("h-5 w-5 text-zinc-400", refreshing && "animate-spin")}
+                className={cn("h-5 w-5 text-gray-500 dark:text-zinc-400", refreshing && "animate-spin")}
               />
             </button>
           )}
         </div>
         {searchOpen && (
           <div className="relative mt-3">
-            <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-500" />
+            <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400 dark:text-zinc-500" />
             <Input
               placeholder="Search characters, endpoints…"
-              className="h-11 rounded-2xl border-zinc-800 bg-zinc-900 pl-11 text-zinc-100 shadow-sm ring-1 ring-zinc-800 placeholder:text-zinc-500"
+              className="h-11 rounded-2xl border-gray-200 bg-white pl-11 text-gray-900 shadow-sm ring-1 ring-gray-200 placeholder:text-gray-400 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-100 dark:ring-zinc-800 dark:placeholder:text-zinc-500"
               autoFocus
             />
           </div>
@@ -178,7 +180,7 @@ export function SvAdminShell({
             aria-label="Close menu"
             onClick={() => setMenuOpen(false)}
           />
-          <aside className="fixed inset-y-0 left-0 z-50 flex w-[min(100vw-3rem,18rem)] flex-col border-r border-zinc-800 bg-zinc-950 px-4 pb-5 pt-[max(1rem,env(safe-area-inset-top))] shadow-2xl md:hidden">
+          <aside className="fixed inset-y-0 left-0 z-50 flex w-[min(100vw-3rem,18rem)] flex-col border-r border-gray-200 bg-white px-4 pb-5 pt-[max(1rem,env(safe-area-inset-top))] shadow-2xl dark:border-zinc-800 dark:bg-zinc-950 md:hidden">
             <div className="mb-6 flex items-center justify-between">
               <Link
                 href="/admin"
@@ -188,15 +190,15 @@ export function SvAdminShell({
                 <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-indigo-600 text-sm font-bold text-white">
                   PP
                 </div>
-                <span className="text-base font-semibold text-zinc-100">Pied Piper</span>
+                <span className="text-base font-semibold text-gray-900 dark:text-zinc-100">Pied Piper</span>
               </Link>
               <button
                 type="button"
                 onClick={() => setMenuOpen(false)}
-                className="flex h-10 w-10 items-center justify-center rounded-xl bg-zinc-900 ring-1 ring-zinc-800"
+                className="flex h-10 w-10 items-center justify-center rounded-xl bg-white ring-1 ring-gray-200 dark:bg-zinc-900 dark:ring-zinc-800"
                 aria-label="Close menu"
               >
-                <X className="h-5 w-5 text-zinc-400" />
+                <X className="h-5 w-5 text-gray-500 dark:text-zinc-400" />
               </button>
             </div>
             <nav className="space-y-1">
@@ -209,7 +211,7 @@ export function SvAdminShell({
                 />
               ))}
             </nav>
-            <p className="mb-2 mt-6 px-3 text-[11px] font-semibold uppercase tracking-wider text-zinc-600">
+            <p className="mb-2 mt-6 px-3 text-[11px] font-semibold uppercase tracking-wider text-gray-400 dark:text-zinc-600">
               Modules
             </p>
             <nav className="space-y-1">
@@ -221,7 +223,7 @@ export function SvAdminShell({
                 />
               ))}
             </nav>
-            <div className="mt-auto space-y-1 border-t border-zinc-800 pt-4">
+            <div className="mt-auto space-y-1 border-t border-gray-200 pt-4 dark:border-zinc-800">
               <NavLink href="/admin" label="Settings" icon={Settings} onNavigate={() => setMenuOpen(false)} />
               <NavLink href="/" label="Exit admin" icon={LogOut} onNavigate={() => setMenuOpen(false)} />
             </div>
@@ -231,13 +233,13 @@ export function SvAdminShell({
 
       <div className="flex min-h-0 flex-1 md:min-h-screen">
         {/* Desktop sidebar */}
-        <aside className="hidden w-64 shrink-0 flex-col border-r border-zinc-800/80 bg-zinc-950/95 px-5 py-8 shadow-[4px_0_24px_rgba(0,0,0,0.4)] backdrop-blur md:flex lg:w-72 lg:px-6">
+        <aside className="hidden w-64 shrink-0 flex-col border-r border-gray-200/80 bg-white/95 px-5 py-8 shadow-[4px_0_24px_rgba(0,0,0,0.06)] backdrop-blur dark:border-zinc-800/80 dark:bg-zinc-950/95 dark:shadow-[4px_0_24px_rgba(0,0,0,0.4)] md:flex lg:w-72 lg:px-6">
           <Link href="/admin" className="mb-10 flex items-center gap-2 px-2">
             <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-indigo-600 text-sm font-bold text-white shadow-lg shadow-indigo-500/20">
               PP
             </div>
             <span
-              className="text-lg font-semibold tracking-tight text-zinc-100"
+              className="text-lg font-semibold tracking-tight text-gray-900 dark:text-zinc-100"
               style={{ fontFamily: "var(--font-heading)" }}
             >
               Pied Piper
@@ -248,7 +250,7 @@ export function SvAdminShell({
               <NavLink key={item.href} {...item} active={pathname === item.href} />
             ))}
           </nav>
-          <p className="mb-2 mt-8 px-3 text-[11px] font-semibold uppercase tracking-wider text-zinc-600">
+          <p className="mb-2 mt-8 px-3 text-[11px] font-semibold uppercase tracking-wider text-gray-400 dark:text-zinc-600">
             Modules
           </p>
           <nav className="space-y-1">
@@ -256,7 +258,7 @@ export function SvAdminShell({
               <NavLink key={item.label} {...item} />
             ))}
           </nav>
-          <div className="mt-auto space-y-1 border-t border-zinc-800 pt-6">
+          <div className="mt-auto space-y-1 border-t border-gray-200 pt-6 dark:border-zinc-800">
             <NavLink href="/admin" label="Settings" icon={Settings} />
             <NavLink href="/" label="Exit admin" icon={LogOut} />
           </div>
@@ -264,17 +266,17 @@ export function SvAdminShell({
 
         <div className="flex min-w-0 flex-1 flex-col">
           {/* Desktop top bar */}
-          <header className="sticky top-0 z-20 hidden items-center gap-4 border-b border-zinc-800/80 bg-[#0a0a0a]/90 px-6 py-4 backdrop-blur-md md:flex lg:px-8">
+          <header className="sticky top-0 z-20 hidden items-center gap-4 border-b border-gray-200/80 bg-white/90 px-6 py-4 backdrop-blur-md dark:border-zinc-800/80 dark:bg-[#0a0a0a]/90 md:flex lg:px-8">
             <div className="relative min-w-[200px] flex-1">
-              <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-500" />
+              <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400 dark:text-zinc-500" />
               <Input
                 placeholder="Search characters, endpoints, intents…"
-                className="h-11 rounded-full border-zinc-800 bg-zinc-900 pl-11 text-zinc-100 shadow-sm ring-1 ring-zinc-800 placeholder:text-zinc-500"
+                className="h-11 rounded-full border-gray-200 bg-white pl-11 text-gray-900 shadow-sm ring-1 ring-gray-200 placeholder:text-gray-400 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-100 dark:ring-zinc-800 dark:placeholder:text-zinc-500"
               />
             </div>
             <div className="flex items-center gap-3">
               {lastRefreshed && (
-                <span className="text-xs text-zinc-500">Updated {lastRefreshed}</span>
+                <span className="text-xs text-gray-500 dark:text-zinc-500">Updated {lastRefreshed}</span>
               )}
               {onRefresh && (
                 <Button
@@ -283,17 +285,18 @@ export function SvAdminShell({
                   size="sm"
                   disabled={refreshing}
                   onClick={onRefresh}
-                  className="rounded-full border-zinc-700 bg-zinc-900 text-zinc-300 shadow-sm hover:bg-zinc-800"
+                  className="rounded-full border-gray-300 bg-white text-gray-700 shadow-sm hover:bg-gray-50 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-300 dark:hover:bg-zinc-800"
                 >
                   Refresh
                 </Button>
               )}
+              <ThemeToggle />
               <button
                 type="button"
-                className="flex h-10 w-10 items-center justify-center rounded-full bg-zinc-900 shadow-sm ring-1 ring-zinc-800"
+                className="flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-sm ring-1 ring-gray-200 dark:bg-zinc-900 dark:ring-zinc-800"
                 aria-label="Notifications"
               >
-                <Bell className="h-4 w-4 text-zinc-400" />
+                <Bell className="h-4 w-4 text-gray-500 dark:text-zinc-400" />
               </button>
               <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-indigo-500 to-violet-500 text-xs font-bold text-white shadow-md">
                 RH
@@ -308,7 +311,7 @@ export function SvAdminShell({
       </div>
 
       {/* Mobile bottom nav */}
-      <nav className="fixed inset-x-0 bottom-0 z-[61] border-t border-zinc-800/80 bg-zinc-950/95 px-1 pb-[max(0.25rem,env(safe-area-inset-bottom))] pt-1 backdrop-blur-md md:hidden">
+      <nav className="fixed inset-x-0 bottom-0 z-[61] border-t border-gray-200/80 bg-white/95 px-1 pb-[max(0.25rem,env(safe-area-inset-bottom))] pt-1 backdrop-blur-md dark:border-zinc-800/80 dark:bg-zinc-950/95 md:hidden">
         <div className="mx-auto grid max-w-lg grid-cols-3">
           {BOTTOM_NAV.map(({ href, label, icon: Icon }) => {
             const active = pathname === href
@@ -318,7 +321,7 @@ export function SvAdminShell({
                 href={href}
                 className={cn(
                   "flex min-h-14 flex-col items-center justify-center gap-0.5 rounded-xl py-1.5 text-[10px] font-medium transition active:scale-95",
-                  active ? "text-indigo-400" : "text-zinc-500",
+                  active ? "text-indigo-600 dark:text-indigo-400" : "text-gray-500 dark:text-zinc-500",
                 )}
               >
                 <Icon className={cn("h-5 w-5", active && "stroke-[2.5]")} />
@@ -329,7 +332,7 @@ export function SvAdminShell({
           <button
             type="button"
             onClick={() => setMenuOpen(true)}
-            className="flex min-h-14 flex-col items-center justify-center gap-0.5 rounded-xl py-1.5 text-[10px] font-medium text-zinc-500 active:scale-95"
+            className="flex min-h-14 flex-col items-center justify-center gap-0.5 rounded-xl py-1.5 text-[10px] font-medium text-gray-500 active:scale-95 dark:text-zinc-500"
           >
             <Menu className="h-5 w-5" />
             Menu
