@@ -33,7 +33,7 @@ function LandingFixedPrompt() {
 
 export function MusicVisualLanding() {
   return (
-    <div className="music-visual-landing relative -mt-20 bg-gray-50 text-gray-800 dark:bg-[#0a0a0a] dark:text-zinc-300">
+    <div className="music-visual-landing relative -mt-20 bg-[#e4edf5] text-gray-800 dark:bg-[#0a0a0a] dark:text-zinc-300">
       <LandingGrain />
       <LandingHero />
       <LandingGenreShowcase />

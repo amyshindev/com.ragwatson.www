@@ -44,6 +44,7 @@ const TRANSPARENT_NAV_PATHS = [
   "/billing",
   "/account",
   "/pricing",
+  "/konceit",
 ] as const
 
 function pathHasDarkSurface(pathname: string): boolean {

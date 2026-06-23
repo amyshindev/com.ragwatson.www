@@ -3,7 +3,7 @@
 import { useCallback, useRef, useState } from "react"
 import { motion, useMotionTemplate, useScroll, useTransform } from "framer-motion"
 
-export function LandingHero() {
+export function KonceitHero() {
   const sectionRef = useRef<HTMLElement>(null)
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -71,15 +71,16 @@ export function LandingHero() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
       >
-        <div className="w-full max-w-4xl">
-          <h1 className="landing-hero-title font-semibold tracking-tight text-[#161638] dark:text-zinc-100">
-            Your sound, through our eye.
-          </h1>
-          <p className="landing-hero-desc mx-auto mt-6 max-w-2xl leading-relaxed text-[#2d5266] dark:text-white sm:mt-8">
-            당신의 음악을 이해하는 AI 에이전트로,
-            <br className="sm:hidden" /> 숏폼 최적화 아티스틱 비주얼을.
-          </p>
-        </div>
+        <p className="text-xs font-semibold tracking-[0.2em] text-[#38667e] uppercase dark:text-[#8aadbe]">
+          Konceit
+        </p>
+        <h1 className="landing-hero-title mt-4 font-semibold tracking-tight text-[#161638] dark:text-zinc-100">
+          Your verse, through layered sight.
+        </h1>
+        <p className="landing-hero-desc mx-auto mt-6 max-w-2xl leading-relaxed text-[#2d5266] dark:text-zinc-300 sm:mt-8">
+          고전 영문학을 이해하는 AI 에이전트로,
+          <br className="sm:hidden" /> 직역·의역·문화적 주석과 conceit 시각화를.
+        </p>
       </motion.div>
     </section>
   )
