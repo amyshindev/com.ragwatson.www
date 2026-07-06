@@ -177,6 +177,34 @@ export function SiteHeader() {
                 <DropdownMenuItem asChild className={menuItemClass}>
                   <Link href="/siliconvalley">실리콘밸리</Link>
                 </DropdownMenuItem>
+                <DropdownMenuItem asChild className={menuItemClass}>
+                  <Link href="/vision">비전 처리</Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+            <Button asChild variant="ghost" className={navLinkClass}>
+              <Link href="/vision">비전 처리</Link>
+            </Button>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  className={cn(navLinkClass, "gap-1")}
+                  aria-haspopup="menu"
+                  aria-label="메일관리 메뉴"
+                >
+                  메일관리
+                  <ChevronDown className="h-4 w-4 opacity-70" aria-hidden />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className={menuContentClass}>
+                <DropdownMenuItem asChild className={menuItemClass}>
+                  <Link href="/mail/contacts">주소록</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild className={menuItemClass}>
+                  <Link href="/automata">메일 발송</Link>
+                </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
             <div className="shrink-0">
@@ -361,6 +389,28 @@ export function SiteHeader() {
                     </DropdownMenuItem>
                     <DropdownMenuItem asChild className={menuItemClass}>
                       <Link href="/siliconvalley">실리콘밸리</Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild className={menuItemClass}>
+                      <Link href="/vision">비전 처리</Link>
+                    </DropdownMenuItem>
+                  </DropdownMenuSubContent>
+                </DropdownMenuSub>
+                <DropdownMenuItem asChild className={menuItemClass}>
+                  <Link href="/vision">비전 처리</Link>
+                </DropdownMenuItem>
+                <DropdownMenuSub>
+                  <DropdownMenuSubTrigger className={menuSubTriggerClass}>
+                    메일관리
+                  </DropdownMenuSubTrigger>
+                  <DropdownMenuSubContent
+                    sideOffset={8}
+                    className={menuContentClass}
+                  >
+                    <DropdownMenuItem asChild className={menuItemClass}>
+                      <Link href="/mail/contacts">주소록</Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild className={menuItemClass}>
+                      <Link href="/automata">메일 발송</Link>
                     </DropdownMenuItem>
                   </DropdownMenuSubContent>
                 </DropdownMenuSub>

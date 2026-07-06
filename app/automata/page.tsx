@@ -1,10 +1,16 @@
 "use client"
 
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
+import { RecipientInput } from "@/components/recipient-input"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { sendFakerEmail } from "@/lib/automata-api"
+import {
+  fetchAllContacts,
+  resolveRecipientEmail,
+  sendFakerEmail,
+  type ContactItem,
+} from "@/lib/automata-api"
 import {
   surfaceBody,
   surfaceCard,
@@ -36,10 +42,17 @@ const initialState: FormState = {
 
 export default function AutomataPage() {
   const [form, setForm] = useState<FormState>(initialState)
+  const [contacts, setContacts] = useState<ContactItem[]>([])
   const formRef = useRef<HTMLFormElement>(null)
 
+  useEffect(() => {
+    void fetchAllContacts()
+      .then(setContacts)
+      .catch(() => setContacts([]))
+  }, [])
+
   return (
-    <main className="mx-auto max-w-2xl px-4 py-16">
+    <div>
       <p className={surfaceEyebrow}>Automata</p>
       <h1 className={cn("mt-2 text-3xl font-bold", surfaceTitle)}>
         ExaONE Gmail 발송
@@ -58,15 +71,17 @@ export default function AutomataPage() {
             if (!el) return
 
             const data = new FormData(el)
-            const to = String(data.get("to") ?? "").trim()
             const prompt = String(data.get("prompt") ?? "").trim()
             const subject = String(data.get("subject") ?? "").trim()
+            const to = resolveRecipientEmail(form.to, contacts)
 
             if (!to || !prompt) {
               setForm((prev) => ({
                 ...prev,
                 status: "err",
-                error: "수신 이메일과 작성 지시를 입력해 주세요.",
+                error: !to
+                  ? "받는 사람(이름 또는 이메일)을 입력해 주세요."
+                  : "작성 지시를 입력해 주세요.",
                 preview: null,
                 sentSubject: null,
               }))
@@ -75,6 +90,7 @@ export default function AutomataPage() {
 
             setForm((prev) => ({
               ...prev,
+              to,
               status: "loading",
               error: null,
               preview: null,
@@ -110,17 +126,20 @@ export default function AutomataPage() {
         >
           <div>
             <label htmlFor="to" className={cn("mb-1 block text-sm", surfaceBody)}>
-              수신 이메일
+              받는 사람
             </label>
-            <Input
+            <RecipientInput
               id="to"
-              name="to"
-              type="email"
-              autoComplete="email"
-              placeholder="recipient@example.com"
-              defaultValue={form.to}
-              required
+              value={form.to}
+              onChange={(to) => setForm((prev) => ({ ...prev, to }))}
+              contacts={contacts}
+              placeholder="이름 또는 이메일"
             />
+            {contacts.length > 0 && (
+              <p className="mt-1 text-xs text-muted-foreground">
+                주소록 {contacts.length}명 — 이름을 입력하면 자동완성됩니다.
+              </p>
+            )}
           </div>
 
           <div>
@@ -188,6 +207,6 @@ export default function AutomataPage() {
           </Button>
         </form>
       </div>
-    </main>
+    </div>
   )
 }
